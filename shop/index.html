@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CheatHub Pro - Premium Abos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a1f 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(138, 43, 226, 0.1);
+            border-radius: 20px;
+            margin-bottom: 50px;
+            border: 2px solid rgba(138, 43, 226, 0.3);
+            box-shadow: 0 8px 32px rgba(138, 43, 226, 0.2);
+        }
+
+        h1 {
+            font-size: 3.5em;
+            background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            text-shadow: 0 0 40px rgba(168, 85, 247, 0.5);
+        }
+
+        .subtitle {
+            color: #c084fc;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .product-card {
+            background: linear-gradient(145deg, #1a0a2e 0%, #16001e 100%);
+            border-radius: 20px;
+            padding: 30px;
+            border: 2px solid rgba(138, 43, 226, 0.4);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: #a855f7;
+            box-shadow: 0 20px 60px rgba(168, 85, 247, 0.4);
+        }
+
+        .product-name {
+            font-size: 2em;
+            color: #a855f7;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .product-price {
+            font-size: 2.5em;
+            color: #ec4899;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .benefits {
+            background: rgba(138, 43, 226, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #a855f7;
+        }
+
+        .benefits-title {
+            color: #c084fc;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .benefits-text {
+            color: #e9d5ff;
+            line-height: 1.6;
+            white-space: pre-line;
+        }
+
+        .image-gallery {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+
+        .image-gallery img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid rgba(138, 43, 226, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .image-gallery img:hover {
+            transform: scale(1.1);
+            border-color: #a855f7;
+            box-shadow: 0 5px 20px rgba(168, 85, 247, 0.5);
+        }
+
+        .buy-button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1.3em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 25px rgba(168, 85, 247, 0.4);
+        }
+
+        .buy-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(168, 85, 247, 0.6);
+            background: linear-gradient(135deg, #c084fc 0%, #f472b6 100%);
+        }
+
+        .buy-button:active {
+            transform: translateY(0);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: #a855f7;
+            font-size: 1.5em;
+        }
+
+        .error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 2px solid #ef4444;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #fca5a5;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 10px;
+            border: 3px solid #a855f7;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: #a855f7;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #ec4899;
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚡ CheatHub Pro ⚡</h1>
+            <p class="subtitle">Premium Abonnements für echte Gamer</p>
+        </header>
+
+        <div id="products-container" class="products-grid">
+            <div class="loading">Lade Produkte...</div>
+        </div>
+    </div>
+
+    <div id="imageModal" class="modal">
+        <span class="close-modal">&times;</span>
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="Vergrößertes Bild">
+        </div>
+    </div>
+
+    <script>
+        let productsData = null;
+
+        async function loadProducts() {
+            try {
+                const response = await window.fs.readFile('products.json', { encoding: 'utf8' });
+                productsData = JSON.parse(response);
+                displayProducts();
+            } catch (error) {
+                console.error('Fehler beim Laden der Produkte:', error);
+                document.getElementById('products-container').innerHTML = `
+                    <div class="error">
+                        <h3>⚠️ Fehler beim Laden der Produkte</h3>
+                        <p>Stelle sicher, dass die Datei "products.json" im selben Ordner existiert.</p>
+                        <p>Fehlerdetails: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        function displayProducts() {
+            const container = document.getElementById('products-container');
+            
+            if (!productsData || !productsData.products) {
+                container.innerHTML = '<div class="error">Keine Produkte gefunden</div>';
+                return;
+            }
+
+            const products = productsData.products;
+            const productKeys = Object.keys(products);
+
+            if (productKeys.length === 0) {
+                container.innerHTML = '<div class="error">Keine Produkte verfügbar</div>';
+                return;
+            }
+
+            container.innerHTML = '';
+
+            productKeys.forEach(key => {
+                const product = products[key];
+                const card = document.createElement('div');
+                card.className = 'product-card';
+
+                let imagesHTML = '';
+                if (product.immages && product.immages.length > 0) {
+                    imagesHTML = '<div class="image-gallery">';
+                    product.immages.forEach(img => {
+                        imagesHTML += `<img src="${img}" alt="${key}" onclick="openModal('${img}')">`;
+                    });
+                    imagesHTML += '</div>';
+                }
+
+                card.innerHTML = `
+                    <h2 class="product-name">${key}</h2>
+                    <div class="product-price">${product.price}</div>
+                    ${imagesHTML}
+                    <div class="benefits">
+                        <div class="benefits-title">✨ Vorteile:</div>
+                        <div class="benefits-text">${product.benefets || 'Keine Beschreibung verfügbar'}</div>
+                    </div>
+                    <button class="buy-button" onclick="buyProduct('${key}')">
+                        🛒 Jetzt kaufen
+                    </button>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        function buyProduct(productName) {
+            alert(`Du hast "${productName}" ausgewählt!\n\nWeiterleitung zum Checkout würde hier erfolgen.`);
+            // Hier kannst du die Checkout-Logik implementieren
+        }
+
+        function openModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.classList.add('active');
+            modalImg.src = imageSrc;
+        }
+
+        document.querySelector('.close-modal').addEventListener('click', function() {
+            document.getElementById('imageModal').classList.remove('active');
+        });
+
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+            }
+        });
+
+        // Produkte beim Laden der Seite laden
+        loadProducts();
+    </script>
+</body>
+</html>

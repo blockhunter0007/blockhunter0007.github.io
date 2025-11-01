@@ -1,0 +1,14 @@
+{
+  "products": {
+    "Premium Abo": {
+      "price": "9.99$ / 8.99€",
+      "benefets": "✓ Alle Cheats\n✓ 24/7 Support\n✓ Regelmäßige Updates",
+      "immages": []
+    },
+    "VIP Abo": {
+      "price": "19.99$ / 17.99€",
+      "benefets": "✓ Exklusive Cheats\n✓ Priority Support\n✓ Beta Access",
+      "immages": []
+    }
+  }
+}
