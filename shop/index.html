@@ -253,8 +253,10 @@
 
         async function loadProducts() {
             try {
-                const response = await window.fs.readFile('products.json', { encoding: 'utf8' });
-                productsData = JSON.parse(response);
+                // let response = await window.fs.readFile('products.json', { encoding: 'utf8' });
+                let response = {"products": {"Premium Abo": {"price": "9.99$ / 8.99€","benefets": "✓ Alle Cheats\n✓ 24/7 Support\n✓ Regelmäßige Updates","immages": []},"VIP Abo": {"price": "19.99$ / 17.99€","benefets": "✓ Exklusive Cheats\n✓ Priority Support\n✓ Beta Access","immages": []}}}
+                //productsData = JSON.parse(response);
+                productsData = response
                 displayProducts();
             } catch (error) {
                 console.error('Fehler beim Laden der Produkte:', error);
