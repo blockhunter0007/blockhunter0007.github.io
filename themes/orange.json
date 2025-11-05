@@ -110,6 +110,10 @@
         "text_color": [
             "#FFFFFF",
             "#FFFFFF"
+        ],
+        "text_color_disabled": [
+            "#7F7F7F",
+            "#7F7F7F"
         ]
     },
     "CTkSwitch": {

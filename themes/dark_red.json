@@ -107,7 +107,11 @@
         ],
         "corner_radius": 4,
         "border_width": 2,
-        "text_color": ["#f5e6e6", "#f5e6e6"]
+        "text_color": ["#f5e6e6", "#f5e6e6"],
+        "text_color_disabled": [
+            "#7f7f7f",
+            "#7f7f7f"
+        ]
     },
     "CTkSwitch": {
         "button_color": [

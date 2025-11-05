@@ -46,7 +46,8 @@
     "border_color": ["#8e44ad", "#7a33a0"],
     "corner_radius": 4,
     "border_width": 2,
-    "text_color": ["#ffffff", "#ffffff"]
+    "text_color": ["#ffffff", "#ffffff"],
+    "text_color_disabled": ["#7f7f7f", "#7f7f7f"]
   },
 
   "CTkSwitch": {
