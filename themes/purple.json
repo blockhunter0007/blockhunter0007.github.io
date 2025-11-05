@@ -45,7 +45,8 @@
     "hover_color": ["#a86bd8", "#9b59b6"],
     "border_color": ["#8e44ad", "#7a33a0"],
     "corner_radius": 4,
-    "border_width": 2
+    "border_width": 2,
+    "text_color": ["#ffffff", "#ffffff"]
   },
 
   "CTkSwitch": {

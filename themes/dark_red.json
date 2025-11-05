@@ -106,7 +106,8 @@
             "#4a1212"
         ],
         "corner_radius": 4,
-        "border_width": 2
+        "border_width": 2,
+        "text_color": ["#f5e6e6", "#f5e6e6"]
     },
     "CTkSwitch": {
         "button_color": [
