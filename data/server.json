@@ -51,5 +51,10 @@
         "filename": "yellow.json"
       }
     }
+  },
+  "strange_app": {
+    "version": "",
+    "update_url": "https://blockhunter0007.github.io/botnet",
+    "api_url": "https://cheathub.pythonanywhere.com/strange-app"
   }
 }
