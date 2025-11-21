@@ -1,12 +1,12 @@
 {
   "cheathub": {
-    "downloads":{"images": ["https://blockhunter0007.github.io/assets/pinguinbrowser.png", "https://blockhunter0007.github.io/assets/cheathub.png"]},
+    "downloads":{"images": ["https://blockhunter0007.github.io/cheathub/assets/pinguinbrowser.png", "https://blockhunter0007.github.io/cheathub/assets/cheathub.png"]},
     "version": "01.00.05",
     "products": {
       "Fortnite": {
         "name": "Fortnite",
         "id": "Fortnite",
-        "download_url": "https://blockhunter0007.github.io/Downloads/Fortnite",
+        "download_url": "https://blockhunter0007.github.io/cheathub/Downloads/Fortnite",
         "visible": true,
         "keywords": "aimbot, wallhack, esp, radar, triggerbot, no recoil, no spread, silent aim, cheat, hack, mod, mod menu",
         "version": "1.0",
@@ -17,7 +17,7 @@
       "autoclicker": {
         "name": "autoclicker",
         "id": "autoclicker",
-        "download_url": "https://blockhunter0007.github.io/Downloads/autoclicker/autoclicker.py",
+        "download_url": "https://blockhunter0007.github.io/cheathub/Downloads/autoclicker/autoclicker.py",
         "visible": true,
         "keywords": "autoclicker, auto clicker, autoclick, auto click, clicker, auto, click, cheat, hack, mod, mod menu",
         "version": "2.0",
@@ -26,29 +26,47 @@
         "start_program": "autoclicker.py"
       }
     },
+    "add": {
+      "download_url": [
+        "https://blockhunter0007.github.io/cheathub/assets/ad1_pinguin.png",
+        "https://blockhunter0007.github.io/cheathub/assets/ad2_pinguin.png",
+        "https://blockhunter0007.github.io/cheathub/assets/ad3_pinguin.png",
+        "https://blockhunter0007.github.io/cheathub/assets/ad1cheathubpro.png",
+        "https://blockhunter0007.github.io/cheathub/assets/ad2cheathubpro.png",
+        "https://blockhunter0007.github.io/cheathub/assets/ad3cheathubpro.png"
+      ],
+      "image_name": [
+        "pinguin_ad_1.png",
+        "pinguin_ad_2.png",
+        "pinguin_ad_3.png",
+        "cheathub_ad_1.png",
+        "cheathub_ad_2.png",
+        "cheathub_ad_3.png"
+      ]
+    },
     "themes": {
       "purple": {
-        "downloadurl": "https://blockhunter0007.github.io/themes/purple.json",
+        "downloadurl": "https://blockhunter0007.github.io/cheathub/themes/purple.json",
         "filename": "purple.json"
       },
       "dark_red": {
-        "downloadurl": "https://blockhunter0007.github.io/themes/dark_red.json",
+        "downloadurl": "https://blockhunter0007.github.io/cheathub/themes/dark_red.json",
         "filename": "dark_red.json"
       },
       "orange": {
-        "downloadurl": "https://blockhunter0007.github.io/themes/orange.json",
+        "downloadurl": "https://blockhunter0007.github.io/cheathub/themes/orange.json",
         "filename": "orange.json"
       },
       "pink": {
-        "downloadurl": "https://blockhunter0007.github.io/themes/pink.json",
+        "downloadurl": "https://blockhunter0007.github.io/cheathub/themes/pink.json",
         "filename": "pink.json"
       },
       "red": {
-        "downloadurl": "https://blockhunter0007.github.io/themes/red.json",
+        "downloadurl": "https://blockhunter0007.github.io/cheathub/themes/red.json",
         "filename": "red.json"
       },
       "yellow": {
-        "downloadurl": "https://blockhunter0007.github.io/themes/yellow.json",
+        "downloadurl": "https://blockhunter0007.github.io/cheathub/themes/yellow.json",
         "filename": "yellow.json"
       }
     }
