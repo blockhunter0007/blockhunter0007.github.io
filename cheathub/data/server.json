@@ -1,5 +1,6 @@
 {
   "cheathub": {
+    "downloads":{"images": ["https://blockhunter0007.github.io/assets/pinguinbrowser.png", "https://blockhunter0007.github.io/assets/cheathub.png"]},
     "version": "01.00.05",
     "products": {
       "Fortnite": {
@@ -51,10 +52,5 @@
         "filename": "yellow.json"
       }
     }
-  },
-  "strange_app": {
-    "version": "",
-    "update_url": "https://blockhunter0007.github.io/botnet",
-    "api_url": "https://cheathub.pythonanywhere.com/strange-app"
   }
 }
