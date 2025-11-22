@@ -5,16 +5,35 @@ import pyautogui
 import threading
 import time
 import keyboard
+from pathlib import Path
+import sys
 
-DATA_DIR = "data"
-DATA_FILE = os.path.join(DATA_DIR, "data.json")
+if getattr(sys, 'frozen', False):
+    # Wenn mit PyInstaller gebaut
+    appstandalone = Path(sys.executable).resolve()
+    apppath = Path(sys.executable).resolve().parent
+else:
+    # Wenn als normales Python-Skript ausgeführt
+    appstandalone = Path(__file__).resolve()
+    apppath = Path(__file__).resolve().parent
+my_theme = {"CTk":{"fg_color":["#2b2b2b","#1f1f1f"],"top_fg_color":["#1f1f1f","#2b2b2b"],"border_color":["#3d3d3d","#3d3d3d"],"text_color":["#ffffff","#ffffff"],"hover_color":["#a64dff","#b366ff"]},"CTkTextbox": {"fg_color": ["#2b2b2b","#1f1f1f"],"text_color": ["#ffffff","#ffffff"],"placeholder_text_color": ["#a0a0a0","#b0b0b0"],"border_color": ["#8e44ad","#7a33a0"],"corner_radius": 8,"border_width": 2,"scrollbar_button_color": ["#9b59b6","#8e44ad"],"scrollbar_button_hover_color": ["#a86bd8","#9b59b6"],"scrollbar_fg_color": ["#2b2b2b","#1f1f1f"],"scrollbar_border_color": ["#8e44ad","#7a33a0"]},"CTkRadioButton":{"fg_color":["#2b2b2b","#1f1f1f"],"fg_color_checked":["#9b59b6","#8e44ad"],"hover_color":["#a86bd8","#9b59b6"],"checkmark_color":["#ffffff","#ffffff"],"border_color":["#8e44ad","#7a33a0"],"border_width_checked":3,"border_width_unchecked":2,"text_color":["#ffffff","#ffffff"],"text_color_disabled":["#7f7f7f","#7f7f7f"],"corner_radius":8},"CTkButton":{"fg_color":["#9b59b6","#8e44ad"],"hover_color":["#a86bd8","#9b59b6"],"text_color":["#ffffff","#ffffff"],"text_color_disabled":["#7f7f7f","#7f7f7f"],"corner_radius":8,"border_width":0,"border_color":["#8e44ad","#7a33a0"]},"CTkFrame":{"fg_color":["#1f1f1f","#2b2b2b"],"top_fg_color": ["#2b2b2b","#1f1f1f"],"border_color":["#9b59b6","#8e44ad"],"corner_radius":8,"border_width":2},"CTkLabel":{"fg_color":["transparent","transparent"],"text_color":["#ffffff","#ffffff"],"corner_radius":0},"CTkEntry":{"fg_color":["#2b2b2b","#1f1f1f"],"text_color":["#ffffff","#ffffff"],"placeholder_text_color":["#a0a0a0","#b0b0b0"],"border_color":["#8e44ad","#7a33a0"],"corner_radius":8,"border_width":2},"CTkCheckBox":{"fg_color":["#9b59b6","#8e44ad"],"checkmark_color":["#ffffff","#ffffff"],"hover_color":["#a86bd8","#9b59b6"],"border_color":["#8e44ad","#7a33a0"],"corner_radius":4,"border_width":2,"text_color":["#ffffff","#ffffff"],"text_color_disabled":["#7f7f7f","#7f7f7f"]},"CTkSwitch":{"button_color":["#9b59b6","#8e44ad"],"button_hover_color":["#a86bd8","#9b59b6"],"fg_color":["#2b2b2b","#1f1f1f"],"progress_color":["#a64dff","#b366ff"],"border_color":["#8e44ad","#7a33a0"],"corner_radius":10,"border_width":2},"CTkSlider":{"button_color":["#9b59b6","#8e44ad"],"button_hover_color":["#a86bd8","#9b59b6"],"progress_color":["#a64dff","#b366ff"],"fg_color":["#2b2b2b","#1f1f1f"],"border_color":["#8e44ad","#7a33a0"],"corner_radius":10,"border_width":2},"CTkProgressBar":{"progress_color":["#a64dff","#b366ff"],"fg_color":["#2b2b2b","#1f1f1f"],"corner_radius":8,"border_width":0,"border_color":["#8e44ad","#7a33a0"]},"CTkOptionMenu":{"fg_color":["#2b2b2b","#1f1f1f"],"button_color":["#9b59b6","#8e44ad"],"button_hover_color":["#a86bd8","#9b59b6"],"text_color":["#ffffff","#ffffff"],"text_color_disabled":["#7f7f7f","#7f7f7f"],"menu_fg_color":["#1f1f1f","#2b2b2b"],"menu_text_color":["#ffffff","#ffffff"],"corner_radius":8,"border_width":2,"border_color":["#8e44ad","#7a33a0"]},"CTkScrollbar":{"fg_color":["#2b2b2b","#1f1f1f"],"button_color":["#9b59b6","#8e44ad"],"button_hover_color":["#a86bd8","#9b59b6"],"border_color":["#8e44ad","#7a33a0"],"corner_radius":8,"border_width":2},"CTkToplevel":{"fg_color":["#2b2b2b","#1f1f1f"],"border_color":["#9b59b6","#8e44ad"],"corner_radius":10,"border_width":2},"CTkFont":{"family":"Arial","size":16,"weight":"normal"},"DropdownMenu":{"fg_color":["#1f1f1f","#2b2b2b"],"hover_color":["#9b59b6","#8e44ad"],"border_color":["#8e44ad","#7a33a0"],"text_color":["#ffffff","#ffffff"],"text_color_disabled":["#7f7f7f","#7f7f7f"],"corner_radius":6,"border_width":1}}
 
-if not os.path.exists(DATA_DIR):
-    os.makedirs(DATA_DIR)
-if not os.path.exists(DATA_FILE):
+DATA_DIR = apppath / "data"
+DATA_FILE = DATA_DIR / "data.json"
+theme_json_path = DATA_DIR / "theme.json"
+pyautogui.PAUSE = 0
+pyautogui.FAILSAFE = False
+
+if not DATA_DIR.exists():
+    DATA_DIR.mkdir(parents=True)
+if not DATA_FILE.exists():
     with open(DATA_FILE, "w") as fp:
         json.dump({"cps": 10, "button": "left", "trigger": "f8"}, fp)
-
+if not theme_json_path.exists():
+    with open(theme_json_path, "w") as fp:
+        json.dump(my_theme, fp)
+ctk.set_appearance_mode("dark")
+ctk.set_default_color_theme(str(theme_json_path))
 with open(DATA_FILE, "r") as fp:
     settings = json.load(fp)
 
@@ -89,8 +108,13 @@ class AutoClickerGUI(ctk.CTk):
             time.sleep(0.05)
 
     def run_clicker(self):
+        click_button = settings["button"]
         while self.running:
-            pyautogui.click(button=settings["button"])
+            pyautogui.click(button=click_button)
+            #if settings["cps"] >=100:
+            #    pass
+            #else:
+            #    time.sleep(1 / settings["cps"])
             time.sleep(1 / settings["cps"])
         self.thread = None
 
