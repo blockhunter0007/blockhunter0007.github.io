@@ -26,8 +26,8 @@
         "last_updated": "2024-09-19T15:00:00Z",
         "launcher": "custom",
         "start_program": "autoclicker.py",
-        "cheathub_pro_only": false,
-        "included_in_pinguin_browser_pro": false
+        "cheathub_pro_only": true,
+        "included_in_pinguin_browser_pro": true
       }
     },
     "add": {
