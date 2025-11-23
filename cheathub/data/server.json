@@ -7,12 +7,14 @@
         "name": "Fortnite",
         "id": "Fortnite",
         "download_url": "https://blockhunter0007.github.io/cheathub/Downloads/Fortnite",
-        "visible": true,
+        "visible": false,
         "keywords": "aimbot, wallhack, esp, radar, triggerbot, no recoil, no spread, silent aim, cheat, hack, mod, mod menu",
         "version": "1.0",
         "last_updated": "2025-09-19T15:00:00Z",
         "launcher": "Epic Games Launcher",
-        "start_program": "Fortnite_cheats.exe"
+        "start_program": "Fortnite_cheats.exe",
+        "cheathub_pro_only": false,
+        "included_in_pinguin_browser_pro": false
       },
       "autoclicker": {
         "name": "autoclicker",
@@ -23,7 +25,9 @@
         "version": "2.1",
         "last_updated": "2024-09-19T15:00:00Z",
         "launcher": "custom",
-        "start_program": "autoclicker.py"
+        "start_program": "autoclicker.py",
+        "cheathub_pro_only": false,
+        "included_in_pinguin_browser_pro": false
       }
     },
     "add": {
