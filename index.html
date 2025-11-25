@@ -627,7 +627,41 @@
         }
 
         // Close modal
+
+        // Close modal
         function closeModal() {
             const modal = document.getElementById('projectModal');
             modal.classList.remove('active');
-            docu
+            document.body.style.overflow = 'auto';
+        }
+
+        // Event listeners
+        document.getElementById('closeModal').addEventListener('click', closeModal);
+        document.getElementById('projectModal').addEventListener('click', (e) => {
+            if (e.target.id === 'projectModal') {
+                closeModal();
+            }
+        });
+
+        // Escape key to close modal
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Initialize
+        async function init() {
+            const data = await fetchData();
+            if (data) {
+                projectsData = data.projects;
+                renderSocials(data.socials);
+                renderProjects(data.projects);
+            }
+        }
+
+        // Run on load
+        init();
+    </script>
+</body>
+</html>
