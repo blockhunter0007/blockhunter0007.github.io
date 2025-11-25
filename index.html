@@ -600,10 +600,7 @@
             const description = document.getElementById('modalDescription');
             const gallery = document.getElementById('modalGallery');
 
-            title.textContent = project.project_name;
-            updated.textContent = `Last Updated: ${project.last_updated}`;
-            description.textContent = project.description;
-
+            
             // Gallery
             gallery.innerHTML = '';
             if (project.images && project.images.length > 0) {
@@ -621,6 +618,10 @@
                 imgElement.onerror = function() { this.style.display = 'none'; };
                 gallery.appendChild(imgElement);
             }
+            title.textContent = project.project_name;
+            updated.textContent = `Last Updated: ${project.last_updated}`;
+            description.textContent = project.description;
+            
 
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
