@@ -522,7 +522,7 @@
         // Fetch data
         async function fetchData() {
             try {
-                const response = await fetch('./assets/data.json');
+                const response = await fetch(`${window.location.pathname.replace(/[^/]+$/, '')}assets/data.json`);
                 if (!response.ok) throw new Error('Failed to fetch data');
                 const data = await response.json();
                 return data;
@@ -653,8 +653,9 @@
 
         // Initialize
         async function init() {
-            //const data = await fetchData();
-            const data = {"projects": {"app-cheathub": {"project_name": "Cheathub","last_updated": "20.11.2025","description": "Cheathub is the best way to get safe and free cheats","url": "https://blockhunter0007.github.io/cheathub","images": [],"header_image": "headder.png"},},"socials": {"x": "none","twitch": "https://www.twitch.tv/blockhunter0007","youtube": "https://www.youtube.com/@blockhunter0007","tiktok": "https://www.tiktok.com/@blockhunter0007"}}
+            const data = await fetchData();
+            console.log(await fetchData());
+            //const data = {"projects": {"app-cheathub": {"project_name": "Cheathub","last_updated": "20.11.2025","description": "Cheathub is the best way to get safe and free cheats","url": "https://blockhunter0007.github.io/cheathub","images": [],"header_image": "headder.png"},},"socials": {"x": "none","twitch": "https://www.twitch.tv/blockhunter0007","youtube": "https://www.youtube.com/@blockhunter0007","tiktok": "https://www.tiktok.com/@blockhunter0007"}}
             if (data) {
                 projectsData = data.projects;
                 renderSocials(data.socials);
