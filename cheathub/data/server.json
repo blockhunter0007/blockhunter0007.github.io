@@ -24,13 +24,13 @@
             "autoclicker": {
                 "name": "autoclicker",
                 "id": "autoclicker",
-                "download_url": "https://blockhunter0007.github.io/cheathub/Downloads/autoclicker/autoclicker.py",
+                "download_url": "https://blockhunter0007.github.io/cheathub/Downloads/autoclicker/autoclicker.exe",
                 "visible": true,
                 "keywords": "autoclicker, auto clicker, autoclick, auto click, clicker, auto, click, cheat, hack, mod, mod menu",
-                "version": "2.1",
+                "version": "2.2",
                 "last_updated": "2024-09-19T15:00:00Z",
                 "launcher": "custom",
-                "start_program": "autoclicker.py",
+                "start_program": "autoclicker.exe",
                 "cheathub_pro_only": false,
                 "included_in_pinguin_browser_pro": false
             }
