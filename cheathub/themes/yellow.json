@@ -162,7 +162,10 @@
             "#FFA000"
         ],
         "corner_radius": 10,
-        "border_width": 2
+        "border_width": 2,
+        "button_corner_radius": 10,
+        "button_length": 20,
+        "button_width": 20
     },
     "CTkProgressBar": {
         "progress_color": [
@@ -276,5 +279,17 @@
         ],
         "corner_radius": 6,
         "border_width": 1
+    },
+    "CTkRadioButton": {
+        "fg_color": ["#b71c1c", "#c62828"],
+        "fg_color_checked": ["#d81b60", "#e91e63"],
+        "hover_color": ["#d81b60", "#b71c1c"],
+        "border_color": ["#c62828", "#b71c1c"],
+        "text_color": ["#ffffff", "#ffffff"],
+        "text_color_disabled": ["#7f7f7f", "#7f7f7f"],
+        "corner_radius": 6,
+        "border_width": 2,
+        "border_width_checked": 2,
+        "border_width_unchecked": 2
     }
 }
