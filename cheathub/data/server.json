@@ -19,7 +19,8 @@
                 "launcher": "Epic Games Launcher",
                 "start_program": "Fortnite_cheats.exe",
                 "cheathub_pro_only": false,
-                "included_in_pinguin_browser_pro": false
+                "included_in_pinguin_browser_pro": false,
+                "special_access_only": false
             },
             "autoclicker": {
                 "name": "autoclicker",
@@ -32,7 +33,22 @@
                 "launcher": "custom",
                 "start_program": "autoclicker.exe",
                 "cheathub_pro_only": false,
-                "included_in_pinguin_browser_pro": false
+                "included_in_pinguin_browser_pro": false,
+                "special_access_only": false
+            },
+            "mcbe": {
+                "name": "Bedrock Hackclient",
+                "id": "mcbe",
+                "download_url": "https://cheathub.pythonanywhere.com/download/mcbe",
+                "visible": true,
+                "keywords": "aimbot, wallhack, esp, radar",
+                "version": "1.0",
+                "last_updated": "2024-09-19T15:00:00Z",
+                "launcher": "custom",
+                "start_program": "mc.exe",
+                "cheathub_pro_only": false,
+                "included_in_pinguin_browser_pro": true,
+                "special_access_only": true
             }
         },
         "add": {
