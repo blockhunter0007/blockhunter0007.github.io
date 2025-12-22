@@ -122,6 +122,8 @@ class AutoClickerGUI(ctk.CTk):
     def __init__(self):
         super().__init__()
         global config
+        if "autoclicker" not in config:
+            config["autoclicker"] = {}
         if "cps_min" not in config["autoclicker"]:
             config["autoclicker"]["cps_min"] = 15
         if "cps_max" not in config["autoclicker"]:
@@ -132,7 +134,7 @@ class AutoClickerGUI(ctk.CTk):
             config["autoclicker"]["trigger"] = "f8"
         if "low_high_level_click" not in config["autoclicker"]:
             config["autoclicker"]["low_high_level_click"] = "low"
-        self.title("Bedrock Client Beta Stable")
+        self.title("Clicker")
         self.geometry("200x500")
         print(client_theme, standart_theme, custom_theme, str(theme_json_path))
         if client_theme:
