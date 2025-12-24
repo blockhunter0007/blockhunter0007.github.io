@@ -42,7 +42,7 @@
                 "download_url": "https://cheathub.pythonanywhere.com/download/mcbe",
                 "visible": true,
                 "keywords": "aimbot, wallhack, esp, radar",
-                "version": "1.0",
+                "version": "1.1",
                 "last_updated": "2024-09-19T15:00:00Z",
                 "launcher": "custom",
                 "start_program": "mc.exe",
@@ -96,6 +96,9 @@
                 "downloadurl": "https://blockhunter0007.github.io/cheathub/themes/yellow.json",
                 "filename": "yellow.json"
             }
-        }
+        },
+        "mc_be_keys": [
+            "ELxxhCkBo7GvMurwY5FBhEcQc02xgYLgiLKSjjjO4LlKnu8JRsN6GoD9uWgX9Uc4Ec15r4knfVXdFsJiBq0wdTNc6TAwe41Oz8K2HzTMlfEMBWR3WMej9Wfl2rj8rHeegh3kd3JbwXO8BKscxpe77w7hXJt4qjZakl5ELvsTQotgdqjlZ5boBnJHorGq0JqR0F2yHIiI1EUYhrweTPzXW8pmYqUG4Y0TsDDCgUTaFiTOxKXdb7tvka8wCPqRhZAVAfJp36gI5P4rGeSlEYLj5WsC6IE5V57sWnzWU1dOMhENI3JAFkhoIA6MqJmX6Fduv1mVzZIF0DFYUKCqIXaBd0iFUolIa63NWXU23rslSwUilThS5m6TF8jitYLMrSXCYSC3sn4EdMVV0emonEKOUivklqfc4aGPYWlQyDpkaMWgziGcPIVXduGGnI1Mxgi8mKWfsPIkzSgRuscbMbHiazYgnw7egNjyrzfnhqgTJXJQ1sMK0byiFlJLHQigYx0S"
+        ]
     }
 }
