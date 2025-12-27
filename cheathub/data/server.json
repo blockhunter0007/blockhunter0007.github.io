@@ -39,13 +39,13 @@
             "mcbe": {
                 "name": "Bedrock Hackclient",
                 "id": "mcbe",
-                "download_url": "https://cheathub.pythonanywhere.com/download/mcbe",
+                "download_url": "https://blockhunter0007.github.io/cheathub/Downloads/mcbe/injector.exe",
                 "visible": true,
-                "keywords": "aimbot, wallhack, esp, radar",
-                "version": "1.1",
+                "keywords": "reach, phasefly, airjump, hitbox",
+                "version": "1.2",
                 "last_updated": "2024-09-19T15:00:00Z",
                 "launcher": "custom",
-                "start_program": "mc.exe",
+                "start_program": "injector.exe",
                 "cheathub_pro_only": false,
                 "included_in_pinguin_browser_pro": true,
                 "special_access_only": true
