@@ -48,7 +48,7 @@
                 "start_program": "injector.exe",
                 "cheathub_pro_only": false,
                 "included_in_pinguin_browser_pro": true,
-                "special_access_only": true
+                "special_access_only": false
             }
         },
         "add": {
