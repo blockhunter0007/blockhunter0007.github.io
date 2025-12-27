@@ -1,97 +1,65 @@
-Allgemeine Geschäftsbedingungen (AGB) — CheatHub
+Terms and Conditions (T&C) — CheatHub
 
-Gültig ab: 21.11.2025   22:39
-Letzte Änderung: 21.11.2025   22:39
+Effective Date: 21.11.2025 22:39
+Last Updated: 21.11.2025 22:39
 
-1. Präambel
+1. Preamble
+These Terms and Conditions (hereinafter “T&C”) govern the use of the software, services, and content provided under the brand “CheatHub” or “CheatHub Client” (hereinafter “Offer,” “Software,” or “Service”) by the operator (hereinafter “Operator,” “we,” or “us”).
+By downloading, installing, or otherwise using the software, the user (hereinafter “User” or “you”) confirms that they have read, understood, and accepted these T&C.
 
-Diese Allgemeinen Geschäftsbedingungen (nachfolgend „AGB“) regeln die Nutzung der Software, Dienste und Inhalte, die unter der Marke „CheatHub“ bzw. „CheatHub-Client“ (nachfolgend „Angebot“, „Software“, „Dienst“) vom Betreiber (nachfolgend „Betreiber“, „wir“, „uns“) bereitgestellt werden.
-Mit Herunterladen, Installieren oder anderweitiger Nutzung der Software erklärt der Nutzer (nachfolgend „Nutzer“, „Sie“), diese AGB gelesen, verstanden und akzeptiert zu haben.
+2. Subject Matter of the Contract
+The Operator provides a download client or platform through which users can obtain files (e.g., executable files, updates, plugins). The User alone is responsible for how the downloaded files are used.
 
-2. Vertragsgegenstand
+3. Registration, Account Credentials, Age Restrictions
+Registration may be required; Users must provide truthful information.
+Account credentials must be kept confidential. Users are responsible for all activity under their account.
+The software is intended for fully legally capable persons; minors may only use it with parental consent.
 
-Gegenstand ist die Bereitstellung eines Download-Clients bzw. einer Plattform, über die der Nutzer Dateien (z. B. ausführbare Dateien, Updates, Plugins) beziehen kann. Die konkrete Nutzung der heruntergeladenen Dateien liegt allein beim Nutzer.
+4. Scope of Services, Availability, Changes
+The software is provided “as is”; no guarantee is given for error-free operation, availability, or suitability for a specific purpose.
+Functions, content, or interfaces may be changed, updated, or discontinued at any time; no claims for damages arise from such changes.
 
-3. Registrierung, Zugangsdaten, Altersbeschränkung
+5. Usage Rights / Licenses
+The Operator grants a non-exclusive, non-transferable, and revocable right to use the software for private purposes.
+Copying, modifying, reverse engineering, or circumventing technical protection measures is prohibited.
+The User is responsible for ensuring that their use does not infringe on the rights of third parties.
 
-Registrierung kann erforderlich sein; Nutzer müssen wahrheitsgemäße Angaben machen.
+6. Disclaimer / Limitation of Liability
+Use of the software is at your own risk; the Operator is not liable for direct or indirect damages, data loss, consequential damages, or lost profits.
+No liability exists for account suspensions, restrictions, or deletions by third parties.
+Liability is limited to intent and gross negligence; simple negligence applies only for the breach of essential contractual obligations and is limited to typical foreseeable damage.
+The User indemnifies the Operator and its employees from any third-party claims arising from the use of the software.
+No liability exists in cases of force majeure (e.g., strikes, internet outages, government actions).
 
-Zugangsdaten sind vertraulich zu behandeln; der Nutzer haftet für alle Aktivitäten unter seinem Account.
+7. Warranty / Claims for Defects
+Warranty claims are excluded to the extent permitted by law.
+The software is provided without guarantees of specific properties.
+Statutory consumer protection rights remain unaffected.
 
-Nutzung nur für voll geschäftsfähige Personen; Minderjährige nur mit Einwilligung der Erziehungsberechtigten.
+8. User Obligations / Prohibited Use
+Use of the software must comply with applicable laws and third-party agreements.
+Prohibited activities include committing crimes, circumventing technical protection measures, or distributing malware or viruses.
+Violations may result in account suspension or deletion and potential claims for damages.
 
-4. Leistungsumfang, Verfügbarkeit, Änderungen
+9. Third-Party Content / External Links
+Third-party content is provided without warranty; responsibility lies with the respective provider.
+Links to external sites do not establish liability for the Operator.
 
-Die Software wird „wie gesehen“ bereitgestellt; keine Garantie für Fehlerfreiheit, Verfügbarkeit oder Eignung für einen bestimmten Zweck.
+10. Updates, Support, Payment
+Updates may change system requirements; support is only provided if explicitly agreed.
+Paid offerings are subject to separate payment and refund terms.
 
-Funktionen, Inhalte oder Schnittstellen können jederzeit geändert, aktualisiert oder eingestellt werden; daraus entstehen keine Schadensersatzansprüche.
+11. Data Protection
+Collection, processing, and use of personal data are governed by a separate privacy policy.
+By using the software, the User agrees to the privacy policy.
 
-5. Nutzungsrechte / Lizenzen
+12. Duration and Termination
+The User agreement may be terminated at any time for good cause without notice.
+Upon termination, all usage rights expire and all copies of the software must be deleted.
 
-Der Betreiber gewährt ein nicht-exklusives, nicht-übertragbares, widerrufliches Recht zur privaten Nutzung.
+13. Severability Clause
+If individual provisions are invalid, the validity of the remaining provisions remains unaffected. Invalid provisions will be replaced by a regulation that most closely reflects the intended purpose.
 
-Vervielfältigung, Modifikation, Reverse Engineering oder Umgehung technischer Schutzmaßnahmen ist untersagt.
-
-Nutzer ist verantwortlich, dass die Nutzung keine Rechte Dritter verletzt.
-
-6. Haftungsausschluss / „Getaway“-Klauseln
-
-Nutzung erfolgt auf eigenes Risiko; keine Haftung für direkte oder indirekte Schäden, Datenverlust, Folgeschäden oder entgangenen Gewinn.
-
-Keine Haftung für Account-Sperrungen, Einschränkungen oder Löschungen durch Dritte.
-
-Haftung beschränkt auf Vorsatz und grobe Fahrlässigkeit; einfache Fahrlässigkeit nur bei Verletzung wesentlicher Vertragspflichten, begrenzt auf den typischen vorhersehbaren Schaden.
-
-Nutzer stellt Betreiber und Mitarbeiter von Ansprüchen Dritter frei, die durch Nutzung der Software entstehen.
-
-Keine Haftung bei höherer Gewalt (z. B. Streik, Internet-Ausfall, staatliche Maßnahmen).
-
-7. Gewährleistung / Mängelansprüche
-
-Gewährleistungsansprüche sind soweit gesetzlich zulässig ausgeschlossen.
-
-Software wird ohne Zusicherung bestimmter Eigenschaften bereitgestellt.
-
-Gesetzliche Verbraucherschutzrechte bleiben unberührt.
-
-8. Pflichten des Nutzers / Verbotene Nutzung
-
-Nutzung nur in Übereinstimmung mit geltendem Recht und Verträgen Dritter.
-
-Verboten: Straftaten, Umgehung technischer Schutzmaßnahmen, Verbreitung von Malware oder Viren.
-
-Bei Verstoß kann der Betreiber Zugänge sperren oder löschen; ggf. Schadensersatzansprüche.
-
-9. Inhalte Dritter / Externe Links
-
-Inhalte Dritter werden ohne Gewähr bereitgestellt; Verantwortung liegt beim jeweiligen Anbieter.
-
-Links zu externen Seiten begründen keine Haftung des Betreibers.
-
-10. Updates, Support, Bezahlung
-
-Updates können Systemanforderungen ändern; Support ist nur bei ausdrücklicher Vereinbarung verpflichtend.
-
-Kostenpflichtige Angebote unterliegen gesonderten Zahlungs- und Rückerstattungsbedingungen.
-
-11. Datenschutz
-
-Erhebung, Verarbeitung und Nutzung personenbezogener Daten erfolgen gemäß gesonderter Datenschutzerklärung.
-
-Mit Nutzung der Software stimmt der Nutzer der Datenschutzerklärung zu.
-
-12. Laufzeit und Kündigung
-
-Nutzungsverhältnis kann jederzeit aus wichtigem Grund fristlos beendet werden.
-
-Nach Beendigung erlöschen alle Nutzungsrechte; alle Kopien der Software müssen gelöscht werden.
-
-13. Salvatorische Klausel
-
-Sollten einzelne Bestimmungen unwirksam sein, bleibt die Wirksamkeit der übrigen Bestimmungen unberührt. Anstelle der unwirksamen Bestimmung tritt eine Regelung, die dem wirtschaftlich Gewollten am nächsten kommt.
-
-14. Schlussbestimmungen / Gerichtsstand / anwendbares Recht
-
-Es gilt deutsches Recht unter Ausschluss des UN-Kaufrechts, sofern nicht zwingende Verbraucherschutzvorschriften entgegenstehen.
-
-Für Kaufleute, juristische Personen des öffentlichen Rechts oder öffentlich-rechtliche Sondervermögen ist der Gerichtsstand der Sitz des Betreibers. Andernfalls gilt der gesetzliche Gerichtsstand.
+14. Final Provisions / Jurisdiction / Applicable Law
+German law applies, excluding the UN Sales Convention, unless mandatory consumer protection laws provide otherwise.
+For merchants, legal entities under public law, or special public law funds, the place of jurisdiction is the Operator’s registered office. Otherwise, the statutory place of jurisdiction applies.
