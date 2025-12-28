@@ -6,7 +6,7 @@
                 "https://blockhunter0007.github.io/cheathub/assets/cheathub.png"
             ]
         },
-        "version": "1.00.16",
+        "version": "01.00.17",
         "products": {
             "Fortnite": {
                 "name": "Fortnite",
@@ -53,22 +53,10 @@
         },
         "add": {
             "download_url": [
-                "https://blockhunter0007.github.io/cheathub/assets/ad1_pinguin.png",
-                "https://blockhunter0007.github.io/cheathub/assets/CHEATHUB_AD1.png",
-                "https://blockhunter0007.github.io/cheathub/assets/CHEATHUB_AD2.png",
-                "https://blockhunter0007.github.io/cheathub/assets/CHEATHUB_AD3.png"
             ],
             "image_name": [
-                "pinguin_ad_1.png",
-                "CHEATHUB_AD1.png",
-                "CHEATHUB_AD2.png",
-                "CHEATHUB_AD3.png"
             ],
             "image_link_to": [
-                "https://pinguinbrowser-660h.onrender.com",
-                "https://blockhunter0007.github.io/cheathub/shop",
-                "https://blockhunter0007.github.io/cheathub/shop",
-                "https://blockhunter0007.github.io/cheathub/shop"
             ]
         },
         "themes": {
