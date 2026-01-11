@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -240,7 +240,7 @@
         <header>
             <img src="data/assets/logo.png" alt="Cheathub Logo" class="logo" onclick="window.location.href='https://blockhunter0007.github.io/cheathub'">
             <h1>Changelog</h1>
-            <p class="subtitle">Alle Änderungen und Updates im Überblick</p>
+            <p class="subtitle">All changes and updates at a glance</p>
         </header>
 
         <div id="changelog-container"></div>
@@ -266,15 +266,15 @@
                         {
                             "type": "changed",
                             "items": [
-                                "Downloads will now run in one funktion (little performance upgrade)",
-                                "Strukture of buttons in info changed"
+                                "Downloads will now run in one function (minor performance upgrade)",
+                                "Structure of buttons in info changed"
                             ]
                         },
                         {
                             "type": "fixed",
                             "items": [
-                                "Offline Exit error",
-                                "Fixed ui glithches"
+                                "Offline exit error",
+                                "Fixed UI glitches"
                             ]
                         },
                         {
@@ -326,10 +326,10 @@
         };
 
         const typeLabels = {
-            added: "Hinzugefügt",
-            changed: "Geändert",
-            fixed: "Behoben",
-            removed: "Entfernt"
+            added: "Added",
+            changed: "Changed",
+            fixed: "Fixed",
+            removed: "Removed"
         };
 
         function createVersionCard(version, data, isFuture = false) {
@@ -356,8 +356,8 @@
                 <div class="version-header">
                     <div class="version-info">
                         <span class="version-number">v${data.version}</span>
-                        ${isFuture ? '<span class="future-badge">GEPLANT</span>' : ''}
-                        <span class="version-date">${new Date(data.released_at).toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                        ${isFuture ? '<span class="future-badge">PLANNED</span>' : ''}
+                        <span class="version-date">${new Date(data.released_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -381,7 +381,7 @@
             // Released Updates
             const releasedSection = document.createElement('div');
             releasedSection.className = 'section';
-            releasedSection.innerHTML = '<h2 class="section-title">Veröffentlichte Updates</h2>';
+            releasedSection.innerHTML = '<h2 class="section-title">Released Updates</h2>';
             
             Object.entries(changelogData.updates).reverse().forEach(([version, data]) => {
                 releasedSection.appendChild(createVersionCard(version, data, false));
@@ -392,7 +392,7 @@
             // Future Updates
             const futureSection = document.createElement('div');
             futureSection.className = 'section';
-            futureSection.innerHTML = '<h2 class="section-title">Geplante Updates</h2>';
+            futureSection.innerHTML = '<h2 class="section-title">Planned Updates</h2>';
             
             Object.entries(changelogData.future).reverse().forEach(([version, data]) => {
                 futureSection.appendChild(createVersionCard(version, data, true));
