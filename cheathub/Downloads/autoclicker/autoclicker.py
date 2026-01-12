@@ -54,10 +54,11 @@ try:
             print(daten["theme"])
             if daten["theme"] in ["green", "blue", "dark-blue"]:
                 standart_theme = True
+                theme_json_path = None
             else:
-                theme_path = cheathub_main_path / "themes" / daten["theme"]
+                theme_json_path = cheathub_main_path / "themes" / daten["theme"]
                 custom_theme = True
-                ctk.set_default_color_theme(str(theme_path))
+                ctk.set_default_color_theme(str(theme_json_path))
         except Exception as e:
             print(e)
             theme_json_path = DATA_DIR / "theme.json"
@@ -138,13 +139,13 @@ class AutoClickerGUI(ctk.CTk):
         self.geometry("200x500")
         print(client_theme, standart_theme, custom_theme, str(theme_json_path))
         if client_theme:
-            print("Client Theme geladen")
+            print("Client Theme Loaded")
             ctk.set_default_color_theme(str(theme_json_path))
         elif standart_theme:
-            print("Standard Theme geladen")
+            print("Standard Theme Loaded")
             ctk.set_default_color_theme(daten["theme"])
         elif custom_theme:
-            print("Custom Theme geladen")
+            print("Custom Theme Loaded")
             theme_path = cheathub_main_path / "themes" / daten["theme"]
             ctk.set_default_color_theme(str(theme_path))
         #ctk.set_default_color_theme("blue")
@@ -286,22 +287,16 @@ class AutoClickerGUI(ctk.CTk):
         min_cps = config["autoclicker"]["cps_min"]
         max_cps = config["autoclicker"]["cps_max"]
         btn = config["autoclicker"]["button"]
-        
-        # Berechnung der Pause zwischen den Klicks
-        # Wir ziehen die Hold-Time (0.03) von der Gesamtzeit ab
         if self.low_high_level_click == "low":
             while self.running:
-                # Der eigentliche Klick (inklusive 30ms Hold Time)
                 robust_click(btn)
                 sleeping_time_random = random.uniform(min_cps, max_cps)
                 print(sleeping_time_random)
                 sleeping_time_divided = 1 / sleeping_time_random - 0.03
                 if sleeping_time_divided < 0:
                     sleeping_time_divided = 0.001
-                #trying to make it as fast as posible
                 print(sleeping_time_divided)
                 time.sleep(sleeping_time_divided)
-                # Warten bis zum nächsten Klick
         else:
             while self.running:
                 pyautogui.click(button=btn)
