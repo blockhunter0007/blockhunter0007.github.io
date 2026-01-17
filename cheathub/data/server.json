@@ -6,7 +6,7 @@
                 "https://blockhunter0007.github.io/cheathub/assets/cheathub.png"
             ]
         },
-        "version": "01.00.21",
+        "version": "01.00.24",
         "products": {
             "Fortnite": {
                 "name": "Fortnite",
@@ -42,7 +42,7 @@
                 "download_url": "https://blockhunter0007.github.io/cheathub/Downloads/mcbe/injector.exe",
                 "visible": true,
                 "keywords": "reach, phasefly, airjump, hitbox",
-                "version": "1.6",
+                "version": "2.0",
                 "last_updated": "2024-09-19T15:00:00Z",
                 "launcher": "custom",
                 "start_program": "injector.exe",
