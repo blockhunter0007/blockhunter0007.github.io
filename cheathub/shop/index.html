@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CheatHub Pro - Premium Abos</title>
+    <title>CheatHub Pro - Premium Subscriptions</title>
     <style>
         * {
             margin: 0;
@@ -233,18 +233,18 @@
     <div class="container">
         <header>
             <h1>⚡ CheatHub Pro ⚡</h1>
-            <p class="subtitle">Premium Abonnements für echte Gamer</p>
+            <p class="subtitle">Premium Subscriptions for Real Gamers</p>
         </header>
 
         <div id="products-container" class="products-grid">
-            <div class="loading">Lade Produkte...</div>
+            <div class="loading">Loading products...</div>
         </div>
     </div>
 
     <div id="imageModal" class="modal">
         <span class="close-modal">&times;</span>
         <div class="modal-content">
-            <img id="modalImage" src="" alt="Vergrößertes Bild">
+            <img id="modalImage" src="" alt="Enlarged image">
         </div>
     </div>
 
@@ -254,17 +254,30 @@
         async function loadProducts() {
             try {
                 // let response = await window.fs.readFile('products.json', { encoding: 'utf8' });
-                let response = {"products": {"Premium Abo": {"price": "9.99$ / 8.99€","benefets": "✓ Alle Cheats\n✓ 24/7 Support\n✓ Regelmäßige Updates","immages": []},"VIP Abo": {"price": "19.99$ / 17.99€","benefets": "✓ Exklusive Cheats\n✓ Priority Support\n✓ Beta Access","immages": []}}}
+                let response = {
+                    "products": {
+                        "Premium 3 Months": {
+                            "price": "$9.99 / €8.99",
+                            "benefits": "✓ All Cheats\n✓ 24/7 Support\n✓ Regular Updates",
+                            "images": []
+                        },
+                        "Premium 12 Months": {
+                            "price": "$19.99 / €17.99",
+                            "benefits": "✓ Exclusive Cheats\n✓ Priority Support\n✓ Beta Access\n✓ Regular Updates",
+                            "images": []
+                        }
+                    }
+                };
                 //productsData = JSON.parse(response);
                 productsData = response
                 displayProducts();
             } catch (error) {
-                console.error('Fehler beim Laden der Produkte:', error);
+                console.error('Error loading products:', error);
                 document.getElementById('products-container').innerHTML = `
                     <div class="error">
-                        <h3>⚠️ Fehler beim Laden der Produkte</h3>
-                        <p>Stelle sicher, dass die Datei "products.json" im selben Ordner existiert.</p>
-                        <p>Fehlerdetails: ${error.message}</p>
+                        <h3>⚠️ Error Loading Products</h3>
+                        <p>Make sure the "products.json" file exists in the same folder.</p>
+                        <p>Error details: ${error.message}</p>
                     </div>
                 `;
             }
@@ -274,7 +287,7 @@
             const container = document.getElementById('products-container');
             
             if (!productsData || !productsData.products) {
-                container.innerHTML = '<div class="error">Keine Produkte gefunden</div>';
+                container.innerHTML = '<div class="error">No products found</div>';
                 return;
             }
 
@@ -282,7 +295,7 @@
             const productKeys = Object.keys(products);
 
             if (productKeys.length === 0) {
-                container.innerHTML = '<div class="error">Keine Produkte verfügbar</div>';
+                container.innerHTML = '<div class="error">No products available</div>';
                 return;
             }
 
@@ -294,9 +307,9 @@
                 card.className = 'product-card';
 
                 let imagesHTML = '';
-                if (product.immages && product.immages.length > 0) {
+                if (product.images && product.images.length > 0) {
                     imagesHTML = '<div class="image-gallery">';
-                    product.immages.forEach(img => {
+                    product.images.forEach(img => {
                         imagesHTML += `<img src="${img}" alt="${key}" onclick="openModal('${img}')">`;
                     });
                     imagesHTML += '</div>';
@@ -307,11 +320,11 @@
                     <div class="product-price">${product.price}</div>
                     ${imagesHTML}
                     <div class="benefits">
-                        <div class="benefits-title">✨ Vorteile:</div>
-                        <div class="benefits-text">${product.benefets || 'Keine Beschreibung verfügbar'}</div>
+                        <div class="benefits-title">✨ Benefits:</div>
+                        <div class="benefits-text">${product.benefits || 'No description available'}</div>
                     </div>
                     <button class="buy-button" onclick="buyProduct('${key}')">
-                        🛒 Jetzt kaufen
+                        🛒 Buy Now
                     </button>
                 `;
 
@@ -320,8 +333,8 @@
         }
 
         function buyProduct(productName) {
-            alert(`Du hast "${productName}" ausgewählt!\n\nWeiterleitung zum Checkout würde hier erfolgen.`);
-            // Hier kannst du die Checkout-Logik implementieren
+            alert(`You have selected "${productName}"!\n\nRedirect to checkout would happen here.`);
+            // You can implement the checkout logic here
         }
 
         function openModal(imageSrc) {
@@ -341,7 +354,7 @@
             }
         });
 
-        // Produkte beim Laden der Seite laden
+        // Load products when page loads
         loadProducts();
     </script>
 </body>
