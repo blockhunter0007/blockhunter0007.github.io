@@ -8,7 +8,7 @@
             "download_url": "https://blockhunter0007.github.io/cheathub/downloads/autoclicker/autoclicker.exe",
             "visible": true,
             "keywords": "autoclicker, auto clicker, autoclick, auto click, clicker, auto, click, cheat, hack, mod, mod menu",
-            "version": "2.6",
+            "version": "00.00.02",
             "last_updated": "2024-09-19T15:00:00Z",
             "launcher": "custom",
             "start_program": "autoclicker.exe",
@@ -17,6 +17,20 @@
             "installer_program": "",
             "cheathub_pro_only": false,
             "included_in_pinguin_browser_pro": false
+        },
+        "mcbe": {
+            "name": "Bedrock Hackclient",
+            "id": "mcbe",
+            "download_url": "https://blockhunter0007.github.io/cheathub/downloads/mcbe/injector.exe",
+            "visible": true,
+            "keywords": "reach, phasefly, airjump, hitbox",
+            "version": "2.2",
+            "last_updated": "2024-09-19T15:00:00Z",
+            "launcher": "custom",
+            "start_program": "injector.exe",
+            "cheathub_pro_only": false,
+            "included_in_pinguin_browser_pro": true,
+            "special_access_only": false
         }
     }
 }
