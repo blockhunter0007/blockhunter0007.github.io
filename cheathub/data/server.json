@@ -11,7 +11,7 @@
             "Fortnite": {
                 "name": "Fortnite",
                 "id": "Fortnite",
-                "download_url": "https://blockhunter0007.github.io/cheathub/Downloads/Fortnite",
+                "download_url": "https://blockhunter0007.github.io/cheathub/downloads/Fortnite",
                 "visible": false,
                 "keywords": "aimbot, wallhack, esp, radar, triggerbot, no recoil, no spread, silent aim, cheat, hack, mod, mod menu",
                 "version": "1.0",
@@ -25,7 +25,7 @@
             "autoclicker": {
                 "name": "autoclicker",
                 "id": "autoclicker",
-                "download_url": "https://blockhunter0007.github.io/cheathub/Downloads/autoclicker/autoclicker.exe",
+                "download_url": "https://blockhunter0007.github.io/cheathub/downloads/autoclicker/autoclicker.exe",
                 "visible": true,
                 "keywords": "autoclicker, auto clicker, autoclick, auto click, clicker, auto, click, cheat, hack, mod, mod menu",
                 "version": "2.6",
@@ -39,7 +39,7 @@
             "mcbe": {
                 "name": "Bedrock Hackclient",
                 "id": "mcbe",
-                "download_url": "https://blockhunter0007.github.io/cheathub/Downloads/mcbe/injector.exe",
+                "download_url": "https://blockhunter0007.github.io/cheathub/downloads/mcbe/injector.exe",
                 "visible": true,
                 "keywords": "reach, phasefly, airjump, hitbox",
                 "version": "2.2",
