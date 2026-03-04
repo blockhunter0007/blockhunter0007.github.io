@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CheatHub — Minecraft Bedrock Elite Strike Suite</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --bg2: #0f0f0f;
+    --bg3: #141414;
+    --purple: #8a2be2;
+    --purple-light: #a855f7;
+    --purple-dim: #8a2be220;
+    --purple-glow: #8a2be280;
+    --text: #e8e8e8;
+    --muted: #555;
+    --border: #1a1a1a;
+    --green: #00ff88;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Exo 2', sans-serif;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.07) 2px,
+      rgba(0,0,0,0.07) 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      linear-gradient(rgba(138,43,226,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(138,43,226,0.035) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 60px;
+    height: 64px;
+    background: rgba(10,10,10,0.95);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+  }
+
+  .logo {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #fff;
+    text-decoration: none;
+  }
+  .logo span { color: var(--purple-light); text-shadow: 0 0 15px var(--purple); }
+
+  .nav-back {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--purple-light); }
+  .nav-back::before { content: '← '; }
+
+  .nav-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    color: var(--green);
+  }
+
+  .status-dot-green {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 10px var(--green);
+    animation: blink 1.5s ease-in-out infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  /* PAGE HEADER */
+  .page-header {
+    position: relative;
+    z-index: 1;
+    padding: 80px 60px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .breadcrumb {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .breadcrumb span { color: var(--purple-light); }
+
+  .page-tag {
+    display: inline-block;
+    background: var(--purple-dim);
+    border: 1px solid var(--purple);
+    color: var(--purple-light);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    padding: 4px 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .page-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+  }
+
+  .page-title .accent {
+    color: var(--purple-light);
+    text-shadow: 0 0 30px var(--purple);
+  }
+
+  .page-subtitle {
+    margin-top: 16px;
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    max-width: 460px;
+    font-weight: 300;
+  }
+
+  .page-meta {
+    display: flex;
+    gap: 24px;
+    margin-top: 24px;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .meta-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .meta-value {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .meta-value.good { color: var(--green); }
+
+  /* DOWNLOAD PANEL */
+  .download-panel {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 32px;
+    min-width: 300px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .download-panel::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--purple), transparent);
+  }
+
+  .panel-title {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .panel-price {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+
+  .panel-price-sub {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+  }
+
+  .panel-checklist {
+    list-style: none;
+    margin-bottom: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .panel-checklist li {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.72rem;
+    color: #888;
+    letter-spacing: 0.5px;
+  }
+
+  .panel-checklist li::before {
+    content: '✓ ';
+    color: var(--green);
+  }
+
+  .btn-download {
+    width: 100%;
+    background: var(--purple);
+    color: #fff;
+    border: none;
+    padding: 16px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    display: block;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .btn-download::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    transition: left 0.5s;
+  }
+
+  .btn-download:hover::before { left: 100%; }
+  .btn-download:hover {
+    background: var(--purple-light);
+    box-shadow: 0 0 40px var(--purple-glow), 0 0 80px rgba(138,43,226,0.2);
+  }
+
+  .btn-warning {
+    margin-top: 10px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    color: #333;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+
+  /* MAIN CONTENT */
+  .content-grid {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 60px 80px;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 40px;
+  }
+
+  /* FEATURES */
+  .features-section {}
+
+  .section-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 4px;
+    color: var(--purple);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 32px;
+  }
+
+  .feature-card {
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    padding: 28px 32px;
+    margin-bottom: 16px;
+    position: relative;
+    transition: all 0.3s;
+    overflow: hidden;
+  }
+
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--purple);
+    transform: scaleY(0);
+    transition: transform 0.3s;
+    transform-origin: bottom;
+  }
+
+  .feature-card:hover::before { transform: scaleY(1); }
+  .feature-card:hover { border-color: #282828; }
+
+  .feature-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .feature-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .feature-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    color: var(--purple-light);
+    background: var(--purple-dim);
+    border: 1px solid var(--purple);
+    padding: 3px 8px;
+  }
+
+  .feature-desc {
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    font-weight: 300;
+    margin-bottom: 16px;
+  }
+
+  .feature-params {
+    display: flex;
+    gap: 20px;
+  }
+
+  .param {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .param-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 2px;
+    color: #333;
+    text-transform: uppercase;
+  }
+
+  .param-value {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--purple-light);
+  }
+
+  /* SIDEBAR */
+  .sidebar {}
+
+  .sidebar-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 24px;
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  .sidebar-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--purple), transparent);
+  }
+
+  .sidebar-title {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .spec-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .spec-row:last-child { border-bottom: none; }
+
+  .spec-key {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+  }
+
+  .spec-val {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--text);
+    text-align: right;
+  }
+  .spec-val.ok { color: var(--green); }
+  .spec-val.accent { color: var(--purple-light); }
+
+  .warning-box {
+    background: rgba(255,200,0,0.04);
+    border: 1px solid #333300;
+    padding: 16px;
+    margin-top: 16px;
+  }
+
+  .warning-text {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.63rem;
+    color: #555;
+    line-height: 1.6;
+    letter-spacing: 0.3px;
+  }
+
+  .warning-text .warn-label {
+    color: #888800;
+    display: block;
+    margin-bottom: 4px;
+    letter-spacing: 2px;
+  }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 32px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #222;
+  }
+
+  .disclaimer {
+    font-size: 0.6rem;
+    color: #2a2a2a;
+    font-family: 'Share Tech Mono', monospace;
+    max-width: 560px;
+    text-align: center;
+    line-height: 1.7;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 16px;
+  }
+  .footer-links a {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    color: #2a2a2a;
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--purple-light); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .page-header, .content-grid { animation: fadeUp 0.6s ease both; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo">Cheat<span>Hub</span></a>
+  <a href="index.html" class="nav-back">Software Library</a>
+  <div class="nav-status">
+    <div class="status-dot-green"></div>
+    UNDETECTED
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div>
+    <div class="breadcrumb">CheatHub / Software / <span>Minecraft Bedrock</span></div>
+    <div class="page-tag">⚡ ELITE TIER — KERNEL BUILD</div>
+    <h1 class="page-title">
+      Minecraft Bedrock<br>
+      <span class="accent">Elite Strike</span><br>
+      Suite
+    </h1>
+    <p class="page-subtitle">
+      The most sophisticated modification framework available for Minecraft Bedrock. Engineered from the ground up to survive every anti-cheat iteration — undetected since deployment.
+    </p>
+    <div class="page-meta">
+      <div class="meta-item">
+        <div class="meta-label">Version</div>
+        <div class="meta-value">v9.2.1</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Build Status</div>
+        <div class="meta-value good">UNDETECTED</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Last Updated</div>
+        <div class="meta-value">2h ago</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Platform</div>
+        <div class="meta-value">Win 10/11</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOWNLOAD PANEL -->
+  <div class="download-panel">
+    <div class="panel-title">// Access Package</div>
+    <div class="panel-price">FREE</div>
+    <div class="panel-price-sub">COMMUNITY BUILD — NO LICENSE REQUIRED</div>
+    <ul class="panel-checklist">
+      <li>Lifetime Access</li>
+      <li>Auto-Update Included</li>
+      <li>HWID Spoofer Bundled</li>
+      <li>Cloud Config Sync</li>
+      <li>Priority Support Ticket</li>
+    </ul>
+    <a href="#" class="btn-download">⬇ DOWNLOAD NOW</a>
+    <div class="btn-warning">SECURE DOWNLOAD · SHA-256 VERIFIED</div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="content-grid">
+
+  <!-- FEATURES -->
+  <div class="features-section">
+    <div class="section-label">// Technical Arsenal</div>
+    <h2 class="section-title">Core Feature Modules</h2>
+
+<div class="feature-card">
+  <div class="feature-header">
+    <div class="feature-name">Hitbox / Entity-Reach</div>
+    <div class="feature-tag">COMBAT</div>
+  </div>
+  <p class="feature-desc">
+    Expands the client-side bounding box of enemy entities to guarantee hits even with imprecise aiming.
+  </p>
+  <div class="feature-params">
+    <div class="param">
+      <div class="param-label">Expand Size</div>
+      <div class="param-value">0.1 - 1.5 Blocks</div>
+    </div>
+    <div class="param">
+      <div class="param-label">Target Type</div>
+      <div class="param-value">Players / Mobs</div>
+    </div>
+    <div class="param">
+      <div class="param-label">Bypass</div>
+      <div class="param-value">Silent-Raycast</div>
+    </div>
+  </div>
+</div>
+
+<div class="feature-card">
+  <div class="feature-header">
+    <div class="feature-name">AirJump / Sky-Step</div>
+    <div class="feature-tag">MOVEMENT</div>
+  </div>
+  <p class="feature-desc">
+    Allows the player to jump mid-air by spoofing on-ground packet requests to the server.
+  </p>
+  <div class="feature-params">
+    <div class="param">
+      <div class="param-label">Jump Height</div>
+      <div class="param-value">Default (1.25)</div>
+    </div>
+    <div class="param">
+      <div class="param-label">Mode</div>
+      <div class="param-value">Packet-Spoof</div>
+    </div>
+    <div class="param">
+      <div class="param-label">Double Jump</div>
+      <div class="param-value">Enabled</div>
+    </div>
+  </div>
+</div>
+
+<div class="feature-card">
+  <div class="feature-header">
+    <div class="feature-name">Optic Zoom / CineCam</div>
+    <div class="feature-tag">RENDER</div>
+  </div>
+  <p class="feature-desc">
+    Manipulates the Field of View (FOV) to zoom in on distant objects or players without quality loss.
+  </p>
+  <div class="feature-params">
+    <div class="param">
+      <div class="param-label">Zoom Factor</div>
+      <div class="param-value">4.0x - 12.0x</div>
+    </div>
+    <div class="param">
+      <div class="param-label">Smooth Scroll</div>
+      <div class="param-value">Linear</div>
+    </div>
+    <div class="param">
+      <div class="param-label">Keybind</div>
+      <div class="param-value">C-Key</div>
+    </div>
+  </div>
+</div>
+
+<div class="feature-card">
+  <div class="feature-header">
+    <div class="feature-name">Ghost-World / X-Ray</div>
+    <div class="feature-tag">VISUALS</div>
+  </div>
+  <p class="feature-desc">
+    Renders common blocks invisible while highlighting containers (chests) and living entities.
+  </p>
+  <div class="feature-params">
+    <div class="param">
+      <div class="param-label">Filter</div>
+      <div class="param-value">Chests, Players</div>
+    </div>
+    <div class="param">
+      <div class="param-label">Opacity</div>
+      <div class="param-value">0% (Full Hide)</div>
+    </div>
+    <div class="param">
+      <div class="param-label">Range</div>
+      <div class="param-value">Unlimited</div>
+    </div>
+  </div>
+</div>
+
+<div class="feature-card">
+  <div class="feature-header">
+    <div class="feature-name">No Cobweb / Web-Walker</div>
+    <div class="feature-tag">PLAYER</div>
+  </div>
+  <p class="feature-desc">
+    Ignores the movement slowdown caused by cobwebs, allowing for 100% velocity within webs.
+  </p>
+  <div class="feature-params">
+    <div class="param">
+      <div class="param-label">Speed Factor</div>
+      <div class="param-value">1.0x (Normal)</div>
+    </div>
+    <div class="param">
+      <div class="param-label">Modifier</div>
+      <div class="param-value">Collision-Fix</div>
+    </div>
+    <div class="param">
+      <div class="param-label">Status</div>
+      <div class="param-value">Active</div>
+    </div>
+  </div>
+</div>
+
+<div class="feature-card">
+  <div class="feature-header">
+    <div class="feature-name">AutoClicker / Trigger-Unit</div>
+    <div class="feature-tag">COMBAT</div>
+  </div>
+  <p class="feature-desc">
+    Simulates high-speed mouse clicks with built-in randomization to evade macro detection.
+  </p>
+  <div class="feature-params">
+    <div class="param">
+      <div class="param-label">CPS</div>
+      <div class="param-value">8 - 20 (Random)</div>
+    </div>
+    <div class="param">
+      <div class="param-label">Jitter</div>
+      <div class="param-value">Low / Medium</div>
+    </div>
+    <div class="param">
+      <div class="param-label">Activation</div>
+      <div class="param-value">Hold Mouse</div>
+    </div>
+  </div>
+</div>
+
+<div class="feature-card">
+  <div class="feature-header">
+    <div class="feature-name">Reach / Distance-Mod</div>
+    <div class="feature-tag">COMBAT</div>
+  </div>
+  <p class="feature-desc">
+    Increases the maximum distance from which you can strike enemies or interact with blocks.
+  </p>
+  <div class="feature-params">
+    <div class="param">
+      <div class="param-label">Max Reach</div>
+      <div class="param-value">3.0 - 6.0 Blocks</div>
+    </div>
+    <div class="param">
+      <div class="param-label">Chance</div>
+      <div class="param-value">100%</div>
+    </div>
+    <div class="param">
+      <div class="param-label">Ghost-Mode</div>
+      <div class="param-value">Legit-Limit (3.8)</div>
+    </div>
+  </div>
+</div>
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+
+    <!-- TECH SPECS -->
+    <div class="sidebar-card">
+      <div class="sidebar-title">// Technical Specifications</div>
+      <div class="spec-row">
+        <div class="spec-key">HWID Spoofer</div>
+        <div class="spec-val ok">v4.1 INCLUDED</div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">Cloud-Sync Config</div>
+        <div class="spec-val ok">ENABLED</div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">Injection Method</div>
+        <div class="spec-val accent">Kernel Driver</div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">Anti-Cheat Bypass</div>
+        <div class="spec-val accent">VAC / EAC / BE</div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">Encryption</div>
+        <div class="spec-val">128-bit AES</div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">Loader Architecture</div>
+        <div class="spec-val">Ring-0 Driver</div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">Build Frequency</div>
+        <div class="spec-val">Per Game Patch</div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">Min. OS</div>
+        <div class="spec-val">Win 10 1903+</div>
+      </div>
+    </div>
+
+    <!-- DETECTION STATUS -->
+    <div class="sidebar-card">
+      <div class="sidebar-title">// Detection Status Log</div>
+      <div class="spec-row">
+        <div class="spec-key">VAC3</div>
+        <div class="spec-val ok">SAFE</div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">Easy Anti-Cheat</div>
+        <div class="spec-val ok">SAFE</div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">BattlEye</div>
+        <div class="spec-val ok">SAFE</div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">Vanguard</div>
+        <div class="spec-val ok">SAFE</div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">Last Checked</div>
+        <div class="spec-val">2h 14m ago</div>
+      </div>
+    </div>
+
+    <div class="warning-box">
+      <div class="warning-text">
+        <span class="warn-label">⚠ DISCLAIMER</span>
+        CheatHub software is provided for educational and research purposes only. Use at your own risk. CheatHub accepts no liability for account actions, hardware bans, or any other consequences arising from use of this software.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">CHEATHUB</div>
+  <p class="disclaimer">
+    CheatHub is an educational and research project. All software, tools, and materials presented on this site are provided strictly for cybersecurity awareness, academic study, and entertainment purposes only. CheatHub does not condone cheating, illegal software use, or violations of any game's Terms of Service. Use at your own risk. CheatHub assumes no liability for any actions taken based on information presented herein.
+  </p>
+  <div class="footer-links">
+    <a href="/legal.html">Terms</a>
+    <a href="/legal.html">Privacy</a>
+    <a href="/legal.html">DMCA</a>
+  </div>
+</footer>
+
+</body>
+</html>
