@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Blockhunter Software - DMCA</title>
+	<meta name="description" content="DMCA notice page for Blockhunter Software.">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+	<style>
+		:root { --bg: #08111d; --panel: rgba(10, 17, 28, 0.78); --line: rgba(173, 197, 232, 0.18); --text: #f2f7ff; --muted: #a8b8d1; --accent: #66d9ff; --accent-2: #8c7bff; --shadow: 0 24px 90px rgba(0, 0, 0, 0.36); }
+		* { box-sizing: border-box; }
+		html { scroll-behavior: smooth; }
+		body { margin: 0; color: var(--text); font-family: 'Space Grotesk', sans-serif; background: radial-gradient(circle at top left, rgba(102, 217, 255, 0.18), transparent 32%), radial-gradient(circle at top right, rgba(140, 123, 255, 0.16), transparent 28%), linear-gradient(160deg, #050a12 0%, var(--bg) 52%, #050b14 100%); min-height: 100vh; overflow-x: hidden; }
+		body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px); background-size: 56px 56px; mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.9), transparent 82%); pointer-events: none; opacity: 0.3; }
+		a { color: inherit; }
+		h1, h2, h3, .brand strong { font-family: 'Sora', sans-serif; }
+		.container { width: min(1120px, calc(100% - 2rem)); margin: 0 auto; }
+		.topbar { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(18px); background: rgba(5, 10, 18, 0.72); border-bottom: 1px solid var(--line); }
+		.nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 0; }
+		.brand { display: flex; flex-direction: column; gap: 0.15rem; }
+		.brand strong { letter-spacing: 0.14em; text-transform: uppercase; font-size: 1rem; }
+		.brand span { color: var(--muted); font-size: 0.94rem; }
+		.nav-links { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+		.nav-links a { text-decoration: none; border: 1px solid transparent; background: rgba(255, 255, 255, 0.04); padding: 0.62rem 0.92rem; border-radius: 999px; }
+		.nav-links a:hover { border-color: var(--line); background: rgba(255, 255, 255, 0.07); }
+		.lang-switch { display: flex; gap: 0.35rem; padding: 0.25rem; border-radius: 999px; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.04); }
+		.lang-switch button { border: 0; background: transparent; color: var(--muted); padding: 0.56rem 0.88rem; border-radius: 999px; cursor: pointer; font: inherit; }
+		.lang-switch button.active { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #08111d; }
+		.hero { padding: 4.5rem 0 2rem; }
+		.shell { display: grid; gap: 1.2rem; grid-template-columns: repeat(12, minmax(0, 1fr)); }
+		.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 26px; padding: clamp(1.15rem, 2vw, 2rem); box-shadow: var(--shadow); }
+		.hero-main { grid-column: span 8; }
+		.hero-side { grid-column: span 4; }
+		.kicker { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.42rem 0.75rem; border-radius: 999px; color: var(--accent); border: 1px solid rgba(102, 217, 255, 0.22); background: rgba(102, 217, 255, 0.08); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.84rem; }
+		h1 { margin: 1rem 0 0; font-size: clamp(2.4rem, 6vw, 4.4rem); line-height: 1.02; }
+		.lead { margin: 1rem 0 0; max-width: 64ch; color: var(--muted); font-size: clamp(1.03rem, 2vw, 1.18rem); line-height: 1.7; }
+		.section { padding: 1rem 0 2rem; }
+		.grid-2 { display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+		.card { padding: 1.1rem; border-radius: 20px; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.04); }
+		.list { margin: 0; padding-left: 1.1rem; color: var(--muted); line-height: 1.75; }
+		.footer { padding: 1.2rem 0 2.5rem; color: var(--muted); font-size: 0.95rem; }
+		@media (max-width: 900px) { .hero-main, .hero-side { grid-column: span 12; } .nav { flex-direction: column; align-items: flex-start; } }
+		@media (max-width: 680px) { .grid-2 { grid-template-columns: 1fr; } }
+	</style>
+</head>
+<body>
+	<header class="topbar">
+		<div class="container nav">
+			<div class="brand">
+				<strong>Blockhunter Software</strong>
+				<span data-lang="en">DMCA notice.</span>
+				<span data-lang="de">DMCA-Hinweis.</span>
+			</div>
+			<nav class="nav-links" aria-label="Primary navigation">
+				<a href="../index.html">Home</a>
+				<a href="../products/account_backend.html">Account Backend</a>
+				<a href="../products/pyimport.html">PyImport</a>
+				<a href="tos.html">Terms</a>
+				<a href="p_pol.html">Privacy</a>
+			</nav>
+			<div class="lang-switch" aria-label="Language switcher">
+				<button type="button" data-lang-switch="en">EN</button>
+				<button type="button" data-lang-switch="de">DE</button>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<section class="hero">
+			<div class="container shell">
+				<article class="panel hero-main">
+					<div class="kicker">DMCA</div>
+					<h1 data-lang="en">How to report copyright concerns on the site.</h1>
+					<h1 data-lang="de">So meldest du Urheberrechtsprobleme auf der Seite.</h1>
+					<p class="lead" data-lang="en">This page explains the information needed for a takedown notice and the general handling of copyright complaints.</p>
+					<p class="lead" data-lang="de">Diese Seite erklaert, welche Angaben fuer eine Loeschmeldung benoetigt werden und wie urheberrechtliche Beschwerden grundsaetzlich behandelt werden.</p>
+				</article>
+				<aside class="panel hero-side">
+					<h2 data-lang="en">Notice format</h2>
+					<h2 data-lang="de">Meldungsformat</h2>
+					<div class="card" style="margin-top: 1rem;">
+						<p data-lang="en">Include the content location, the work you believe is infringed, your contact details, and a good-faith statement.</p>
+						<p data-lang="de">Nenne den Ort des Inhalts, das betroffene Werk, deine Kontaktdaten und eine Erklaerung nach bestem Wissen.</p>
+					</div>
+				</aside>
+			</div>
+		</section>
+
+		<section class="section">
+			<div class="container grid-2">
+				<article class="card">
+					<h2 data-lang="en">English</h2>
+					<h2 data-lang="de">Deutsch</h2>
+					<ul class="list" data-lang="en">
+						<li>Send a clear description of the allegedly infringing material.</li>
+						<li>Provide the exact page or file location if possible.</li>
+						<li>Include a statement that you are authorized to act for the rights holder.</li>
+						<li>Explain how we can contact you about the report.</li>
+						<li>We may remove or restrict content after reviewing a valid notice.</li>
+					</ul>
+					<ul class="list" data-lang="de">
+						<li>Sende eine klare Beschreibung des angeblich verletzenden Materials.</li>
+						<li>Nenne moeglichst die genaue Seiten- oder Dateiposition.</li>
+						<li>Fuege eine Erklaerung hinzu, dass du fuer den Rechteinhaber handeln darfst.</li>
+						<li>Erklaere, wie wir dich zu der Meldung kontaktieren koennen.</li>
+						<li>Nach Pruefung einer gueltigen Meldung koennen Inhalte entfernt oder eingeschraenkt werden.</li>
+					</ul>
+				</article>
+				<article class="card">
+					<h2 data-lang="en">Counter notice</h2>
+					<h2 data-lang="de">Gegenmitteilung</h2>
+					<ul class="list" data-lang="en">
+						<li>If you believe content was removed by mistake, explain why and provide supporting details.</li>
+						<li>Only send a counter notice if you have a lawful basis to do so.</li>
+					</ul>
+					<ul class="list" data-lang="de">
+						<li>Wenn du glaubst, dass Inhalte versehentlich entfernt wurden, erklaere warum und liefere Belege.</li>
+						<li>Schicke eine Gegenmitteilung nur, wenn du dafuer eine rechtliche Grundlage hast.</li>
+					</ul>
+				</article>
+			</div>
+		</section>
+	</main>
+
+	<footer class="footer">
+		<div class="container">
+			<p style="margin: 0;" data-lang="en">DMCA page for Blockhunter Software.</p>
+			<p style="margin: 0;" data-lang="de">DMCA-Seite fuer Blockhunter Software.</p>
+		</div>
+	</footer>
+
+	<script>
+		const defaultLanguage = localStorage.getItem('bh-language') || 'en';
+
+		function setLanguage(language) {
+			document.querySelectorAll('[data-lang]').forEach((element) => {
+				element.hidden = element.dataset.lang !== language;
+			});
+
+			document.querySelectorAll('[data-lang-switch]').forEach((button) => {
+				button.classList.toggle('active', button.dataset.langSwitch === language);
+			});
+
+			document.documentElement.lang = language;
+			localStorage.setItem('bh-language', language);
+		}
+
+		window.addEventListener('DOMContentLoaded', () => {
+			document.querySelectorAll('[data-lang-switch]').forEach((button) => {
+				button.addEventListener('click', () => setLanguage(button.dataset.langSwitch));
+			});
+
+			setLanguage(defaultLanguage);
+		});
+	</script>
+</body>
+</html>

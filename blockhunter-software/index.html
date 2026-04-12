@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Blockhunter Software</title>
+	<meta name="description" content="Blockhunter Software builds bilingual tools and product pages for modern workflows.">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			--bg: #08111d;
+			--bg-2: #0f1b2e;
+			--panel: rgba(10, 17, 28, 0.78);
+			--panel-strong: rgba(17, 28, 46, 0.9);
+			--line: rgba(173, 197, 232, 0.18);
+			--text: #f2f7ff;
+			--muted: #a8b8d1;
+			--accent: #66d9ff;
+			--accent-2: #8c7bff;
+			--accent-3: #4cf0ad;
+			--shadow: 0 24px 90px rgba(0, 0, 0, 0.36);
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		html {
+			scroll-behavior: smooth;
+		}
+
+		body {
+			margin: 0;
+			color: var(--text);
+			font-family: 'Space Grotesk', sans-serif;
+			background:
+				radial-gradient(circle at top left, rgba(102, 217, 255, 0.18), transparent 32%),
+				radial-gradient(circle at top right, rgba(140, 123, 255, 0.16), transparent 28%),
+				linear-gradient(160deg, #050a12 0%, var(--bg) 52%, #050b14 100%);
+			min-height: 100vh;
+			overflow-x: hidden;
+		}
+
+		body::before {
+			content: '';
+			position: fixed;
+			inset: 0;
+			background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+			background-size: 56px 56px;
+			mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.9), transparent 82%);
+			pointer-events: none;
+			opacity: 0.3;
+		}
+
+		a {
+			color: inherit;
+		}
+
+		h1,
+		h2,
+		h3,
+		.brand strong {
+			font-family: 'Sora', sans-serif;
+		}
+
+		.container {
+			width: min(1120px, calc(100% - 2rem));
+			margin: 0 auto;
+		}
+
+		.topbar {
+			position: sticky;
+			top: 0;
+			z-index: 20;
+			backdrop-filter: blur(18px);
+			background: rgba(5, 10, 18, 0.72);
+			border-bottom: 1px solid var(--line);
+		}
+
+		.nav {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 1rem;
+			padding: 1rem 0;
+		}
+
+		.brand {
+			display: flex;
+			flex-direction: column;
+			gap: 0.15rem;
+		}
+
+		.brand strong {
+			letter-spacing: 0.14em;
+			text-transform: uppercase;
+			font-size: 1rem;
+		}
+
+		.brand span {
+			color: var(--muted);
+			font-size: 0.94rem;
+		}
+
+		.nav-links {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.6rem;
+		}
+
+		.nav-links a {
+			text-decoration: none;
+			border: 1px solid transparent;
+			background: rgba(255, 255, 255, 0.04);
+			padding: 0.62rem 0.92rem;
+			border-radius: 999px;
+		}
+
+		.nav-links a:hover {
+			border-color: var(--line);
+			background: rgba(255, 255, 255, 0.07);
+		}
+
+		.lang-switch {
+			display: flex;
+			gap: 0.35rem;
+			padding: 0.25rem;
+			border-radius: 999px;
+			border: 1px solid var(--line);
+			background: rgba(255, 255, 255, 0.04);
+		}
+
+		.lang-switch button {
+			border: 0;
+			background: transparent;
+			color: var(--muted);
+			padding: 0.56rem 0.88rem;
+			border-radius: 999px;
+			cursor: pointer;
+			font: inherit;
+		}
+
+		.lang-switch button.active {
+			background: linear-gradient(135deg, var(--accent), var(--accent-2));
+			color: #08111d;
+		}
+
+		.hero {
+			padding: 4.5rem 0 2rem;
+		}
+
+		.shell {
+			display: grid;
+			gap: 1.2rem;
+			grid-template-columns: repeat(12, minmax(0, 1fr));
+		}
+
+		.panel {
+			background: var(--panel);
+			border: 1px solid var(--line);
+			border-radius: 26px;
+			padding: clamp(1.15rem, 2vw, 2rem);
+			box-shadow: var(--shadow);
+		}
+
+		.hero-main {
+			grid-column: span 7;
+		}
+
+		.hero-side {
+			grid-column: span 5;
+			background: linear-gradient(180deg, rgba(17, 28, 46, 0.96), rgba(10, 17, 28, 0.72));
+		}
+
+		.kicker {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.5rem;
+			padding: 0.42rem 0.75rem;
+			border-radius: 999px;
+			color: var(--accent);
+			border: 1px solid rgba(102, 217, 255, 0.22);
+			background: rgba(102, 217, 255, 0.08);
+			text-transform: uppercase;
+			letter-spacing: 0.08em;
+			font-size: 0.84rem;
+		}
+
+		h1 {
+			margin: 1rem 0 0;
+			font-size: clamp(2.4rem, 6vw, 5rem);
+			line-height: 1.02;
+		}
+
+		.lead {
+			margin: 1rem 0 0;
+			max-width: 64ch;
+			color: var(--muted);
+			font-size: clamp(1.03rem, 2vw, 1.22rem);
+			line-height: 1.7;
+		}
+
+		.actions {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.8rem;
+			margin-top: 1.6rem;
+		}
+
+		.button {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			padding: 0.92rem 1.18rem;
+			border-radius: 999px;
+			border: 1px solid var(--line);
+			text-decoration: none;
+			font-weight: 700;
+			background: rgba(255, 255, 255, 0.03);
+		}
+
+		.button.primary {
+			border-color: transparent;
+			background: linear-gradient(135deg, var(--accent), var(--accent-2));
+			color: #09111d;
+		}
+
+		.button:hover {
+			transform: translateY(-1px);
+		}
+
+		.stat-grid {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 0.9rem;
+		}
+
+		.stat {
+			padding: 1rem;
+			border-radius: 18px;
+			border: 1px solid var(--line);
+			background: rgba(255, 255, 255, 0.04);
+		}
+
+		.stat strong {
+			display: block;
+			font-size: 1.4rem;
+			margin-bottom: 0.35rem;
+		}
+
+		.stat span,
+		.muted {
+			color: var(--muted);
+		}
+
+		.section {
+			padding: 1rem 0 2rem;
+		}
+
+		.section-head {
+			display: flex;
+			align-items: end;
+			justify-content: space-between;
+			gap: 1rem;
+			margin-bottom: 1rem;
+		}
+
+		.section-head p {
+			margin: 0;
+			color: var(--muted);
+			max-width: 58ch;
+			line-height: 1.6;
+		}
+
+		.cards {
+			display: grid;
+			gap: 1rem;
+			grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		}
+
+		.card {
+			padding: 1.1rem;
+			border-radius: 20px;
+			border: 1px solid var(--line);
+			background: rgba(255, 255, 255, 0.04);
+		}
+
+		.card h3 {
+			margin: 0 0 0.5rem;
+			font-size: 1.15rem;
+		}
+
+		.card p {
+			margin: 0;
+			color: var(--muted);
+			line-height: 1.65;
+		}
+
+		.grid-2 {
+			display: grid;
+			gap: 1rem;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.list {
+			margin: 0;
+			padding-left: 1.1rem;
+			color: var(--muted);
+			line-height: 1.75;
+		}
+
+		.tag-row {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.5rem;
+			margin-top: 1rem;
+		}
+
+		.tag {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.35rem;
+			padding: 0.42rem 0.72rem;
+			border-radius: 999px;
+			border: 1px solid var(--line);
+			background: rgba(255, 255, 255, 0.04);
+			color: var(--muted);
+			font-size: 0.9rem;
+		}
+
+		.footer {
+			padding: 1.2rem 0 2.5rem;
+			color: var(--muted);
+			font-size: 0.95rem;
+		}
+
+		.footer a {
+			color: var(--text);
+			text-decoration: none;
+		}
+
+		@media (max-width: 900px) {
+			.hero-main,
+			.hero-side {
+				grid-column: span 12;
+			}
+
+			.section-head,
+			.nav {
+				flex-direction: column;
+				align-items: flex-start;
+			}
+		}
+
+		@media (max-width: 680px) {
+			.grid-2,
+			.stat-grid {
+				grid-template-columns: 1fr;
+			}
+		}
+	</style>
+</head>
+<body>
+	<header class="topbar">
+		<div class="container nav">
+			<div class="brand">
+				<strong>Blockhunter Software</strong>
+				<span data-lang="en">Bilingual products and clean delivery.</span>
+				<span data-lang="de">Zweisprachige Produkte und klare Umsetzung.</span>
+			</div>
+			<nav class="nav-links" aria-label="Primary navigation">
+				<a href="index.html">Home</a>
+				<a href="products/account_backend.html">Account Backend</a>
+				<a href="products/pyimport.html">PyImport</a>
+				<a href="legal/tos.html">Terms</a>
+				<a href="legal/p_pol.html">Privacy</a>
+				<a href="legal/dmca.html">DMCA</a>
+			</nav>
+			<div class="lang-switch" aria-label="Language switcher">
+				<button type="button" data-lang-switch="en">EN</button>
+				<button type="button" data-lang-switch="de">DE</button>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<section class="hero">
+			<div class="container shell">
+				<article class="panel hero-main">
+					<div class="kicker">Blockhunter Software</div>
+					<h1 data-lang="en">Focused software, clear pages, and bilingual delivery.</h1>
+					<h1 data-lang="de">Fokussierte Software, klare Seiten und zweisprachige Lieferung.</h1>
+					<p class="lead" data-lang="en">This site presents the Blockhunter Software brand, the product base, and the legal pages in one consistent system. Each page is written in English and German so visitors can switch language without losing context.</p>
+					<p class="lead" data-lang="de">Diese Seite zeigt die Marke Blockhunter Software, die Produktbasis und die Rechtstexte in einem konsistenten System. Jede Seite ist auf Englisch und Deutsch verfuegbar, damit Besucher die Sprache wechseln koennen, ohne den Kontext zu verlieren.</p>
+					<div class="actions">
+						<a class="button primary" href="products/account_backend.html" data-lang="en">View products</a>
+						<a class="button primary" href="products/account_backend.html" data-lang="de">Produkte ansehen</a>
+						<a class="button" href="legal/tos.html" data-lang="en">Read legal pages</a>
+						<a class="button" href="legal/tos.html" data-lang="de">Rechtstexte lesen</a>
+					</div>
+					<div class="tag-row">
+						<span class="tag">HTML only</span>
+						<span class="tag">EN / DE</span>
+						<span class="tag">Responsive layout</span>
+						<span class="tag">Shared design system</span>
+					</div>
+				</article>
+
+				<aside class="panel hero-side">
+					<h2 data-lang="en">Project snapshot</h2>
+					<h2 data-lang="de">Projektuebersicht</h2>
+					<div class="stat-grid" style="margin-top: 1rem;">
+						<div class="stat">
+							<strong>2</strong>
+							<span data-lang="en">Product pages</span>
+							<span data-lang="de">Produktseiten</span>
+						</div>
+						<div class="stat">
+							<strong>2</strong>
+							<span data-lang="en">Languages</span>
+							<span data-lang="de">Sprachen</span>
+						</div>
+						<div class="stat">
+							<strong>1</strong>
+							<span data-lang="en">Shared base shell</span>
+							<span data-lang="de">Gemeinsame Basis</span>
+						</div>
+						<div class="stat">
+							<strong>3</strong>
+							<span data-lang="en">Legal pages</span>
+							<span data-lang="de">Rechtstexte</span>
+						</div>
+					</div>
+					<p class="muted" style="margin-top: 1rem; line-height: 1.65;" data-lang="en">The layout keeps navigation, language controls, and page structure aligned across the whole site.</p>
+					<p class="muted" style="margin-top: 1rem; line-height: 1.65;" data-lang="de">Das Layout haelt Navigation, Sprachwahl und Seitenstruktur auf der ganzen Website gleich.</p>
+				</aside>
+			</div>
+		</section>
+
+		<section class="section">
+			<div class="container">
+				<div class="section-head">
+					<div>
+						<h2 data-lang="en">Products</h2>
+						<h2 data-lang="de">Produkte</h2>
+					</div>
+					<p data-lang="en">Two product pages are available now: one for account infrastructure and one for Python import workflows.</p>
+					<p data-lang="de">Zwei Produktseiten sind verfuegbar: eine fuer Account-Infrastruktur und eine fuer Python-Import-Workflows.</p>
+				</div>
+				<div class="cards">
+					<article class="card">
+						<h3>Account Backend</h3>
+						<p data-lang="en">A secure backend concept for user handling, service logic, and administrative workflows.</p>
+						<p data-lang="de">Ein sicheres Backend-Konzept fuer Benutzerverwaltung, Service-Logik und administrative Ablaufe.</p>
+						<div class="actions" style="margin-top: 1rem;">
+							<a class="button primary" href="products/account_backend.html" data-lang="en">Open page</a>
+							<a class="button primary" href="products/account_backend.html" data-lang="de">Seite oeffnen</a>
+						</div>
+					</article>
+					<article class="card">
+						<h3>PyImport</h3>
+						<p data-lang="en">A modular Python-focused product page for import flows, loading logic, and repeatable automation.</p>
+						<p data-lang="de">Eine modulare Produktseite fuer Python-Importpfade, Lade-Logik und wiederholbare Automatisierung.</p>
+						<div class="actions" style="margin-top: 1rem;">
+							<a class="button primary" href="products/pyimport.html" data-lang="en">Open page</a>
+							<a class="button primary" href="products/pyimport.html" data-lang="de">Seite oeffnen</a>
+						</div>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<section class="section">
+			<div class="container grid-2">
+				<article class="panel">
+					<h2 data-lang="en">Why this structure works</h2>
+					<h2 data-lang="de">Warum diese Struktur funktioniert</h2>
+					<ul class="list" data-lang="en">
+						<li>One visual system keeps the site coherent.</li>
+						<li>Each page can be translated without changing the layout.</li>
+						<li>The product pages reuse the same shell and navigation pattern.</li>
+					</ul>
+					<ul class="list" data-lang="de">
+						<li>Ein visuelles System haelt die Website konsistent.</li>
+						<li>Jede Seite kann uebersetzt werden, ohne das Layout zu aendern.</li>
+						<li>Die Produktseiten nutzen dieselbe Basis und denselben Navigationsstil.</li>
+					</ul>
+				</article>
+				<article class="panel">
+					<h2 data-lang="en">Legal pages</h2>
+					<h2 data-lang="de">Rechtstexte</h2>
+					<p class="lead" style="margin-top: 0.8rem; font-size: 1.05rem;" data-lang="en">The terms, privacy policy, and DMCA page are written as separate pages so the site can stay clear and maintainable.</p>
+					<p class="lead" style="margin-top: 0.8rem; font-size: 1.05rem;" data-lang="de">Die AGB, Datenschutzseite und DMCA-Seite sind getrennt gehalten, damit die Website klar und wartbar bleibt.</p>
+					<div class="actions">
+						<a class="button" href="legal/tos.html">Terms of Service</a>
+						<a class="button" href="legal/p_pol.html">Privacy Policy</a>
+						<a class="button" href="legal/dmca.html">DMCA</a>
+					</div>
+				</article>
+			</div>
+		</section>
+	</main>
+
+	<footer class="footer">
+		<div class="container">
+			<div class="grid-2" style="align-items: center;">
+				<p style="margin: 0;" data-lang="en">Blockhunter Software - bilingual landing and product site.</p>
+				<p style="margin: 0;" data-lang="de">Blockhunter Software - zweisprachige Start- und Produktseite.</p>
+				<p style="margin: 0;" data-lang="en">Contact: <a href="mailto:hello@blockhunter.software">hello@blockhunter.software</a></p>
+				<p style="margin: 0;" data-lang="de">Kontakt: <a href="mailto:hello@blockhunter.software">hello@blockhunter.software</a></p>
+			</div>
+		</div>
+	</footer>
+
+	<script>
+		const defaultLanguage = localStorage.getItem('bh-language') || 'en';
+
+		function setLanguage(language) {
+			document.querySelectorAll('[data-lang]').forEach((element) => {
+				element.hidden = element.dataset.lang !== language;
+			});
+
+			document.querySelectorAll('[data-lang-switch]').forEach((button) => {
+				button.classList.toggle('active', button.dataset.langSwitch === language);
+			});
+
+			document.documentElement.lang = language;
+			localStorage.setItem('bh-language', language);
+		}
+
+		window.addEventListener('DOMContentLoaded', () => {
+			document.querySelectorAll('[data-lang-switch]').forEach((button) => {
+				button.addEventListener('click', () => setLanguage(button.dataset.langSwitch));
+			});
+
+			setLanguage(defaultLanguage);
+		});
+	</script>
+</body>
+</html>
