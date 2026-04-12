@@ -3,159 +3,179 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Blockhunter Software - Privacy Policy</title>
 	<meta name="description" content="Privacy Policy for Blockhunter Software.">
+	<title>Blockhunter Software | Privacy Policy</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
-	<style>
-		:root { --bg: #08111d; --panel: rgba(10, 17, 28, 0.78); --line: rgba(173, 197, 232, 0.18); --text: #f2f7ff; --muted: #a8b8d1; --accent: #66d9ff; --accent-2: #8c7bff; --shadow: 0 24px 90px rgba(0, 0, 0, 0.36); }
-		* { box-sizing: border-box; }
-		html { scroll-behavior: smooth; }
-		body { margin: 0; color: var(--text); font-family: 'Space Grotesk', sans-serif; background: radial-gradient(circle at top left, rgba(102, 217, 255, 0.18), transparent 32%), radial-gradient(circle at top right, rgba(140, 123, 255, 0.16), transparent 28%), linear-gradient(160deg, #050a12 0%, var(--bg) 52%, #050b14 100%); min-height: 100vh; overflow-x: hidden; }
-		body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px); background-size: 56px 56px; mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.9), transparent 82%); pointer-events: none; opacity: 0.3; }
-		a { color: inherit; }
-		h1, h2, h3, .brand strong { font-family: 'Sora', sans-serif; }
-		.container { width: min(1120px, calc(100% - 2rem)); margin: 0 auto; }
-		.topbar { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(18px); background: rgba(5, 10, 18, 0.72); border-bottom: 1px solid var(--line); }
-		.nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 0; }
-		.brand { display: flex; flex-direction: column; gap: 0.15rem; }
-		.brand strong { letter-spacing: 0.14em; text-transform: uppercase; font-size: 1rem; }
-		.brand span { color: var(--muted); font-size: 0.94rem; }
-		.nav-links { display: flex; flex-wrap: wrap; gap: 0.6rem; }
-		.nav-links a { text-decoration: none; border: 1px solid transparent; background: rgba(255, 255, 255, 0.04); padding: 0.62rem 0.92rem; border-radius: 999px; }
-		.nav-links a:hover { border-color: var(--line); background: rgba(255, 255, 255, 0.07); }
-		.lang-switch { display: flex; gap: 0.35rem; padding: 0.25rem; border-radius: 999px; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.04); }
-		.lang-switch button { border: 0; background: transparent; color: var(--muted); padding: 0.56rem 0.88rem; border-radius: 999px; cursor: pointer; font: inherit; }
-		.lang-switch button.active { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #08111d; }
-		.hero { padding: 4.5rem 0 2rem; }
-		.shell { display: grid; gap: 1.2rem; grid-template-columns: repeat(12, minmax(0, 1fr)); }
-		.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 26px; padding: clamp(1.15rem, 2vw, 2rem); box-shadow: var(--shadow); }
-		.hero-main { grid-column: span 8; }
-		.hero-side { grid-column: span 4; }
-		.kicker { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.42rem 0.75rem; border-radius: 999px; color: var(--accent); border: 1px solid rgba(102, 217, 255, 0.22); background: rgba(102, 217, 255, 0.08); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.84rem; }
-		h1 { margin: 1rem 0 0; font-size: clamp(2.4rem, 6vw, 4.4rem); line-height: 1.02; }
-		.lead { margin: 1rem 0 0; max-width: 64ch; color: var(--muted); font-size: clamp(1.03rem, 2vw, 1.18rem); line-height: 1.7; }
-		.section { padding: 1rem 0 2rem; }
-		.grid-2 { display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-		.card { padding: 1.1rem; border-radius: 20px; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.04); }
-		.list { margin: 0; padding-left: 1.1rem; color: var(--muted); line-height: 1.75; }
-		.footer { padding: 1.2rem 0 2.5rem; color: var(--muted); font-size: 0.95rem; }
-		@media (max-width: 900px) { .hero-main, .hero-side { grid-column: span 12; } .nav { flex-direction: column; align-items: flex-start; } }
-		@media (max-width: 680px) { .grid-2 { grid-template-columns: 1fr; } }
-	</style>
+	<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Exo+2:wght@400;500;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-	<header class="topbar">
-		<div class="container nav">
-			<div class="brand">
-				<strong>Blockhunter Software</strong>
-				<span data-lang="en">Privacy Policy.</span>
-				<span data-lang="de">Datenschutzerklaerung.</span>
-			</div>
-			<nav class="nav-links" aria-label="Primary navigation">
-				<a href="../index.html">Home</a>
-				<a href="../products/account_backend.html">Account Backend</a>
-				<a href="../products/pyimport.html">PyImport</a>
-				<a href="tos.html">Terms</a>
-				<a href="dmca.html">DMCA</a>
+	<header class="site-header">
+		<div class="nav-shell">
+			<a class="brand" href="../index.html">Blockhunter Software</a>
+			<button class="menu-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
+			<nav class="menu" id="main-nav">
+				<a class="menu-link" href="../index.html">
+					<span data-lang="en">Home</span>
+					<span data-lang="de">Start</span>
+				</a>
+				<details class="dropdown">
+					<summary data-label-de="Produkte" data-label-en="Products">Products</summary>
+					<div class="dropdown-menu">
+						<a href="../products/account_backend.html">Account Backend</a>
+						<a href="../products/pyimport.html">PyImport</a>
+					</div>
+				</details>
+				<button class="language-btn" id="lang-toggle" type="button">EN active</button>
 			</nav>
-			<div class="lang-switch" aria-label="Language switcher">
-				<button type="button" data-lang-switch="en">EN</button>
-				<button type="button" data-lang-switch="de">DE</button>
-			</div>
 		</div>
 	</header>
 
 	<main>
 		<section class="hero">
-			<div class="container shell">
-				<article class="panel hero-main">
-					<div class="kicker">Privacy Policy</div>
-					<h1 data-lang="en">How Blockhunter Software handles site data.</h1>
-					<h1 data-lang="de">Wie Blockhunter Software mit Websitedaten umgeht.</h1>
-					<p class="lead" data-lang="en">This policy explains the basic data handling approach for the website, product pages, and contact requests.</p>
-					<p class="lead" data-lang="de">Diese Erklaerung beschreibt den grundlegenden Umgang mit Daten fuer Website, Produktseiten und Kontaktanfragen.</p>
-				</article>
-				<aside class="panel hero-side">
-					<h2 data-lang="en">Key points</h2>
-					<h2 data-lang="de">Kernaussagen</h2>
-					<div class="card" style="margin-top: 1rem;">
-						<p data-lang="en">We keep the policy short and clear: collect the minimum data needed, use it only for the site, and limit retention where possible.</p>
-						<p data-lang="de">Wir halten die Richtlinien kurz und klar: nur noetige Daten erfassen, nur fuer die Seite verwenden und die Speicherung moeglichst begrenzen.</p>
-					</div>
-				</aside>
-			</div>
+			<p class="badge">Blockhunter Software</p>
+			<h1 class="title">
+				<span data-lang="en">Privacy Policy</span>
+				<span data-lang="de">Datenschutzerklärung</span>
+			</h1>
+			<p class="subtitle">
+				<span data-lang="en">Effective date: 12.04.2026</span>
+				<span data-lang="de">Inkrafttreten: 12.04.2026</span>
+			</p>
 		</section>
 
-		<section class="section">
-			<div class="container grid-2">
-				<article class="card">
-					<h2 data-lang="en">English</h2>
-					<h2 data-lang="de">Deutsch</h2>
-					<ul class="list" data-lang="en">
-						<li>We may process basic contact details if you send a message.</li>
-						<li>We may use standard browser or server logs for security and troubleshooting.</li>
-						<li>We do not ask for unnecessary personal information on this static site.</li>
-						<li>Third-party services may apply their own privacy rules if linked from the site.</li>
-						<li>You can request changes or deletion through the contact channel on the site.</li>
-					</ul>
-					<ul class="list" data-lang="de">
-						<li>Wir koennen einfache Kontaktdaten verarbeiten, wenn du uns eine Nachricht sendest.</li>
-						<li>Wir koennen uebliche Browser- oder Server-Logs fuer Sicherheit und Fehleranalyse nutzen.</li>
-						<li>Auf dieser statischen Seite fragen wir keine unnoetigen personenbezogenen Daten ab.</li>
-						<li>Externe Dienste koennen eigene Datenschutzregeln haben, wenn sie von der Seite aus verlinkt sind.</li>
-						<li>Du kannst Aenderungen oder Loeschungen ueber den Kontaktkanal der Seite anfragen.</li>
-					</ul>
-				</article>
-				<article class="card">
-					<h2 data-lang="en">Retention and rights</h2>
-					<h2 data-lang="de">Speicherung und Rechte</h2>
-					<ul class="list" data-lang="en">
-						<li>We retain information only as long as needed for the request or site operation.</li>
-						<li>You may ask what we stored, if anything, about your direct contact with us.</li>
-						<li>If laws require a different handling rule, those rules take precedence.</li>
-					</ul>
-					<ul class="list" data-lang="de">
-						<li>Wir speichern Informationen nur so lange, wie sie fuer die Anfrage oder den Betrieb gebraucht werden.</li>
-						<li>Du kannst fragen, welche Daten wir eventuell zu deinem direkten Kontakt gespeichert haben.</li>
-						<li>Wenn Gesetze eine andere Behandlung verlangen, haben diese Regeln Vorrang.</li>
-					</ul>
-				</article>
-			</div>
+		<section class="content-section">
+			<article class="legal-card" data-lang="en">
+				<h2>1. Controller information</h2>
+				<p>The controller responsible for data processing under this policy is:</p>
+				<ul>
+					<li>Company: Blockhunter Software</li>
+					<li>Location: Germany</li>
+					<li>E-mail: blockhunter.software@gmail.com</li>
+				</ul>
+
+				<h2>2. Data we process</h2>
+				<p>Depending on your interaction with our services, we may process:</p>
+				<ul>
+					<li>Contact details you provide (for example e-mail and support messages).</li>
+					<li>Account and verification related data for backend services.</li>
+					<li>Technical data such as IP address, browser information, timestamps and logs needed for security and stability.</li>
+					<li>Billing and contract data for paid services.</li>
+				</ul>
+
+				<h2>3. Purposes and legal bases</h2>
+				<p>We process personal data for the following purposes:</p>
+				<ul>
+					<li>Providing and operating our products and services.</li>
+					<li>Responding to support and commercial inquiries.</li>
+					<li>Preventing abuse, fraud and security incidents.</li>
+					<li>Fulfilling legal obligations.</li>
+				</ul>
+				<p>Where applicable under GDPR, the legal bases include contract performance (Art. 6(1)(b)), legal obligations (Art. 6(1)(c)), legitimate interests (Art. 6(1)(f)) and consent (Art. 6(1)(a)).</p>
+
+				<h2>4. Retention periods</h2>
+				<p>We keep personal data only as long as required for the purposes described above or as required by law. Data no longer needed is deleted or anonymized where possible.</p>
+
+				<h2>5. Sharing and processors</h2>
+				<p>We may share data with trusted technical providers and service processors who support hosting, security, communication and payment operations. These parties are bound to process data only on documented instructions and with appropriate safeguards.</p>
+
+				<h2>6. International transfers</h2>
+				<p>If data is transferred outside the EU/EEA, we apply appropriate safeguards where legally required (for example standard contractual clauses).</p>
+
+				<h2>7. Security measures</h2>
+				<p>We use reasonable technical and organizational safeguards to protect data against unauthorized access, loss and misuse. No system can guarantee absolute security.</p>
+
+				<h2>8. Your rights</h2>
+				<p>Depending on applicable law, you may have rights to access, rectify, erase, restrict processing, data portability and object to certain processing activities. You may also have the right to lodge a complaint with a supervisory authority.</p>
+				<p>To exercise your rights, contact blockhunter.software@gmail.com.</p>
+
+				<h2>9. Children</h2>
+				<p>Our services are not intentionally directed to children where parental consent is legally required. If you believe a child has provided personal data without proper authorization, contact us so we can take action.</p>
+
+				<h2>10. Policy updates</h2>
+				<p>We may update this Privacy Policy from time to time. The current version will always be published on this page with its effective date.</p>
+
+				<h2>11. Contact</h2>
+				<p>For privacy requests and questions, contact: blockhunter.software@gmail.com.</p>
+			</article>
+
+			<article class="legal-card" data-lang="de">
+				<h2>1. Verantwortliche Stelle</h2>
+				<p>Verantwortlich für die Datenverarbeitung im Sinne dieser Datenschutzerklärung ist:</p>
+				<ul>
+					<li>Unternehmen: Blockhunter Software</li>
+					<li>Sitz: Deutschland</li>
+					<li>E-Mail: blockhunter.software@gmail.com</li>
+				</ul>
+
+				<h2>2. Welche Daten wir verarbeiten</h2>
+				<p>Abhängig von deiner Nutzung verarbeiten wir insbesondere:</p>
+				<ul>
+					<li>Von dir bereitgestellte Kontaktdaten (z. B. E-Mail und Support-Nachrichten).</li>
+					<li>Account- und verifizierungsbezogene Daten für Backend-Services.</li>
+					<li>Technische Daten wie IP-Adresse, Browserinformationen, Zeitstempel und Logs für Sicherheit und Stabilität.</li>
+					<li>Abrechnungs- und Vertragsdaten bei kostenpflichtigen Leistungen.</li>
+				</ul>
+
+				<h2>3. Zwecke und Rechtsgrundlagen</h2>
+				<p>Wir verarbeiten personenbezogene Daten für folgende Zwecke:</p>
+				<ul>
+					<li>Bereitstellung und Betrieb unserer Produkte und Services.</li>
+					<li>Bearbeitung von Support- und kommerziellen Anfragen.</li>
+					<li>Prävention von Missbrauch, Betrug und Sicherheitsvorfällen.</li>
+					<li>Erfüllung gesetzlicher Pflichten.</li>
+				</ul>
+				<p>Soweit DSGVO anwendbar ist, sind Rechtsgrundlagen insbesondere Vertragserfüllung (Art. 6 Abs. 1 lit. b), rechtliche Verpflichtungen (Art. 6 Abs. 1 lit. c), berechtigte Interessen (Art. 6 Abs. 1 lit. f) sowie Einwilligung (Art. 6 Abs. 1 lit. a).</p>
+
+				<h2>4. Speicherdauer</h2>
+				<p>Wir speichern personenbezogene Daten nur so lange, wie dies für die genannten Zwecke oder gesetzlich erforderlich ist. Nicht mehr benötigte Daten werden gelöscht oder soweit möglich anonymisiert.</p>
+
+				<h2>5. Weitergabe und Auftragsverarbeiter</h2>
+				<p>Wir können Daten an vertrauenswürdige technische Dienstleister weitergeben, die Hosting, Sicherheit, Kommunikation oder Zahlungsabwicklung unterstützen. Diese Parteien sind vertraglich gebunden und dürfen Daten nur nach dokumentierter Weisung verarbeiten.</p>
+
+				<h2>6. Internationale Datenübermittlungen</h2>
+				<p>Falls Daten ausserhalb der EU/des EWR übermittelt werden, setzen wir soweit erforderlich geeignete Garantien ein (z. B. Standardvertragsklauseln).</p>
+
+				<h2>7. Sicherheitsmassnahmen</h2>
+				<p>Wir nutzen angemessene technische und organisatorische Massnahmen zum Schutz vor unbefugtem Zugriff, Verlust und Missbrauch. Eine absolute Sicherheit kann kein System garantieren.</p>
+
+				<h2>8. Deine Rechte</h2>
+				<p>Nach anwendbarem Recht stehen dir möglicherweise Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit sowie Widerspruch gegen bestimmte Verarbeitungen zu. Zudem kann ein Beschwerderecht bei einer Aufsichtsbehörde bestehen.</p>
+				<p>Zur Ausübung deiner Rechte schreibe an blockhunter.software@gmail.com.</p>
+
+				<h2>9. Kinder und Minderjährige</h2>
+				<p>Unsere Services richten sich nicht gezielt an Kinder, soweit rechtlich eine Einwilligung der Erziehungsberechtigten erforderlich ist. Wenn du glaubst, dass unzulässig Daten erhoben wurden, kontaktiere uns bitte zur Klärung.</p>
+
+				<h2>10. Änderungen dieser Erklärung</h2>
+				<p>Wir können diese Datenschutzerklärung von Zeit zu Zeit aktualisieren. Die jeweils aktuelle Version ist auf dieser Seite mit Inkrafttretensdatum veröffentlicht.</p>
+
+				<h2>11. Kontakt</h2>
+				<p>Für Datenschutzanfragen und Rückfragen: blockhunter.software@gmail.com.</p>
+			</article>
 		</section>
 	</main>
 
-	<footer class="footer">
-		<div class="container">
-			<p style="margin: 0;" data-lang="en">Privacy Policy for Blockhunter Software.</p>
-			<p style="margin: 0;" data-lang="de">Datenschutzerklaerung fuer Blockhunter Software.</p>
+	<footer class="site-footer">
+		<div class="footer-shell">
+			<p>
+				<span data-lang="en">Copyright <span data-current-year></span> Blockhunter Software. All rights reserved.</span>
+				<span data-lang="de">Copyright <span data-current-year></span> Blockhunter Software. Alle Rechte vorbehalten.</span>
+			</p>
+			<div class="footer-links">
+				<a href="tos.html">
+					<span data-lang="en">Terms of Service</span>
+					<span data-lang="de">Nutzungsbedingungen</span>
+				</a>
+				<a href="p_pol.html">
+					<span data-lang="en">Privacy Policy</span>
+					<span data-lang="de">Datenschutz</span>
+				</a>
+				<a href="dmca.html">DMCA</a>
+			</div>
 		</div>
 	</footer>
 
-	<script>
-		const defaultLanguage = localStorage.getItem('bh-language') || 'en';
-
-		function setLanguage(language) {
-			document.querySelectorAll('[data-lang]').forEach((element) => {
-				element.hidden = element.dataset.lang !== language;
-			});
-
-			document.querySelectorAll('[data-lang-switch]').forEach((button) => {
-				button.classList.toggle('active', button.dataset.langSwitch === language);
-			});
-
-			document.documentElement.lang = language;
-			localStorage.setItem('bh-language', language);
-		}
-
-		window.addEventListener('DOMContentLoaded', () => {
-			document.querySelectorAll('[data-lang-switch]').forEach((button) => {
-				button.addEventListener('click', () => setLanguage(button.dataset.langSwitch));
-			});
-
-			setLanguage(defaultLanguage);
-		});
-	</script>
+	<script src="../assets/site.js" defer></script>
 </body>
 </html>

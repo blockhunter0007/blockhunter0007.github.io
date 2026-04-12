@@ -3,157 +3,148 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Blockhunter Software - DMCA</title>
-	<meta name="description" content="DMCA notice page for Blockhunter Software.">
+	<meta name="description" content="DMCA policy for Blockhunter Software.">
+	<title>Blockhunter Software | DMCA</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
-	<style>
-		:root { --bg: #08111d; --panel: rgba(10, 17, 28, 0.78); --line: rgba(173, 197, 232, 0.18); --text: #f2f7ff; --muted: #a8b8d1; --accent: #66d9ff; --accent-2: #8c7bff; --shadow: 0 24px 90px rgba(0, 0, 0, 0.36); }
-		* { box-sizing: border-box; }
-		html { scroll-behavior: smooth; }
-		body { margin: 0; color: var(--text); font-family: 'Space Grotesk', sans-serif; background: radial-gradient(circle at top left, rgba(102, 217, 255, 0.18), transparent 32%), radial-gradient(circle at top right, rgba(140, 123, 255, 0.16), transparent 28%), linear-gradient(160deg, #050a12 0%, var(--bg) 52%, #050b14 100%); min-height: 100vh; overflow-x: hidden; }
-		body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px); background-size: 56px 56px; mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.9), transparent 82%); pointer-events: none; opacity: 0.3; }
-		a { color: inherit; }
-		h1, h2, h3, .brand strong { font-family: 'Sora', sans-serif; }
-		.container { width: min(1120px, calc(100% - 2rem)); margin: 0 auto; }
-		.topbar { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(18px); background: rgba(5, 10, 18, 0.72); border-bottom: 1px solid var(--line); }
-		.nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 0; }
-		.brand { display: flex; flex-direction: column; gap: 0.15rem; }
-		.brand strong { letter-spacing: 0.14em; text-transform: uppercase; font-size: 1rem; }
-		.brand span { color: var(--muted); font-size: 0.94rem; }
-		.nav-links { display: flex; flex-wrap: wrap; gap: 0.6rem; }
-		.nav-links a { text-decoration: none; border: 1px solid transparent; background: rgba(255, 255, 255, 0.04); padding: 0.62rem 0.92rem; border-radius: 999px; }
-		.nav-links a:hover { border-color: var(--line); background: rgba(255, 255, 255, 0.07); }
-		.lang-switch { display: flex; gap: 0.35rem; padding: 0.25rem; border-radius: 999px; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.04); }
-		.lang-switch button { border: 0; background: transparent; color: var(--muted); padding: 0.56rem 0.88rem; border-radius: 999px; cursor: pointer; font: inherit; }
-		.lang-switch button.active { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #08111d; }
-		.hero { padding: 4.5rem 0 2rem; }
-		.shell { display: grid; gap: 1.2rem; grid-template-columns: repeat(12, minmax(0, 1fr)); }
-		.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 26px; padding: clamp(1.15rem, 2vw, 2rem); box-shadow: var(--shadow); }
-		.hero-main { grid-column: span 8; }
-		.hero-side { grid-column: span 4; }
-		.kicker { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.42rem 0.75rem; border-radius: 999px; color: var(--accent); border: 1px solid rgba(102, 217, 255, 0.22); background: rgba(102, 217, 255, 0.08); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.84rem; }
-		h1 { margin: 1rem 0 0; font-size: clamp(2.4rem, 6vw, 4.4rem); line-height: 1.02; }
-		.lead { margin: 1rem 0 0; max-width: 64ch; color: var(--muted); font-size: clamp(1.03rem, 2vw, 1.18rem); line-height: 1.7; }
-		.section { padding: 1rem 0 2rem; }
-		.grid-2 { display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-		.card { padding: 1.1rem; border-radius: 20px; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.04); }
-		.list { margin: 0; padding-left: 1.1rem; color: var(--muted); line-height: 1.75; }
-		.footer { padding: 1.2rem 0 2.5rem; color: var(--muted); font-size: 0.95rem; }
-		@media (max-width: 900px) { .hero-main, .hero-side { grid-column: span 12; } .nav { flex-direction: column; align-items: flex-start; } }
-		@media (max-width: 680px) { .grid-2 { grid-template-columns: 1fr; } }
-	</style>
+	<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Exo+2:wght@400;500;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-	<header class="topbar">
-		<div class="container nav">
-			<div class="brand">
-				<strong>Blockhunter Software</strong>
-				<span data-lang="en">DMCA notice.</span>
-				<span data-lang="de">DMCA-Hinweis.</span>
-			</div>
-			<nav class="nav-links" aria-label="Primary navigation">
-				<a href="../index.html">Home</a>
-				<a href="../products/account_backend.html">Account Backend</a>
-				<a href="../products/pyimport.html">PyImport</a>
-				<a href="tos.html">Terms</a>
-				<a href="p_pol.html">Privacy</a>
+	<header class="site-header">
+		<div class="nav-shell">
+			<a class="brand" href="../index.html">Blockhunter Software</a>
+			<button class="menu-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
+			<nav class="menu" id="main-nav">
+				<a class="menu-link" href="../index.html">
+					<span data-lang="en">Home</span>
+					<span data-lang="de">Start</span>
+				</a>
+				<details class="dropdown">
+					<summary data-label-de="Produkte" data-label-en="Products">Products</summary>
+					<div class="dropdown-menu">
+						<a href="../products/account_backend.html">Account Backend</a>
+						<a href="../products/pyimport.html">PyImport</a>
+					</div>
+				</details>
+				<button class="language-btn" id="lang-toggle" type="button">EN active</button>
 			</nav>
-			<div class="lang-switch" aria-label="Language switcher">
-				<button type="button" data-lang-switch="en">EN</button>
-				<button type="button" data-lang-switch="de">DE</button>
-			</div>
 		</div>
 	</header>
 
 	<main>
 		<section class="hero">
-			<div class="container shell">
-				<article class="panel hero-main">
-					<div class="kicker">DMCA</div>
-					<h1 data-lang="en">How to report copyright concerns on the site.</h1>
-					<h1 data-lang="de">So meldest du Urheberrechtsprobleme auf der Seite.</h1>
-					<p class="lead" data-lang="en">This page explains the information needed for a takedown notice and the general handling of copyright complaints.</p>
-					<p class="lead" data-lang="de">Diese Seite erklaert, welche Angaben fuer eine Loeschmeldung benoetigt werden und wie urheberrechtliche Beschwerden grundsaetzlich behandelt werden.</p>
-				</article>
-				<aside class="panel hero-side">
-					<h2 data-lang="en">Notice format</h2>
-					<h2 data-lang="de">Meldungsformat</h2>
-					<div class="card" style="margin-top: 1rem;">
-						<p data-lang="en">Include the content location, the work you believe is infringed, your contact details, and a good-faith statement.</p>
-						<p data-lang="de">Nenne den Ort des Inhalts, das betroffene Werk, deine Kontaktdaten und eine Erklaerung nach bestem Wissen.</p>
-					</div>
-				</aside>
-			</div>
+			<p class="badge">Blockhunter Software</p>
+			<h1 class="title">DMCA</h1>
+			<p class="subtitle">
+				<span data-lang="en">Effective date: 12.04.2026</span>
+				<span data-lang="de">Inkrafttreten: 12.04.2026</span>
+			</p>
 		</section>
 
-		<section class="section">
-			<div class="container grid-2">
-				<article class="card">
-					<h2 data-lang="en">English</h2>
-					<h2 data-lang="de">Deutsch</h2>
-					<ul class="list" data-lang="en">
-						<li>Send a clear description of the allegedly infringing material.</li>
-						<li>Provide the exact page or file location if possible.</li>
-						<li>Include a statement that you are authorized to act for the rights holder.</li>
-						<li>Explain how we can contact you about the report.</li>
-						<li>We may remove or restrict content after reviewing a valid notice.</li>
-					</ul>
-					<ul class="list" data-lang="de">
-						<li>Sende eine klare Beschreibung des angeblich verletzenden Materials.</li>
-						<li>Nenne moeglichst die genaue Seiten- oder Dateiposition.</li>
-						<li>Fuege eine Erklaerung hinzu, dass du fuer den Rechteinhaber handeln darfst.</li>
-						<li>Erklaere, wie wir dich zu der Meldung kontaktieren koennen.</li>
-						<li>Nach Pruefung einer gueltigen Meldung koennen Inhalte entfernt oder eingeschraenkt werden.</li>
-					</ul>
-				</article>
-				<article class="card">
-					<h2 data-lang="en">Counter notice</h2>
-					<h2 data-lang="de">Gegenmitteilung</h2>
-					<ul class="list" data-lang="en">
-						<li>If you believe content was removed by mistake, explain why and provide supporting details.</li>
-						<li>Only send a counter notice if you have a lawful basis to do so.</li>
-					</ul>
-					<ul class="list" data-lang="de">
-						<li>Wenn du glaubst, dass Inhalte versehentlich entfernt wurden, erklaere warum und liefere Belege.</li>
-						<li>Schicke eine Gegenmitteilung nur, wenn du dafuer eine rechtliche Grundlage hast.</li>
-					</ul>
-				</article>
-			</div>
+		<section class="content-section">
+			<article class="legal-card" data-lang="en">
+				<h2>1. Copyright policy</h2>
+				<p>Blockhunter Software respects intellectual property rights and responds to valid copyright complaints. If you believe your copyrighted work has been used in a way that constitutes infringement, submit a notice as described below.</p>
+
+				<h2>2. How to submit a DMCA notice</h2>
+				<p>Your notice must include sufficient information for us to evaluate the claim. Please provide:</p>
+				<ol>
+					<li>Your full legal name and contact information (e-mail and mailing address).</li>
+					<li>A clear description of the copyrighted work claimed to be infringed.</li>
+					<li>The exact URL or location of the allegedly infringing material.</li>
+					<li>A statement that you have a good-faith belief the use is not authorized by the copyright owner, agent or law.</li>
+					<li>A statement that the information in your notice is accurate and, under penalty of perjury, that you are authorized to act on behalf of the rights holder.</li>
+					<li>Your physical or electronic signature.</li>
+				</ol>
+
+				<h2>3. Notice delivery</h2>
+				<p>Send DMCA notices to: blockhunter.software@gmail.com</p>
+				<p>Subject recommendation: "DMCA Notice"</p>
+
+				<h2>4. Repeat infringement</h2>
+				<p>We may suspend or terminate access for users or partners who repeatedly infringe intellectual property rights where legally appropriate.</p>
+
+				<h2>5. Counter-notice procedure</h2>
+				<p>If you believe your material was removed or disabled by mistake or misidentification, you may submit a counter-notice including:</p>
+				<ol>
+					<li>Your full legal name, contact information and signature.</li>
+					<li>Identification of the removed material and its previous location.</li>
+					<li>A statement under penalty of perjury that you have a good-faith belief the material was removed due to mistake or misidentification.</li>
+					<li>A statement that you consent to the jurisdiction of the competent court as applicable by law.</li>
+				</ol>
+				<p>Counter-notices can also be sent to blockhunter.software@gmail.com.</p>
+
+				<h2>6. Processing and restoration</h2>
+				<p>After receiving a complete notice, we may remove or restrict access to the reported material while reviewing the request. Where legally required and appropriate, we may forward the complaint to the affected user.</p>
+				<p>If a valid counter-notice is received, we may restore the material unless the original complainant initiates legal action within the applicable legal period.</p>
+
+				<h2>7. Good-faith use</h2>
+				<p>Submitting false or abusive takedown claims may have legal consequences. Please ensure all submitted information is truthful and complete.</p>
+			</article>
+
+			<article class="legal-card" data-lang="de">
+				<h2>1. Urheberrechtsrichtlinie</h2>
+				<p>Blockhunter Software respektiert Rechte am geistigen Eigentum und reagiert auf berechtigte Urheberrechtsbeschwerden. Wenn du der Ansicht bist, dass urheberrechtlich geschütztes Material rechtsverletzend genutzt wird, sende bitte eine Meldung gemäss den folgenden Angaben.</p>
+
+				<h2>2. Einreichung einer DMCA-Meldung</h2>
+				<p>Die Meldung muss ausreichende Informationen enthalten, damit wir den Anspruch prüfen können. Bitte gib an:</p>
+				<ol>
+					<li>Vollständiger Name sowie Kontaktdaten (E-Mail und Postanschrift).</li>
+					<li>Klare Beschreibung des urheberrechtlich geschützten Werks.</li>
+					<li>Exakte URL oder Position des angeblich rechtsverletzenden Inhalts.</li>
+					<li>Erklärung, dass du nach Treu und Glauben davon ausgehst, dass die Nutzung nicht durch Rechteinhaber, Vertreter oder Gesetz erlaubt ist.</li>
+					<li>Erklärung, dass die Angaben richtig sind und du unter Strafandrohung berechtigt bist, im Namen des Rechteinhabers zu handeln.</li>
+					<li>Physische oder elektronische Unterschrift.</li>
+				</ol>
+
+				<h2>3. übermittlung der Meldung</h2>
+				<p>DMCA-Meldungen bitte an: blockhunter.software@gmail.com</p>
+				<p>Empfohlener Betreff: "DMCA Notice"</p>
+
+				<h2>4. Wiederholte Rechtsverletzungen</h2>
+				<p>Wir können den Zugriff von Nutzern oder Partnern aussetzen oder beenden, wenn wiederholt Verletzungen geistiger Eigentumsrechte vorliegen und dies rechtlich zulässig ist.</p>
+
+				<h2>5. Gegendarstellung (Counter-Notice)</h2>
+				<p>Wenn du glaubst, dass Inhalte irrtümlich oder aufgrund falscher Zuordnung entfernt wurden, kannst du eine Gegendarstellung einreichen mit:</p>
+				<ol>
+					<li>Vollständigem Namen, Kontaktdaten und Unterschrift.</li>
+					<li>Bezeichnung des entfernten Inhalts und dessen vorheriger Position.</li>
+					<li>Erklärung unter Strafandrohung, dass nach Treu und Glauben ein Irrtum oder eine Fehlzuordnung vorliegt.</li>
+					<li>Erklärung, dass du dich der Zuständigkeit des gesetzlich einschlägigen Gerichts unterwirfst.</li>
+				</ol>
+				<p>Auch Gegendarstellungen können an blockhunter.software@gmail.com gesendet werden.</p>
+
+				<h2>6. Bearbeitung und Wiederherstellung</h2>
+				<p>Nach Eingang einer vollständigen Meldung können wir den gemeldeten Inhalt während der Prüfung entfernen oder den Zugriff einschranken. Soweit rechtlich erforderlich und angemessen, können wir die Beschwerde an den betroffenen Nutzer weiterleiten.</p>
+				<p>Wenn eine gültige Gegendarstellung eingeht, kann eine Wiederherstellung erfolgen, sofern innerhalb der geltenden Frist keine rechtlichen Schritte durch den ursprünglichen Beschwerdeführer eingeleitet werden.</p>
+
+				<h2>7. Meldungen nach Treu und Glauben</h2>
+				<p>Falsche oder missbräuchliche Takedown-Meldungen können rechtliche Folgen haben. Bitte stelle sicher, dass alle Angaben wahrheitsgemäss und vollständig sind.</p>
+			</article>
 		</section>
 	</main>
 
-	<footer class="footer">
-		<div class="container">
-			<p style="margin: 0;" data-lang="en">DMCA page for Blockhunter Software.</p>
-			<p style="margin: 0;" data-lang="de">DMCA-Seite fuer Blockhunter Software.</p>
+	<footer class="site-footer">
+		<div class="footer-shell">
+			<p>
+				<span data-lang="en">Copyright <span data-current-year></span> Blockhunter Software. All rights reserved.</span>
+				<span data-lang="de">Copyright <span data-current-year></span> Blockhunter Software. Alle Rechte vorbehalten.</span>
+			</p>
+			<div class="footer-links">
+				<a href="tos.html">
+					<span data-lang="en">Terms of Service</span>
+					<span data-lang="de">Nutzungsbedingungen</span>
+				</a>
+				<a href="p_pol.html">
+					<span data-lang="en">Privacy Policy</span>
+					<span data-lang="de">Datenschutz</span>
+				</a>
+				<a href="dmca.html">DMCA</a>
+			</div>
 		</div>
 	</footer>
 
-	<script>
-		const defaultLanguage = localStorage.getItem('bh-language') || 'en';
-
-		function setLanguage(language) {
-			document.querySelectorAll('[data-lang]').forEach((element) => {
-				element.hidden = element.dataset.lang !== language;
-			});
-
-			document.querySelectorAll('[data-lang-switch]').forEach((button) => {
-				button.classList.toggle('active', button.dataset.langSwitch === language);
-			});
-
-			document.documentElement.lang = language;
-			localStorage.setItem('bh-language', language);
-		}
-
-		window.addEventListener('DOMContentLoaded', () => {
-			document.querySelectorAll('[data-lang-switch]').forEach((button) => {
-				button.addEventListener('click', () => setLanguage(button.dataset.langSwitch));
-			});
-
-			setLanguage(defaultLanguage);
-		});
-	</script>
+	<script src="../assets/site.js" defer></script>
 </body>
 </html>

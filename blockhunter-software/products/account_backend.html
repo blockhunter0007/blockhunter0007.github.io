@@ -3,221 +3,182 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Blockhunter Software - Account Backend</title>
 	<meta name="description" content="Account Backend product page for Blockhunter Software.">
+	<title>Blockhunter Software | Account Backend</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
-	<style>
-		:root {
-			--bg: #08111d;
-			--panel: rgba(10, 17, 28, 0.78);
-			--line: rgba(173, 197, 232, 0.18);
-			--text: #f2f7ff;
-			--muted: #a8b8d1;
-			--accent: #66d9ff;
-			--accent-2: #8c7bff;
-			--shadow: 0 24px 90px rgba(0, 0, 0, 0.36);
-		}
-		* { box-sizing: border-box; }
-		html { scroll-behavior: smooth; }
-		body {
-			margin: 0;
-			color: var(--text);
-			font-family: 'Space Grotesk', sans-serif;
-			background:
-				radial-gradient(circle at top left, rgba(102, 217, 255, 0.18), transparent 32%),
-				radial-gradient(circle at top right, rgba(140, 123, 255, 0.16), transparent 28%),
-				linear-gradient(160deg, #050a12 0%, var(--bg) 52%, #050b14 100%);
-			min-height: 100vh;
-			overflow-x: hidden;
-		}
-		body::before {
-			content: '';
-			position: fixed;
-			inset: 0;
-			background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-			background-size: 56px 56px;
-			mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.9), transparent 82%);
-			pointer-events: none;
-			opacity: 0.3;
-		}
-		a { color: inherit; }
-		h1, h2, h3, .brand strong { font-family: 'Sora', sans-serif; }
-		.container { width: min(1120px, calc(100% - 2rem)); margin: 0 auto; }
-		.topbar { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(18px); background: rgba(5, 10, 18, 0.72); border-bottom: 1px solid var(--line); }
-		.nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 0; }
-		.brand { display: flex; flex-direction: column; gap: 0.15rem; }
-		.brand strong { letter-spacing: 0.14em; text-transform: uppercase; font-size: 1rem; }
-		.brand span { color: var(--muted); font-size: 0.94rem; }
-		.nav-links { display: flex; flex-wrap: wrap; gap: 0.6rem; }
-		.nav-links a { text-decoration: none; border: 1px solid transparent; background: rgba(255, 255, 255, 0.04); padding: 0.62rem 0.92rem; border-radius: 999px; }
-		.nav-links a:hover { border-color: var(--line); background: rgba(255, 255, 255, 0.07); }
-		.lang-switch { display: flex; gap: 0.35rem; padding: 0.25rem; border-radius: 999px; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.04); }
-		.lang-switch button { border: 0; background: transparent; color: var(--muted); padding: 0.56rem 0.88rem; border-radius: 999px; cursor: pointer; font: inherit; }
-		.lang-switch button.active { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #08111d; }
-		.hero { padding: 4.5rem 0 2rem; }
-		.shell { display: grid; gap: 1.2rem; grid-template-columns: repeat(12, minmax(0, 1fr)); }
-		.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 26px; padding: clamp(1.15rem, 2vw, 2rem); box-shadow: var(--shadow); }
-		.hero-main { grid-column: span 7; }
-		.hero-side { grid-column: span 5; }
-		.kicker { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.42rem 0.75rem; border-radius: 999px; color: var(--accent); border: 1px solid rgba(102, 217, 255, 0.22); background: rgba(102, 217, 255, 0.08); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.84rem; }
-		h1 { margin: 1rem 0 0; font-size: clamp(2.4rem, 6vw, 4.7rem); line-height: 1.02; }
-		.lead { margin: 1rem 0 0; max-width: 64ch; color: var(--muted); font-size: clamp(1.03rem, 2vw, 1.18rem); line-height: 1.7; }
-		.actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.6rem; }
-		.button { display: inline-flex; align-items: center; justify-content: center; padding: 0.92rem 1.18rem; border-radius: 999px; border: 1px solid var(--line); text-decoration: none; font-weight: 700; background: rgba(255, 255, 255, 0.03); }
-		.button.primary { border-color: transparent; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #09111d; }
-		.card-grid { display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-		.card { padding: 1.1rem; border-radius: 20px; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.04); }
-		.card h3 { margin: 0 0 0.5rem; font-size: 1.1rem; }
-		.card p { margin: 0; color: var(--muted); line-height: 1.65; }
-		.section { padding: 1rem 0 2rem; }
-		.grid-2 { display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-		.list { margin: 0; padding-left: 1.1rem; color: var(--muted); line-height: 1.75; }
-		.footer { padding: 1.2rem 0 2.5rem; color: var(--muted); font-size: 0.95rem; }
-		@media (max-width: 900px) {
-			.hero-main, .hero-side { grid-column: span 12; }
-			.nav { flex-direction: column; align-items: flex-start; }
-		}
-		@media (max-width: 680px) {
-			.grid-2, .card-grid { grid-template-columns: 1fr; }
-		}
-	</style>
+	<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Exo+2:wght@400;500;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-	<header class="topbar">
-		<div class="container nav">
-			<div class="brand">
-				<strong>Blockhunter Software</strong>
-				<span data-lang="en">Product page for account infrastructure.</span>
-				<span data-lang="de">Produktseite fuer Account-Infrastruktur.</span>
-			</div>
-			<nav class="nav-links" aria-label="Primary navigation">
-				<a href="../index.html">Home</a>
-				<a href="base.html">Base</a>
-				<a href="pyimport.html">PyImport</a>
-				<a href="../legal/tos.html">Terms</a>
-				<a href="../legal/p_pol.html">Privacy</a>
-				<a href="../legal/dmca.html">DMCA</a>
+	<header class="site-header">
+		<div class="nav-shell">
+			<a class="brand" href="../index.html">Blockhunter Software</a>
+			<button class="menu-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
+			<nav class="menu" id="main-nav">
+				<a class="menu-link" href="../index.html">
+					<span data-lang="en">Home</span>
+					<span data-lang="de">Start</span>
+				</a>
+				<details class="dropdown" open>
+					<summary data-label-de="Produkte" data-label-en="Products">Products</summary>
+					<div class="dropdown-menu">
+						<a href="account_backend.html">Account Backend</a>
+						<a href="pyimport.html">PyImport</a>
+					</div>
+				</details>
+				<button class="language-btn" id="lang-toggle" type="button">EN active</button>
 			</nav>
-			<div class="lang-switch" aria-label="Language switcher">
-				<button type="button" data-lang-switch="en">EN</button>
-				<button type="button" data-lang-switch="de">DE</button>
-			</div>
 		</div>
 	</header>
 
 	<main>
 		<section class="hero">
-			<div class="container shell">
-				<article class="panel hero-main">
-					<div class="kicker">Account Backend</div>
-					<h1 data-lang="en">Secure account infrastructure for modern apps.</h1>
-					<h1 data-lang="de">Sichere Account-Infrastruktur fuer moderne Apps.</h1>
-					<p class="lead" data-lang="en">Account Backend is the product page for a service layer that handles users, sessions, admin workflows, and structured account data. It is designed for clean integration and a clear operational model.</p>
-					<p class="lead" data-lang="de">Account Backend ist die Produktseite fuer eine Service-Schicht, die Nutzer, Sessions, Admin-Workflows und strukturierte Kontodaten verarbeitet. Sie ist fuer klare Integration und einen sauberen Betriebsablauf ausgelegt.</p>
-					<div class="actions">
-						<a class="button primary" href="pyimport.html" data-lang="en">See the next product</a>
-						<a class="button primary" href="pyimport.html" data-lang="de">Naechstes Produkt ansehen</a>
-						<a class="button" href="base.html" data-lang="en">Open the base</a>
-						<a class="button" href="base.html" data-lang="de">Basis oeffnen</a>
-					</div>
-				</article>
-				<aside class="panel hero-side">
-					<h2 data-lang="en">Core focus</h2>
-					<h2 data-lang="de">Kernfokus</h2>
-					<div class="card-grid" style="margin-top: 1rem;">
-						<div class="card">
-							<h3 data-lang="en">Identity</h3>
-							<h3 data-lang="de">Identitaet</h3>
-							<p data-lang="en">User records, login state, and account access paths.</p>
-							<p data-lang="de">Benutzerdaten, Login-Zustaende und Zugriffswege.</p>
-						</div>
-						<div class="card">
-							<h3 data-lang="en">Admin flow</h3>
-							<h3 data-lang="de">Admin-Ablauf</h3>
-							<p data-lang="en">Clear operations for review, support, and moderation.</p>
-							<p data-lang="de">Klare Prozesse fuer Pruefung, Support und Moderation.</p>
-						</div>
-						<div class="card">
-							<h3 data-lang="en">Data handling</h3>
-							<h3 data-lang="de">Datenverarbeitung</h3>
-							<p data-lang="en">Structured input, traceable updates, and predictable output.</p>
-							<p data-lang="de">Strukturierte Eingaben, nachvollziehbare Updates und klares Ergebnis.</p>
-						</div>
-						<div class="card">
-							<h3 data-lang="en">Delivery</h3>
-							<h3 data-lang="de">Lieferung</h3>
-							<p data-lang="en">Easy to present, easy to document, and easy to extend.</p>
-							<p data-lang="de">Leicht praesentierbar, dokumentierbar und erweiterbar.</p>
-						</div>
-					</div>
-				</aside>
+			<p class="badge">Account Backend</p>
+			<h1 class="title">
+				<span data-lang="en">Flexible account system for verification and user data workflows</span>
+				<span data-lang="de">Flexibles Account-System für Verifizierung und Nutzerdaten-Workflows</span>
+			</h1>
+			<p class="subtitle">
+				<span data-lang="en">Choose between a dedicated setup hosted for your company or the shared Blockhunter account network for lower entry costs.</span>
+				<span data-lang="de">Wähle zwischen einem dedizierten Setup für dein Unternehmen oder dem geteilten Blockhunter-Account-Netzwerk mit niedrigerem Einstiegspreis.</span>
+			</p>
+			<div class="cta-row">
+				<a class="btn" href="https://discord.gg/arY9P67pZe" target="_blank" rel="noopener noreferrer">
+					<span data-lang="en">Request details on Discord</span>
+					<span data-lang="de">Details auf Discord anfragen</span>
+				</a>
+				<a class="btn secondary" href="mailto:blockhunter.software@gmail.com">blockhunter.software@gmail.com</a>
 			</div>
 		</section>
 
-		<section class="section">
-			<div class="container grid-2">
-				<article class="panel">
-					<h2 data-lang="en">What this page communicates</h2>
-					<h2 data-lang="de">Was diese Seite vermittelt</h2>
-					<ul class="list" data-lang="en">
-						<li>The product supports clean account workflows.</li>
-						<li>The layout matches the rest of Blockhunter Software.</li>
-						<li>The bilingual copy makes the page usable for both audiences.</li>
-					</ul>
-					<ul class="list" data-lang="de">
-						<li>Das Produkt unterstuetzt saubere Account-Workflows.</li>
-						<li>Das Layout passt zur restlichen Blockhunter-Software.</li>
-						<li>Die zweisprachigen Texte machen die Seite fuer beide Zielgruppen nutzbar.</li>
+		<section class="content-section">
+			<h2 class="section-title">
+				<span data-lang="en">Deployment options</span>
+				<span data-lang="de">Deployment-Optionen</span>
+			</h2>
+			<div class="grid grid-2">
+				<article class="card">
+					<h3>
+						<span data-lang="en">Dedicated company backend</span>
+						<span data-lang="de">Dediziertes Firmen-Backend</span>
+					</h3>
+					<p>
+						<span data-lang="en">Blockhunter Software hosts and operates a custom account system for your business with verification and storage workflows tailored to your product.</span>
+						<span data-lang="de">Blockhunter Software hostet und betreibt ein individuelles Account-System für dein Unternehmen mit auf dein Produkt angepassten Verifizierungs- und Speicherabläufen.</span>
+					</p>
+					<ul class="pill-list">
+						<li>
+							<span data-lang="en">Custom deployment setup</span>
+							<span data-lang="de">Individuelles Deployment-Setup</span>
+						</li>
+						<li>
+							<span data-lang="en">Managed operations</span>
+							<span data-lang="de">Gemanagte Betriebsführung</span>
+						</li>
+						<li>
+							<span data-lang="en">Monthly pricing on request</span>
+							<span data-lang="de">Monatlicher Preis auf Anfrage</span>
+						</li>
 					</ul>
 				</article>
-				<article class="panel">
-					<h2 data-lang="en">Good fit for</h2>
-					<h2 data-lang="de">Geeignet fuer</h2>
-					<div class="actions" style="margin-top: 0.8rem;">
-						<span class="button">Web apps</span>
-						<span class="button">Admin panels</span>
-						<span class="button">Service APIs</span>
-						<span class="button">Support tools</span>
-					</div>
-					<p class="lead" style="margin-top: 1rem; font-size: 1.05rem;" data-lang="en">Use this product page for any account-related feature set that needs a premium presentation.</p>
-					<p class="lead" style="margin-top: 1rem; font-size: 1.05rem;" data-lang="de">Nutze diese Produktseite fuer jede accountbezogene Funktion, die eine hochwertige Praesentation braucht.</p>
+
+				<article class="card">
+					<h3>
+						<span data-lang="en">Shared Blockhunter account network</span>
+						<span data-lang="de">Geteiltes Blockhunter-Account-Netzwerk</span>
+					</h3>
+					<p>
+						<span data-lang="en">A lower-cost option where your customers keep a Blockhunter account that can be reused across participating companies and services.</span>
+						<span data-lang="de">Eine günstigere Option, bei der deine Kunden einen Blockhunter-Account nutzen, der bei mehreren teilnehmenden Unternehmen und Services verwendet werden kann.</span>
+					</p>
+					<ul class="pill-list">
+						<li>
+							<span data-lang="en">Lower setup effort</span>
+							<span data-lang="de">Geringerer Setup-Aufwand</span>
+						</li>
+						<li>
+							<span data-lang="en">Cross-service account reuse</span>
+							<span data-lang="de">Account-Wiederverwendung über mehrere Services</span>
+						</li>
+						<li>
+							<span data-lang="en">Pricing on request</span>
+							<span data-lang="de">Preis auf Anfrage</span>
+						</li>
+					</ul>
 				</article>
 			</div>
+		</section>
+
+		<section class="content-section">
+			<h2 class="section-title">
+				<span data-lang="en">Core capabilities</span>
+				<span data-lang="de">Kernfunktionen</span>
+			</h2>
+			<div class="grid grid-3">
+				<article class="card">
+					<h3>
+						<span data-lang="en">User verification</span>
+						<span data-lang="de">Nutzerverifizierung</span>
+					</h3>
+					<p>
+						<span data-lang="en">Identity checks and account verification flows for trusted onboarding.</span>
+						<span data-lang="de">Identity-Checks und Account-Verifizierungsabläufe für vertraünswürdiges Onboarding.</span>
+					</p>
+				</article>
+				<article class="card">
+					<h3>
+						<span data-lang="en">Secure data storage</span>
+						<span data-lang="de">Sicherer Datenspeicher</span>
+					</h3>
+					<p>
+						<span data-lang="en">Account-related data storage with support-oriented management and monitoring.</span>
+						<span data-lang="de">Account-bezogener Datenspeicher mit supportorientierter Verwaltung und Monitoring.</span>
+					</p>
+				</article>
+				<article class="card">
+					<h3>
+						<span data-lang="en">Integration-friendly workflows</span>
+						<span data-lang="de">Integrationsfreundliche Workflows</span>
+					</h3>
+					<p>
+						<span data-lang="en">Designed to connect with existing company applications and customer systems.</span>
+						<span data-lang="de">Entwickelt für die Anbindung an bestehende Firmenanwendungen und Kundensysteme.</span>
+					</p>
+				</article>
+			</div>
+		</section>
+
+		<section class="content-section">
+			<article class="card note">
+				<p>
+					<span data-lang="en"><strong>Status:</strong> Availability and final pricing are handled on request through Discord Customer Support: https://discord.gg/arY9P67pZe</span>
+					<span data-lang="de"><strong>Status:</strong> Verfügbarkeit und finaler Preis werden auf Anfrage über Discord Customer Support geklärt: https://discord.gg/arY9P67pZe</span>
+				</p>
+			</article>
 		</section>
 	</main>
 
-	<footer class="footer">
-		<div class="container">
-			<p style="margin: 0;" data-lang="en">Blockhunter Software product page: Account Backend.</p>
-			<p style="margin: 0;" data-lang="de">Blockhunter Software Produktseite: Account Backend.</p>
+	<footer class="site-footer">
+		<div class="footer-shell">
+			<p>
+				<span data-lang="en">Copyright <span data-current-year></span> Blockhunter Software. All rights reserved.</span>
+				<span data-lang="de">Copyright <span data-current-year></span> Blockhunter Software. Alle Rechte vorbehalten.</span>
+			</p>
+			<div class="footer-links">
+				<a href="../legal/tos.html">
+					<span data-lang="en">Terms of Service</span>
+					<span data-lang="de">Nutzungsbedingungen</span>
+				</a>
+				<a href="../legal/p_pol.html">
+					<span data-lang="en">Privacy Policy</span>
+					<span data-lang="de">Datenschutz</span>
+				</a>
+				<a href="../legal/dmca.html">DMCA</a>
+			</div>
 		</div>
 	</footer>
 
-	<script>
-		const defaultLanguage = localStorage.getItem('bh-language') || 'en';
-
-		function setLanguage(language) {
-			document.querySelectorAll('[data-lang]').forEach((element) => {
-				element.hidden = element.dataset.lang !== language;
-			});
-
-			document.querySelectorAll('[data-lang-switch]').forEach((button) => {
-				button.classList.toggle('active', button.dataset.langSwitch === language);
-			});
-
-			document.documentElement.lang = language;
-			localStorage.setItem('bh-language', language);
-		}
-
-		window.addEventListener('DOMContentLoaded', () => {
-			document.querySelectorAll('[data-lang-switch]').forEach((button) => {
-				button.addEventListener('click', () => setLanguage(button.dataset.langSwitch));
-			});
-
-			setLanguage(defaultLanguage);
-		});
-	</script>
+	<script src="../assets/site.js" defer></script>
 </body>
 </html>
