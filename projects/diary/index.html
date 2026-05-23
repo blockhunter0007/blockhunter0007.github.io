@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diary – by Blockhunter Software</title>
+<meta name="description" content="A quiet place for your thoughts. Private, offline, and just for you.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Nunito:wght@300;400;500;600&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ─── CSS Variables ─────────────────────────────────────── */
+:root {
+  --bg: #fdf8f5;
+  --bg2: #fef0f4;
+  --surface: rgba(255,255,255,0.72);
+  --surface2: rgba(255,240,248,0.6);
+  --border: rgba(220,180,200,0.3);
+  --text: #3a2a35;
+  --text-soft: #7a5a6a;
+  --text-muted: #b08898;
+  --accent: #e87fa0;
+  --accent2: #c97bb8;
+  --accent-soft: rgba(232,127,160,0.15);
+  --accent-glow: rgba(232,127,160,0.3);
+  --gold: #d4956a;
+  --radius: 20px;
+  --radius-lg: 32px;
+  --shadow: 0 4px 32px rgba(180,100,130,0.12);
+  --shadow-lg: 0 12px 60px rgba(180,100,130,0.18);
+  --font-body: 'Nunito', sans-serif;
+  --font-serif: 'Lora', serif;
+  --font-hand: 'Caveat', cursive;
+  --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+[data-theme="dark"] {
+  --bg: #16101c;
+  --bg2: #1e1428;
+  --surface: rgba(36,24,48,0.85);
+  --surface2: rgba(48,30,64,0.6);
+  --border: rgba(140,80,180,0.2);
+  --text: #f0e4f5;
+  --text-soft: #c4a8d8;
+  --text-muted: #8a6aa0;
+  --accent: #c67de8;
+  --accent2: #9b6ec4;
+  --accent-soft: rgba(198,125,232,0.12);
+  --accent-glow: rgba(198,125,232,0.25);
+  --gold: #e8b87a;
+  --shadow: 0 4px 32px rgba(100,40,140,0.3);
+  --shadow-lg: 0 12px 60px rgba(100,40,140,0.4);
+}
+
+/* ─── Reset & Base ──────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  overflow-x: hidden;
+  transition: background var(--transition), color var(--transition);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+}
+
+/* ─── Typography ────────────────────────────────────────── */
+h1, h2, h3 { font-family: var(--font-serif); font-weight: 500; line-height: 1.25; }
+h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); }
+h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
+h3 { font-size: 1.1rem; }
+p { font-size: 1rem; color: var(--text-soft); }
+
+.hand { font-family: var(--font-hand); }
+
+/* ─── Background Canvas ─────────────────────────────────── */
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.55;
+}
+
+/* ─── Countdown Overlay ─────────────────────────────────── */
+#countdown-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+#countdown-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(1.05);
+}
+
+.cd-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 40%, #3a1a4e 0%, #1a0d28 60%, #0e0818 100%);
+}
+
+[data-theme="dark"] .cd-bg {
+  background: radial-gradient(ellipse at 50% 40%, #2d1242 0%, #160825 60%, #0a0514 100%);
+}
+
+#cd-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.cd-inner {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: #f0e0ff;
+  padding: 2rem;
+}
+
+.cd-title {
+  font-family: var(--font-hand);
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  color: #f8eaff;
+  text-shadow: 0 0 40px rgba(200,120,255,0.6), 0 0 80px rgba(200,120,255,0.3);
+  margin-bottom: 0.5rem;
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.cd-subtitle {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: rgba(220,180,255,0.7);
+  margin-bottom: 3rem;
+  letter-spacing: 0.05em;
+}
+
+.cd-tagline {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  color: rgba(245,210,255,0.85);
+  margin-bottom: 3.5rem;
+  max-width: 480px;
+  line-height: 1.5;
+}
+
+.cd-units {
+  display: flex;
+  gap: clamp(1rem, 4vw, 3rem);
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+
+.cd-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.cd-num {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-weight: 600;
+  color: #fff;
+  line-height: 1;
+  text-shadow: 0 0 30px rgba(200,120,255,0.8);
+  background: linear-gradient(135deg, #f0d8ff, #d4a0ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  min-width: 2ch;
+  text-align: center;
+  transition: transform 0.15s ease;
+}
+
+.cd-num.tick { transform: scale(1.08); }
+
+.cd-label {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(200,160,255,0.6);
+}
+
+.cd-sep {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: rgba(200,120,255,0.4);
+  line-height: 1;
+  margin-top: 0.1rem;
+  animation: blink 1s step-end infinite;
+}
+
+.cd-hearts {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.cd-heart {
+  animation: float-heart 3s ease-in-out infinite;
+  display: inline-block;
+  filter: drop-shadow(0 0 8px rgba(255,150,200,0.7));
+}
+
+.cd-heart:nth-child(2) { animation-delay: 0.8s; }
+.cd-heart:nth-child(3) { animation-delay: 1.6s; }
+
+/* ─── Heart Explosion ───────────────────────────────────── */
+.exploding-heart {
+  position: fixed;
+  pointer-events: none;
+  z-index: 10000;
+  font-size: 2rem;
+  animation: explode-heart 1.2s ease-out forwards;
+}
+
+@keyframes explode-heart {
+  0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 1; }
+  60% { opacity: 1; }
+  100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1) rotate(var(--rot)); opacity: 0; }
+}
+
+/* ─── Layout ────────────────────────────────────────────── */
+.wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 clamp(1.2rem, 5vw, 3rem);
+}
+
+/* ─── Nav ───────────────────────────────────────────────── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 1.2rem 0;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  background: rgba(253,248,245,0.8);
+  transition: background var(--transition);
+}
+
+[data-theme="dark"] nav {
+  background: rgba(22,16,28,0.85);
+}
+
+.nav-inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-logo-link {
+  font-family: var(--font-hand);
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-logo-link:hover { color: var(--accent); }
+
+.nav-center {
+  text-align: center;
+}
+
+.nav-title {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--accent);
+  line-height: 1;
+  text-shadow: 0 0 20px var(--accent-glow);
+}
+
+.nav-by {
+  font-family: var(--font-hand);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 0.1rem;
+}
+
+.nav-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.theme-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 0.45rem 1rem;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--text-soft);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.theme-btn:hover, .theme-btn:focus-visible {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+  outline: none;
+}
+
+/* ─── Snip (tiny emotional snippets) ───────────────────── */
+.snip {
+  font-family: var(--font-hand);
+  font-size: 1rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 0.6rem 0;
+  opacity: 0.85;
+  font-style: italic;
+}
+
+/* ─── Sections ──────────────────────────────────────────── */
+section { padding: clamp(4rem, 8vw, 7rem) 0; }
+
+/* ─── Hero ──────────────────────────────────────────────── */
+.hero {
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  padding: 5rem 0 4rem;
+  position: relative;
+}
+
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2rem;
+}
+
+.hero-label {
+  font-family: var(--font-hand);
+  font-size: 1.05rem;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+  opacity: 0.85;
+}
+
+.hero-headline {
+  max-width: 780px;
+  background: linear-gradient(135deg, var(--text) 0%, var(--accent2) 60%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  max-width: 540px;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-soft);
+}
+
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.badge {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.78rem;
+  color: var(--text-soft);
+  letter-spacing: 0.03em;
+}
+
+.hero-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 1rem 2.4rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 6px 30px var(--accent-glow), 0 2px 8px rgba(0,0,0,0.1);
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.15);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.btn-primary:hover::after, .btn-primary:focus-visible::after { opacity: 1; }
+.btn-primary:hover, .btn-primary:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px var(--accent-glow);
+  outline: none;
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 0.7rem 1.6rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s;
+  backdrop-filter: blur(8px);
+}
+
+.btn-secondary:hover, .btn-secondary:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+  outline: none;
+}
+
+.hero-note {
+  font-family: var(--font-hand);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* ─── Download Section ──────────────────────────────────── */
+.download-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: clamp(2rem, 5vw, 3.5rem);
+  backdrop-filter: blur(16px);
+  box-shadow: var(--shadow);
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.download-os-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 1.1rem 2.8rem;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 6px 30px var(--accent-glow);
+  transition: all 0.25s;
+  margin-bottom: 1.5rem;
+}
+.download-os-btn:hover, .download-os-btn:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px var(--accent-glow);
+  outline: none;
+}
+
+.dl-alts {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1.2rem;
+}
+
+.dl-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.dl-pill {
+  background: var(--accent-soft);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 0.3rem 0.85rem;
+  font-size: 0.78rem;
+  color: var(--text-soft);
+}
+
+.dl-donation-note {
+  margin-top: 1.5rem;
+  font-family: var(--font-hand);
+  font-size: 0.92rem;
+  color: var(--text-muted);
+}
+
+/* ─── Section headers ───────────────────────────────────── */
+.section-head {
+  text-align: center;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.section-head h2 { margin-bottom: 0.6rem; }
+.section-head p { max-width: 520px; margin: 0 auto; }
+
+/* ─── Features ──────────────────────────────────────────── */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.2rem;
+}
+
+.feature-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.6rem;
+  backdrop-filter: blur(12px);
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.feature-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.feature-card:hover::before { opacity: 1; }
+
+.feature-card.highlighted {
+  border-color: var(--accent);
+  box-shadow: var(--shadow), 0 0 0 1px var(--accent-soft);
+}
+
+.feature-card.highlighted::before { opacity: 1; }
+
+.feature-icon { font-size: 1.8rem; margin-bottom: 0.8rem; display: block; }
+.feature-card h3 { color: var(--text); margin-bottom: 0.4rem; font-family: var(--font-body); font-weight: 600; }
+.feature-card p { font-size: 0.88rem; }
+
+/* ─── FAQ ───────────────────────────────────────────────── */
+.faq-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 700px) {
+  .faq-grid { grid-template-columns: 1fr; }
+  .nav-inner { grid-template-columns: auto 1fr auto; }
+  .nav-logo-link { font-size: 0.85rem; }
+}
+
+.faq-col-label {
+  font-family: var(--font-hand);
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.05em;
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--border);
+  padding: 1.2rem 0;
+  cursor: pointer;
+}
+
+.faq-item:first-of-type { border-top: 1px solid var(--border); }
+
+.faq-q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-weight: 500;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+}
+
+.faq-arrow {
+  flex-shrink: 0;
+  color: var(--accent);
+  font-size: 0.9rem;
+  transition: transform 0.25s;
+}
+
+.faq-item.open .faq-arrow { transform: rotate(180deg); }
+
+.faq-a {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.3s;
+  padding-top: 0;
+}
+
+.faq-item.open .faq-a {
+  max-height: 300px;
+  padding-top: 0.8rem;
+}
+
+/* ─── About ─────────────────────────────────────────────── */
+.about-card {
+  max-width: 700px;
+  margin: 0 auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: clamp(2rem, 5vw, 3.5rem);
+  backdrop-filter: blur(16px);
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-card::after {
+  content: '♡';
+  position: absolute;
+  bottom: -1.5rem;
+  right: 2rem;
+  font-size: 8rem;
+  color: var(--accent-soft);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.about-header {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.about-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 20px var(--accent-glow);
+}
+
+.about-name {
+  font-family: var(--font-hand);
+  font-size: 1.3rem;
+  color: var(--text);
+  display: block;
+}
+
+.about-role {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.about-body p {
+  color: var(--text-soft);
+  line-height: 1.9;
+  margin-bottom: 1.2rem;
+}
+
+.about-body p:last-child { margin-bottom: 0; }
+
+.about-body em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--text);
+}
+
+/* ─── Contact ───────────────────────────────────────────── */
+.contact-box {
+  text-align: center;
+  max-width: 560px;
+  margin: 0 auto;
+}
+.contact-box p { margin-bottom: 2rem; font-size: 1.05rem; line-height: 1.8; }
+
+/* ─── Divider ───────────────────────────────────────────── */
+.divider {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  border-radius: 2px;
+  margin: 0 auto;
+  opacity: 0.5;
+}
+
+/* ─── Footer ────────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 3rem 0 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.footer-logo {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  color: var(--accent);
+  margin-bottom: 0.2rem;
+}
+
+.footer-tagline {
+  font-family: var(--font-hand);
+  font-size: 1rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.footer-links {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.2s;
+}
+.footer-links a:hover, .footer-links a:focus-visible {
+  color: var(--accent);
+  outline: none;
+}
+
+.footer-copy {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.footer-privacy {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  max-width: 440px;
+  line-height: 1.6;
+}
+
+/* ─── Scroll reveal ─────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ─── Keyframes ─────────────────────────────────────────── */
+@keyframes float-up {
+  0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+  5% { opacity: 1; }
+  95% { opacity: 0.7; }
+  100% { transform: translateY(-20px) rotate(360deg); opacity: 0; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { text-shadow: 0 0 40px rgba(200,120,255,0.6), 0 0 80px rgba(200,120,255,0.3); }
+  50% { text-shadow: 0 0 60px rgba(220,150,255,0.9), 0 0 120px rgba(200,120,255,0.5); }
+}
+
+@keyframes float-heart {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-10px) scale(1.15); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ─── Mesh bg ───────────────────────────────────────────── */
+.mesh-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.35;
+}
+
+[data-theme="dark"] .mesh-bg { opacity: 0.2; }
+
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.orb1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(232,127,160,0.4), transparent 70%);
+  top: -100px; left: 20%;
+  animation: drift1 12s ease-in-out infinite alternate;
+}
+
+.orb2 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(201,123,184,0.35), transparent 70%);
+  bottom: 0; right: 10%;
+  animation: drift2 15s ease-in-out infinite alternate;
+}
+
+@keyframes drift1 {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(80px, 60px) scale(1.1); }
+}
+
+@keyframes drift2 {
+  from { transform: translate(0, 0) scale(1.1); }
+  to { transform: translate(-60px, -40px) scale(1); }
+}
+
+[data-theme="dark"] .orb1 {
+  background: radial-gradient(circle, rgba(140,60,200,0.35), transparent 70%);
+}
+[data-theme="dark"] .orb2 {
+  background: radial-gradient(circle, rgba(100,40,180,0.3), transparent 70%);
+}
+</style>
+</head>
+<body>
+
+<!-- Background particles -->
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+<!-- Countdown overlay -->
+<div id="countdown-overlay" role="dialog" aria-label="Coming soon countdown" aria-modal="true">
+  <div class="cd-bg"></div>
+  <canvas id="cd-canvas" aria-hidden="true"></canvas>
+  <div class="cd-inner">
+    <div class="cd-title" id="cd-title-text">Diary</div>
+    <div class="cd-subtitle" id="cd-sub-text">by Blockhunter Software</div>
+    <div class="cd-tagline" id="cd-tagline-text">"something quiet is almost ready."</div>
+    <div class="cd-units">
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-days">00</span>
+        <span class="cd-label" id="cd-label-days">days</span>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-hours">00</span>
+        <span class="cd-label" id="cd-label-hours">hours</span>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-mins">00</span>
+        <span class="cd-label" id="cd-label-mins">minutes</span>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-secs">00</span>
+        <span class="cd-label" id="cd-label-secs">seconds</span>
+      </div>
+    </div>
+    <div class="cd-hearts">
+      <span class="cd-heart" aria-hidden="true">🤍</span>
+      <span class="cd-heart" aria-hidden="true">💜</span>
+      <span class="cd-heart" aria-hidden="true">🤍</span>
+    </div>
+  </div>
+</div>
+
+<!-- Main site wrapper -->
+<div class="wrapper" id="main-site">
+
+  <!-- Nav -->
+  <nav aria-label="Main navigation">
+    <div class="container nav-inner">
+      <a href="/" class="nav-logo-link" aria-label="Go to homepage">blockhunter0007</a>
+      <div class="nav-center" aria-label="Diary by Blockhunter Software">
+        <div class="nav-title">Diary</div>
+        <div class="nav-by hand">by Blockhunter Software</div>
+      </div>
+      <div class="nav-right">
+        <button class="theme-btn" id="theme-toggle" aria-label="Toggle dark mode">
+          <span id="theme-icon">🌙</span>
+          <span id="theme-label">dark mode</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" aria-label="Introduction">
+    <div class="mesh-bg" aria-hidden="true">
+      <div class="glow-orb orb1"></div>
+      <div class="glow-orb orb2"></div>
+    </div>
+    <div class="container hero-inner">
+      <p class="hero-label hand" id="hero-label-text"></p>
+      <h1 class="hero-headline reveal" id="hero-headline"></h1>
+      <p class="hero-sub reveal" id="hero-sub"></p>
+      <div class="hero-badges reveal" id="hero-badges" aria-label="App properties"></div>
+      <div class="hero-cta reveal">
+        <a href="#download" class="btn-primary" id="hero-cta-btn">
+          <span>↓</span>
+          <span id="hero-cta-text"></span>
+        </a>
+        <p class="hero-note hand" id="hero-note-text"></p>
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><p class="snip" id="snip1"></p></div>
+  <div class="container" style="margin: 1rem auto;"><div class="divider"></div></div>
+
+  <!-- Download -->
+  <section id="download" aria-label="Download">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 id="dl-title"></h2>
+        <p id="dl-sub"></p>
+      </div>
+      <div class="download-box reveal">
+        <a class="download-os-btn" id="dl-main-btn" href="#" aria-label="Download Diary">
+          <span id="dl-os-icon">💻</span>
+          <span id="dl-main-btn-text"></span>
+        </a>
+        <div class="dl-alts" id="dl-alts" aria-label="Alternative downloads"></div>
+        <div class="dl-pills" id="dl-pills" aria-label="App features" role="list"></div>
+        <p class="dl-donation-note hand" id="dl-donation-note"></p>
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><p class="snip" id="snip2"></p></div>
+
+  <!-- Features -->
+  <section id="features" aria-label="Features">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 id="feat-title"></h2>
+        <p id="feat-sub"></p>
+      </div>
+      <div class="features-grid" id="features-grid" aria-label="Feature list" role="list"></div>
+    </div>
+  </section>
+
+  <div class="container"><p class="snip" id="snip3"></p></div>
+  <div class="container" style="margin: 1rem auto;"><div class="divider"></div></div>
+
+  <!-- FAQ -->
+  <section id="faq" aria-label="Frequently asked questions">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 id="faq-title"></h2>
+        <p id="faq-sub"></p>
+      </div>
+      <div class="faq-grid" id="faq-grid"></div>
+    </div>
+  </section>
+
+  <div class="container"><p class="snip" id="snip4"></p></div>
+
+  <!-- About -->
+  <section id="about" aria-label="About the developer">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 id="about-title"></h2>
+      </div>
+      <div class="about-card reveal" id="about-card"></div>
+    </div>
+  </section>
+
+  <div class="container" style="margin: 1rem auto;"><div class="divider"></div></div>
+  <div class="container"><p class="snip" id="snip5"></p></div>
+
+  <!-- Contact -->
+  <section id="contact" aria-label="Contact">
+    <div class="container contact-box reveal">
+      <h2 id="contact-title"></h2>
+      <p id="contact-text"></p>
+      <a href="/contact.html" class="btn-primary" id="contact-btn-el">
+        <span>✉</span>
+        <span id="contact-btn-text"></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-inner">
+      <div>
+        <div class="footer-logo">Diary</div>
+        <div class="footer-tagline hand" id="footer-tagline"></div>
+      </div>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="#about" id="fl-about"></a>
+        <a href="/contact.html" id="fl-contact"></a>
+        <a href="#" id="fl-privacy"></a>
+      </nav>
+      <p class="footer-privacy" id="footer-privacy-text"></p>
+      <p class="footer-copy" id="footer-copy"></p>
+    </div>
+  </footer>
+
+</div><!-- /wrapper -->
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   CONFIGURATION
+═══════════════════════════════════════════════════════════ */
+
+// ──────────────────────────────────────────────────────────
+// RELEASE DATE — edit this to change the countdown target
+// ──────────────────────────────────────────────────────────
+const UNLOCK = true;
+let isReleased = false;
+let prevSecs = -1;
+let RELEASE_DATE;
+if (!UNLOCK) {
+  RELEASE_DATE = new Date('2026-06-07T15:30:00');
+} else {
+  const d = new Date();
+  d.setDate(d.getDate() - 1);
+  d.setHours(12, 0, 0, 0);
+  RELEASE_DATE = d;
+}
+console.log(RELEASE_DATE)
+/* ═══════════════════════════════════════════════════════════
+   TRANSLATIONS
+═══════════════════════════════════════════════════════════ */
+const T = {
+  en: {
+    // countdown
+    cd_tagline: '"something quiet is almost ready."',
+    cd_days: 'days', cd_hours: 'hours', cd_mins: 'minutes', cd_secs: 'seconds',
+
+    // nav
+    theme_dark: 'dark mode', theme_light: 'light mode',
+
+    // hero
+    hero_label: 'a quiet place, just for you',
+    hero_headline: 'Some thoughts deserve a place that feels safe.',
+    hero_sub: 'Diary is a private, offline journal. Your words never leave your device. No accounts, no tracking — just you and the page.',
+    hero_badges: ['offline first', 'private', 'no tracking', 'free'],
+    hero_cta: 'Download Diary',
+    hero_note: 'it\'s free. it always will be.',
+
+    // snips
+    snip1: 'Your thoughts matter.',
+    snip2: 'Take your time.',
+    snip3: 'Some feelings only make sense later.',
+    snip4: 'You do not have to explain everything perfectly.',
+    snip5: 'A quiet place for difficult thoughts.',
+
+    // download
+    dl_title: 'Download',
+    dl_sub: 'Available for Windows and Linux. Free, always.',
+    dl_win: 'Download for Windows',
+    dl_linux: 'Download for Linux',
+    dl_also: 'also available for:',
+    dl_pills: ['offline first', 'no tracking', 'no cloud', 'no accounts', 'no ads', 'free forever'],
+    dl_donation: 'If you\'d like to support the project someday, donations will be linked from the homepage.',
+
+    // features
+    feat_title: 'What Diary is',
+    feat_sub: 'Built because I needed it. Released because maybe you do too.',
+    features: [
+      { icon: '🔒', name: 'Actually private', desc: 'Your entries are encrypted and stored locally. No servers. No cloud.' },
+      { icon: '✈️', name: 'Works offline', desc: 'No internet required, ever. Write from anywhere.' },
+      { icon: '🔑', name: 'AES-256 encryption', desc: 'Protected with your password. Simple and secure — like a lock only you hold the key to.' },
+      { icon: '👤', name: 'No accounts', desc: 'You don\'t have to introduce yourself to anyone.' },
+      { icon: '📵', name: 'No tracking', desc: 'I genuinely do not collect anything. Nothing.' },
+      { icon: '🌒', name: 'Dark mode', desc: 'For the late nights and the hard thoughts.' },
+      { icon: '💛', name: 'Emotional journaling', desc: 'Designed to feel like a safe space, not a productivity app.' },
+      { icon: '🪶', name: 'Lightweight', desc: 'Small, fast, and respectful of your device.' },
+      { icon: '🧭', name: 'Simple UI', desc: 'No clutter. Nothing to learn. Just open and write.' },
+      { icon: '📦', name: 'Local storage', desc: 'Your data lives on your computer, under your control.' },
+    ],
+
+    // faq
+    faq_title: 'Questions',
+    faq_sub: 'Things I would want to know too.',
+    faq_emotional: [
+      { q: 'Is my diary really private?', a: 'Yes. Your entries are encrypted on your own device using your password. I can\'t see them. Nobody can. Not even if someone got hold of the file.' },
+      { q: 'Can I use Diary without internet?', a: 'Completely. Diary was designed to work fully offline. You never need a connection to write or read your entries.' },
+      { q: 'What if I just need a quiet place to think?', a: 'That\'s exactly what this is for. You don\'t have to write anything meaningful. Sometimes just having a space helps.' },
+      { q: 'Do I need to create an account?', a: 'No. There are no accounts. No sign-ups. You just open it and start writing.' },
+    ],
+    faq_technical: [
+      { q: 'How does encryption work?', a: 'When you set a password, your entries are encrypted using AES-256 — a strong standard used to protect sensitive information worldwide. Without your password, the data is unreadable.' },
+      { q: 'Where are entries stored?', a: 'Everything is saved locally on your device, in a file only you have access to. Nothing is uploaded anywhere.' },
+      { q: 'Why offline-first?', a: 'Because privacy and offline go together. No server means no breach. Your thoughts stay with you.' },
+      { q: 'Is it really free forever?', a: 'Yes. I built this for myself first. I\'m not trying to monetize your private thoughts. Donations may be possible in the future if you want to support it — but never required.' },
+    ],
+
+    // about
+    about_title: 'Who made this',
+    about_paragraphs: [
+      'Hi. I\'m blockhunter0007. I\'m 15 years old.',
+      'I started making Diary because I struggled — and sometimes still struggle — to understand my own feelings. I overthink a lot. I have nights where everything feels too loud and too heavy, and I just needed somewhere to put it all down.',
+      'I built Diary as a personal project. Just for myself. But at some point I thought: <em>maybe other people feel this way too</em>. So I cleaned it up and decided to share it.',
+      'This is an indie personal project. It\'s not a startup, not a product pitch. Just one person trying to make something gentle and useful.',
+      'I hope it helps you the way it helped me.',
+    ],
+
+    // contact
+    contact_title: 'Need something?',
+    contact_text: 'If you have a bug to report, a question about the app, or — honestly — if you just want somewhere to direct a thought, you can reach me through the contact page. I\'m not a therapist and I\'m just a kid, but sometimes it helps to talk with someone. You matter!',
+    contact_btn: 'Get in touch',
+
+    // footer
+    footer_tagline: 'Made carefully by someone who needed this too.',
+    fl_about: 'About', fl_contact: 'Contact', fl_privacy: 'Privacy',
+    footer_privacy: 'Diary stores everything locally on your device. Your entries are encrypted and never transmitted anywhere. Private means private.',
+    footer_copy: '© 2025 Blockhunter Software — made with care by blockhunter0007',
+
+    // theme
+    dark_label: 'dark mode', light_label: 'light mode',
+  },
+
+  de: {
+    cd_tagline: '"etwas Ruhiges ist fast fertig."',
+    cd_days: 'Tage', cd_hours: 'Stunden', cd_mins: 'Minuten', cd_secs: 'Sekunden',
+
+    theme_dark: 'Dunkelmodus', theme_light: 'Hellmodus',
+
+    hero_label: 'ein stiller Ort, nur für dich',
+    hero_headline: 'Manche Gedanken verdienen einen Ort, der sich sicher anfühlt.',
+    hero_sub: 'Diary ist ein privates, offline Tagebuch. Deine Worte verlassen dein Gerät nie. Keine Konten, kein Tracking — nur du und die Seite.',
+    hero_badges: ['offline zuerst', 'privat', 'kein Tracking', 'kostenlos'],
+    hero_cta: 'Diary herunterladen',
+    hero_note: 'kostenlos. und bleibt es.',
+
+    snip1: 'Deine Gedanken sind wichtig.',
+    snip2: 'Nimm dir die Zeit, die du brauchst.',
+    snip3: 'Manche Gefühle ergeben erst später einen Sinn.',
+    snip4: 'Du musst nicht alles perfekt erklären.',
+    snip5: 'Ein stiller Ort für schwierige Gedanken.',
+
+    dl_title: 'Herunterladen',
+    dl_sub: 'Für Windows und Linux verfügbar. Kostenlos, immer.',
+    dl_win: 'Für Windows herunterladen',
+    dl_linux: 'Für Linux herunterladen',
+    dl_also: 'auch verfügbar für:',
+    dl_pills: ['offline zuerst', 'kein Tracking', 'keine Cloud', 'keine Konten', 'keine Werbung', 'kostenlos für immer'],
+    dl_donation: 'Wenn du das Projekt irgendwann unterstützen möchtest, werden Spenden von der Startseite verlinkt.',
+
+    feat_title: 'Was Diary ist',
+    feat_sub: 'Gebaut, weil ich es brauchte. Veröffentlicht, weil vielleicht du es auch brauchst.',
+    features: [
+      { icon: '🔒', name: 'Wirklich privat', desc: 'Deine Einträge sind verschlüsselt und werden lokal gespeichert. Keine Server. Keine Cloud.' },
+      { icon: '✈️', name: 'Offline nutzbar', desc: 'Kein Internet nötig. Schreib von überall.' },
+      { icon: '🔑', name: 'AES-256-Verschlüsselung', desc: 'Geschützt mit deinem Passwort — wie ein Schloss, zu dem nur du den Schlüssel hast.' },
+      { icon: '👤', name: 'Keine Konten', desc: 'Du musst dich niemandem vorstellen.' },
+      { icon: '📵', name: 'Kein Tracking', desc: 'Ich sammle wirklich nichts. Gar nichts.' },
+      { icon: '🌒', name: 'Dunkelmodus', desc: 'Für die späten Nächte und die schweren Gedanken.' },
+      { icon: '💛', name: 'Emotionales Journaling', desc: 'Entwickelt, um sich wie ein sicherer Ort anzufühlen, kein Produktivitätswerkzeug.' },
+      { icon: '🪶', name: 'Leichtgewichtig', desc: 'Klein, schnell und respektvoll gegenüber deinem Gerät.' },
+      { icon: '🧭', name: 'Einfache Oberfläche', desc: 'Kein Durcheinander. Nichts zu lernen. Einfach öffnen und schreiben.' },
+      { icon: '📦', name: 'Lokale Speicherung', desc: 'Deine Daten liegen auf deinem Computer, unter deiner Kontrolle.' },
+    ],
+
+    faq_title: 'Fragen',
+    faq_sub: 'Dinge, die ich auch wissen wollen würde.',
+    faq_emotional: [
+      { q: 'Ist mein Tagebuch wirklich privat?', a: 'Ja. Deine Einträge werden mit deinem Passwort auf deinem eigenen Gerät verschlüsselt. Ich kann sie nicht sehen. Niemand kann es.' },
+      { q: 'Kann ich Diary ohne Internet nutzen?', a: 'Vollständig. Diary wurde für die vollständige Offline-Nutzung entwickelt. Du brauchst nie eine Verbindung.' },
+      { q: 'Was, wenn ich nur einen ruhigen Ort zum Nachdenken brauche?', a: 'Genau dafür ist das gedacht. Du musst nichts Bedeutungsvolles schreiben. Manchmal hilft es schon, einen Raum zu haben.' },
+      { q: 'Muss ich ein Konto erstellen?', a: 'Nein. Es gibt keine Konten. Keine Anmeldungen. Du öffnest es einfach und fängst an zu schreiben.' },
+    ],
+    faq_technical: [
+      { q: 'Wie funktioniert die Verschlüsselung?', a: 'Wenn du ein Passwort festlegst, werden deine Einträge mit AES-256 verschlüsselt — einem starken Standard, der weltweit zum Schutz sensibler Informationen eingesetzt wird.' },
+      { q: 'Wo werden Einträge gespeichert?', a: 'Alles wird lokal auf deinem Gerät gespeichert, in einer Datei, auf die nur du Zugriff hast. Nichts wird hochgeladen.' },
+      { q: 'Warum offline-first?', a: 'Weil Privatsphäre und Offline zusammengehören. Kein Server bedeutet kein Datenleck. Deine Gedanken bleiben bei dir.' },
+      { q: 'Ist es wirklich für immer kostenlos?', a: 'Ja. Ich habe das zunächst für mich selbst gebaut. Spenden werden vielleicht irgendwann möglich sein — aber nie erforderlich.' },
+    ],
+
+    about_title: 'Wer das gemacht hat',
+    about_paragraphs: [
+      'Hallo. Ich bin blockhunter0007. Ich bin 15 Jahre alt.',
+      'Ich habe Diary begonnen, weil ich Schwierigkeiten hatte — und manchmal immer noch habe — meine eigenen Gefühle zu verstehen. Ich denke viel nach. Es gibt Nächte, in denen sich alles zu laut und zu schwer anfühlt, und ich brauchte einfach irgendwo, wo ich alles ablegen kann.',
+      'Ich habe Diary als persönliches Projekt gebaut. Nur für mich. Aber irgendwann dachte ich: <em>vielleicht fühlen andere Menschen genauso</em>. Also habe ich es aufgeräumt und entschieden, es zu teilen.',
+      'Das ist ein indie persönliches Projekt. Kein Startup, kein Produktpitch. Nur eine Person, die versucht, etwas Sanftes und Nützliches zu machen.',
+      'Ich hoffe, es hilft dir so, wie es mir geholfen hat.',
+    ],
+
+    contact_title: 'Brauchst du etwas?',
+    contact_text: 'Wenn du einen Fehler melden möchtest, eine Frage zur App hast, oder — ehrlich gesagt — einfach irgendwo einen Gedanken hinschicken möchtest, erreichst du mich über die Kontaktseite. Ich bin kein Therapeut und nur ein Kind, aber manchmal hilft es mit jemandem zu reden. Du bist wichtig!',
+    contact_btn: 'Kontakt aufnehmen',
+
+    footer_tagline: 'Sorgfältig gemacht von jemandem, der das selbst brauchte.',
+    fl_about: 'Über', fl_contact: 'Kontakt', fl_privacy: 'Datenschutz',
+    footer_privacy: 'Diary speichert alles lokal auf deinem Gerät. Deine Einträge werden verschlüsselt und nie übertragen. Privat bedeutet privat.',
+    footer_copy: '© 2025 Blockhunter Software — mit Sorgfalt gemacht von blockhunter0007',
+    dark_label: 'Dunkelmodus', light_label: 'Hellmodus',
+  }
+};
+
+/* ═══════════════════════════════════════════════════════════
+   LANGUAGE DETECTION
+═══════════════════════════════════════════════════════════ */
+const lang = (() => {
+  const b = (navigator.language || navigator.userLanguage || 'en').slice(0, 2).toLowerCase();
+  return T[b] ? b : 'en';
+})();
+const t = T[lang];
+document.documentElement.lang = lang;
+
+/* ═══════════════════════════════════════════════════════════
+   THEME
+═══════════════════════════════════════════════════════════ */
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+let isDark = localStorage.getItem('diary-theme')
+  ? localStorage.getItem('diary-theme') === 'dark'
+  : prefersDark;
+
+function applyTheme() {
+  document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+  document.getElementById('theme-icon').textContent = isDark ? '☀️' : '🌙';
+  document.getElementById('theme-label').textContent = isDark ? t.light_label : t.dark_label;
+}
+
+document.getElementById('theme-toggle').addEventListener('click', () => {
+  isDark = !isDark;
+  localStorage.setItem('diary-theme', isDark ? 'dark' : 'light');
+  applyTheme();
+});
+
+applyTheme();
+
+/* ═══════════════════════════════════════════════════════════
+   OS DETECTION
+═══════════════════════════════════════════════════════════ */
+const os = (() => {
+  const ua = navigator.userAgent.toLowerCase();
+  if (ua.includes('linux') && !ua.includes('android')) return 'linux';
+  return 'windows'; // default
+})();
+
+/* ═══════════════════════════════════════════════════════════
+   POPULATE TEXT
+═══════════════════════════════════════════════════════════ */
+function set(id, html, isHtml = false) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (isHtml) el.innerHTML = html;
+  else el.textContent = html;
+}
+
+// Countdown
+set('cd-label-days', t.cd_days);
+set('cd-label-hours', t.cd_hours);
+set('cd-label-mins', t.cd_mins);
+set('cd-label-secs', t.cd_secs);
+set('cd-tagline-text', t.cd_tagline);
+
+// Hero
+set('hero-label-text', t.hero_label);
+set('hero-headline', t.hero_headline);
+set('hero-sub', t.hero_sub);
+set('hero-cta-text', t.hero_cta);
+set('hero-note-text', t.hero_note);
+
+// Badges
+const badgesEl = document.getElementById('hero-badges');
+t.hero_badges.forEach(b => {
+  const s = document.createElement('span');
+  s.className = 'badge';
+  s.textContent = b;
+  badgesEl.appendChild(s);
+});
+
+// Snips
+set('snip1', t.snip1); set('snip2', t.snip2); set('snip3', t.snip3);
+set('snip4', t.snip4); set('snip5', t.snip5);
+
+// Download
+set('dl-title', t.dl_title);
+set('dl-sub', t.dl_sub);
+set('dl-donation-note', t.dl_donation);
+
+const dlMainBtn = document.getElementById('dl-main-btn');
+if (os === 'linux') {
+  dlMainBtn.href = '/download/linux';
+  document.getElementById('dl-os-icon').textContent = '🐧';
+  set('dl-main-btn-text', t.dl_linux);
+} else {
+  dlMainBtn.href = '/download/windows';
+  document.getElementById('dl-os-icon').textContent = '🪟';
+  set('dl-main-btn-text', t.dl_win);
+}
+
+// Alt download buttons
+const altsEl = document.getElementById('dl-alts');
+const altPlatforms = os === 'linux'
+  ? [{ label: t.dl_win, href: '/download/windows', icon: '🪟' }]
+  : [{ label: t.dl_linux, href: '/download/linux', icon: '🐧' }];
+
+altPlatforms.forEach(p => {
+  const a = document.createElement('a');
+  a.href = p.href;
+  a.className = 'btn-secondary';
+  a.innerHTML = `<span>${p.icon}</span><span>${p.label}</span>`;
+  altsEl.appendChild(a);
+});
+
+// DL pills
+const pillsEl = document.getElementById('dl-pills');
+t.dl_pills.forEach(pill => {
+  const s = document.createElement('span');
+  s.className = 'dl-pill';
+  s.setAttribute('role', 'listitem');
+  s.textContent = '✓ ' + pill;
+  pillsEl.appendChild(s);
+});
+
+// Features — randomize highlighted
+set('feat-title', t.feat_title);
+set('feat-sub', t.feat_sub);
+const featGrid = document.getElementById('features-grid');
+const shuffled = [...t.features].sort(() => Math.random() - 0.5);
+const highlightCount = 3;
+shuffled.forEach((f, i) => {
+  const card = document.createElement('div');
+  card.className = 'feature-card reveal' + (i < highlightCount ? ' highlighted' : '');
+  card.setAttribute('role', 'listitem');
+  card.innerHTML = `<span class="feature-icon" aria-hidden="true">${f.icon}</span><h3>${f.name}</h3><p>${f.desc}</p>`;
+  featGrid.appendChild(card);
+});
+
+// FAQ
+set('faq-title', t.faq_title);
+set('faq-sub', t.faq_sub);
+const faqGrid = document.getElementById('faq-grid');
+
+function buildFaqCol(items, label, isEmotional) {
+  const col = document.createElement('div');
+  const lbl = document.createElement('p');
+  lbl.className = 'faq-col-label';
+  lbl.textContent = label;
+  col.appendChild(lbl);
+  items.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'faq-item';
+    div.setAttribute('tabindex', '0');
+    div.setAttribute('role', 'button');
+    div.setAttribute('aria-expanded', 'false');
+    div.innerHTML = `<div class="faq-q">${item.q}<span class="faq-arrow" aria-hidden="true">▾</span></div><div class="faq-a">${item.a}</div>`;
+    div.addEventListener('click', () => toggleFaq(div));
+    div.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleFaq(div); } });
+    col.appendChild(div);
+  });
+  return col;
+}
+
+function toggleFaq(el) {
+  const isOpen = el.classList.contains('open');
+  el.classList.toggle('open', !isOpen);
+  el.setAttribute('aria-expanded', String(!isOpen));
+}
+
+const emotionalLabel = lang === 'de' ? '💛 Persönliche Fragen' : '💛 Personal questions';
+const techLabel = lang === 'de' ? '🔧 Technische Details' : '🔧 Technical details';
+faqGrid.appendChild(buildFaqCol(t.faq_emotional, emotionalLabel, true));
+faqGrid.appendChild(buildFaqCol(t.faq_technical, techLabel, false));
+
+// About
+set('about-title', t.about_title);
+const aboutCard = document.getElementById('about-card');
+aboutCard.innerHTML = `
+  <div class="about-header">
+    <div class="about-avatar" aria-hidden="true">🌙</div>
+    <div>
+      <span class="about-name">blockhunter0007</span>
+      <span class="about-role">solo developer · Blockhunter Software</span>
+    </div>
+  </div>
+  <div class="about-body">
+    ${t.about_paragraphs.map(p => `<p>${p}</p>`).join('')}
+  </div>
+`;
+
+// Contact
+set('contact-title', t.contact_title);
+set('contact-text', t.contact_text);
+set('contact-btn-text', t.contact_btn);
+
+// Footer
+set('footer-tagline', t.footer_tagline);
+set('fl-about', t.fl_about);
+set('fl-contact', t.fl_contact);
+set('fl-privacy', t.fl_privacy);
+set('footer-privacy-text', t.footer_privacy);
+set('footer-copy', t.footer_copy);
+
+/* ═══════════════════════════════════════════════════════════
+   BACKGROUND PARTICLES
+═══════════════════════════════════════════════════════════ */
+(function bgParticles() {
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const easterEggs = [
+    'you are awesome.', "i'm glad you're here.", 'take care of yourself.',
+    'you survived every bad day so far.', 'you matter.', 'keep going.',
+    'you deserve safe spaces too.'
+  ];
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function randomType() {
+    const r = Math.random();
+    if (r < 0.80) return 'heart';
+    if (r < 0.90) return 'star';
+    if (r < 0.99) return 'lock';
+    return 'egg';
+  }
+
+  function createParticle() {
+    const type = randomType();
+    return {
+      type,
+      x: Math.random() * W,
+      y: H + 30,
+      size: type === 'egg' ? 12 : (8 + Math.random() * 14),
+      speed: 0.3 + Math.random() * 0.6,
+      drift: (Math.random() - 0.5) * 0.4,
+      opacity: 0,
+      maxOpacity: 0.12 + Math.random() * 0.18,
+      fadeIn: true,
+      text: type === 'egg' ? easterEggs[Math.floor(Math.random() * easterEggs.length)] : '',
+      rotation: Math.random() * Math.PI * 2,
+      rotSpeed: (Math.random() - 0.5) * 0.01,
+    };
+  }
+
+  function getSymbol(type) {
+    if (type === 'heart') return '♡';
+    if (type === 'star') return '✦';
+    if (type === 'lock') return '🔒';
+    return '';
+  }
+
+  function getColor(type) {
+    if (isDark) {
+      if (type === 'heart') return `rgba(198,125,232,${0.6})`;
+      if (type === 'star') return `rgba(220,180,255,${0.5})`;
+      return `rgba(150,100,200,${0.4})`;
+    } else {
+      if (type === 'heart') return `rgba(232,127,160,${0.6})`;
+      if (type === 'star') return `rgba(212,149,106,${0.5})`;
+      return `rgba(180,100,140,${0.4})`;
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => {
+      ctx.save();
+      ctx.globalAlpha = p.opacity;
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rotation);
+      if (p.type === 'egg') {
+        ctx.font = `${p.size}px 'Caveat', cursive`;
+        ctx.fillStyle = isDark ? 'rgba(220,180,255,0.5)' : 'rgba(180,100,140,0.4)';
+        ctx.textAlign = 'center';
+        ctx.fillText(p.text, 0, 0);
+      } else if (p.type === 'lock') {
+        ctx.font = `${p.size}px sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.fillText('🔒', 0, 0);
+      } else {
+        ctx.font = `${p.size}px serif`;
+        ctx.fillStyle = getColor(p.type);
+        ctx.textAlign = 'center';
+        ctx.fillText(getSymbol(p.type), 0, 0);
+      }
+      ctx.restore();
+    });
+  }
+
+  function tick() {
+    if (!prefersReducedMotion) {
+      particles.forEach((p, i) => {
+        p.y -= p.speed;
+        p.x += p.drift;
+        p.rotation += p.rotSpeed;
+        if (p.fadeIn) {
+          p.opacity = Math.min(p.opacity + 0.008, p.maxOpacity);
+          if (p.opacity >= p.maxOpacity) p.fadeIn = false;
+        }
+        if (p.y < -50) particles.splice(i, 1);
+      });
+      if (particles.length < 60 && Math.random() < 0.3) particles.push(createParticle());
+    }
+    draw();
+    requestAnimationFrame(tick);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  for (let i = 0; i < 40; i++) {
+    const p = createParticle();
+    p.y = Math.random() * H;
+    p.opacity = Math.random() * p.maxOpacity;
+    p.fadeIn = false;
+    particles.push(p);
+  }
+  tick();
+})();
+
+/* ═══════════════════════════════════════════════════════════
+   COUNTDOWN
+═══════════════════════════════════════════════════════════ */
+(function countdown() {
+  const overlay = document.getElementById('countdown-overlay');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Countdown particles canvas
+  const cdCanvas = document.getElementById('cd-canvas');
+  const cdCtx = cdCanvas.getContext('2d');
+  let cdParticles = [];
+
+  function resizeCd() {
+    cdCanvas.width = window.innerWidth;
+    cdCanvas.height = window.innerHeight;
+  }
+  resizeCd();
+  window.addEventListener('resize', resizeCd);
+
+  function spawnCdParticle() {
+    const W = cdCanvas.width, H = cdCanvas.height;
+    return {
+      x: Math.random() * W,
+      y: H + 10,
+      size: 8 + Math.random() * 16,
+      speed: 0.5 + Math.random() * 1.2,
+      drift: (Math.random() - 0.5) * 0.8,
+      opacity: 0,
+      maxOpacity: 0.3 + Math.random() * 0.5,
+      type: Math.random() < 0.7 ? '♡' : (Math.random() < 0.5 ? '✦' : '·'),
+    };
+  }
+
+  function animateCd() {
+    const W = cdCanvas.width, H = cdCanvas.height;
+    cdCtx.clearRect(0, 0, W, H);
+    cdParticles.forEach((p, i) => {
+      p.y -= p.speed;
+      p.x += p.drift;
+      p.opacity = Math.min(p.opacity + 0.015, p.maxOpacity);
+      if (p.y < -20) cdParticles.splice(i, 1);
+      cdCtx.globalAlpha = p.opacity;
+      cdCtx.font = `${p.size}px serif`;
+      cdCtx.fillStyle = `rgba(220,160,255,0.8)`;
+      cdCtx.textAlign = 'center';
+      cdCtx.fillText(p.type, p.x, p.y);
+    });
+    if (cdParticles.length < 80 && Math.random() < 0.4) cdParticles.push(spawnCdParticle());
+    if (!isReleased) requestAnimationFrame(animateCd);
+  }
+
+  if (!prefersReducedMotion) animateCd();
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function tick() {
+    const now = Date.now();
+    const diff = RELEASE_DATE.getTime() - now;
+
+    if (diff <= 0) {
+      triggerRelease();
+      return;
+    }
+
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const secs = Math.floor((diff % 60000) / 1000);
+
+    document.getElementById('cd-days').textContent = pad(days);
+    document.getElementById('cd-hours').textContent = pad(hours);
+    document.getElementById('cd-mins').textContent = pad(mins);
+    document.getElementById('cd-secs').textContent = pad(secs);
+
+    if (secs !== prevSecs && !prefersReducedMotion) {
+      const el = document.getElementById('cd-secs');
+      el.classList.add('tick');
+      setTimeout(() => el.classList.remove('tick'), 120);
+      prevSecs = secs;
+    }
+
+    setTimeout(tick, 250);
+  }
+
+  function triggerRelease() {
+    if (isReleased) return;
+    isReleased = true;
+
+    // Try audio
+    try {
+      const audio = new Audio('assets/release.ogg');
+      audio.volume = 0.5;
+      audio.play().catch(() => {});
+    } catch (e) {}
+
+    // Heart explosion
+    if (!prefersReducedMotion) {
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+      const hearts = ['💜', '🤍', '💖', '✨', '💫', '🌸', '💕', '⭐'];
+
+      for (let i = 0; i < 40; i++) {
+        setTimeout(() => {
+          const el = document.createElement('div');
+          el.className = 'exploding-heart';
+          const angle = Math.random() * Math.PI * 2;
+          const dist = 150 + Math.random() * 350;
+          el.style.cssText = `left:${cx}px;top:${cy}px;--dx:${Math.cos(angle)*dist}px;--dy:${Math.sin(angle)*dist}px;--rot:${(Math.random()-0.5)*720}deg;font-size:${1.2+Math.random()*1.5}rem;`;
+          el.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+          document.body.appendChild(el);
+          setTimeout(() => el.remove(), 1400);
+        }, i * 30);
+      }
+    }
+
+    // Hide overlay
+    setTimeout(() => {
+      overlay.classList.add('hidden');
+      overlay.addEventListener('transitionend', () => overlay.remove(), { once: true });
+    }, prefersReducedMotion ? 0 : 1200);
+  }
+
+  tick();
+})();
+
+/* ═══════════════════════════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════════════════════════ */
+(function scrollReveal() {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diary — by Blockhunter Software</title>
+<meta name="description" content="A free, private offline journal. Your thoughts stay yours. Protected with AES-256 encryption.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #0c0a14;
+    --bg2:       #110e1c;
+    --bg3:       #16122a;
+    --surface:   rgba(255,255,255,0.035);
+    --surface2:  rgba(255,255,255,0.06);
+    --border:    rgba(180,140,255,0.12);
+    --border2:   rgba(180,140,255,0.22);
+    --purple:    #a78bfa;
+    --purple2:   #c4b5fd;
+    --pink:      #f0abfc;
+    --pink2:     #f5d0fe;
+    --glow:      rgba(167,139,250,0.18);
+    --glow2:     rgba(240,171,252,0.12);
+    --text:      #ede9fe;
+    --text2:     #c4b5fd;
+    --text3:     #9d8ec4;
+    --text4:     #6b5f8a;
+    --radius:    18px;
+    --radius2:   28px;
+    --radius3:   40px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* ── CANVAS BACKGROUND ── */
+  #bg-canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ── GLOW BLOBS ── */
+  .blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(90px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.35;
+    animation: blobFloat 20s ease-in-out infinite;
+  }
+  .blob-1 { width: 600px; height: 600px; background: radial-gradient(circle, #7c3aed 0%, transparent 70%); top: -200px; left: -150px; animation-delay: 0s; }
+  .blob-2 { width: 500px; height: 500px; background: radial-gradient(circle, #9333ea 0%, transparent 70%); top: 40%; right: -150px; animation-delay: -7s; }
+  .blob-3 { width: 400px; height: 400px; background: radial-gradient(circle, #db2777 0%, transparent 70%); bottom: 10%; left: 20%; animation-delay: -14s; opacity: 0.18; }
+
+  @keyframes blobFloat {
+    0%,100% { transform: translate(0,0) scale(1); }
+    33%      { transform: translate(30px,-40px) scale(1.05); }
+    66%      { transform: translate(-20px,30px) scale(0.97); }
+  }
+
+  /* ── LAYOUT ── */
+  .wrap { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 20px 0;
+    backdrop-filter: blur(20px);
+    background: rgba(12,10,20,0.6);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.4s;
+  }
+  nav .inner {
+    max-width: 1100px; margin: 0 auto; padding: 0 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-brand {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.5rem;
+    color: var(--purple2);
+    letter-spacing: -0.01em;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 8px; align-items: center; }
+  .nav-links a {
+    color: var(--text3); text-decoration: none; font-size: 0.875rem;
+    padding: 6px 14px; border-radius: 100px;
+    transition: all 0.25s;
+  }
+  .nav-links a:hover { color: var(--purple2); background: var(--surface); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 120px 0 80px;
+    position: relative;
+  }
+  .hero-inner {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: center;
+  }
+  .hero-left { position: relative; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--purple); padding: 6px 16px;
+    border: 1px solid var(--border2); border-radius: 100px;
+    background: rgba(167,139,250,0.06);
+    margin-bottom: 28px;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-eyebrow span { width: 6px; height: 6px; border-radius: 50%; background: var(--purple); display: block; animation: pulse 2s ease infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.7)} }
+
+  .hero-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(4rem, 8vw, 7.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    animation: fadeUp 0.8s 0.1s ease both;
+    position: relative;
+  }
+  .hero-title .glow-word {
+    background: linear-gradient(135deg, var(--purple2) 0%, var(--pink) 60%, var(--purple2) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 30px rgba(167,139,250,0.5));
+  }
+  .hero-byline {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem; color: var(--text4); letter-spacing: 0.08em;
+    margin-top: 10px; margin-bottom: 24px;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+  .hero-desc {
+    font-size: 1.05rem; color: var(--text3); line-height: 1.75;
+    max-width: 480px; margin-bottom: 36px;
+    font-weight: 300;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+  .hero-desc em { font-style: normal; color: var(--purple2); }
+
+  .hero-actions {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 26px; border-radius: 100px;
+    font-size: 0.9rem; font-weight: 400;
+    text-decoration: none; cursor: pointer;
+    transition: all 0.3s; border: none;
+    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0.01em;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #7c3aed, #9333ea, #a855f7);
+    color: #fff;
+    box-shadow: 0 0 30px rgba(124,58,237,0.45), 0 2px 12px rgba(0,0,0,0.4);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 50px rgba(124,58,237,0.65), 0 6px 20px rgba(0,0,0,0.5);
+  }
+  .btn-ghost {
+    background: var(--surface);
+    color: var(--text2);
+    border: 1px solid var(--border2);
+    backdrop-filter: blur(10px);
+  }
+  .btn-ghost:hover {
+    background: var(--surface2); border-color: var(--purple);
+    color: var(--purple2); transform: translateY(-2px);
+    box-shadow: 0 0 20px var(--glow);
+  }
+
+  /* ── PLATFORM BADGES ── */
+  .platform-badges {
+    display: flex; gap: 10px; margin-top: 28px;
+    animation: fadeUp 0.8s 0.5s ease both;
+  }
+  .platform-badge {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 16px; border-radius: var(--radius);
+    border: 1px solid var(--border); background: var(--surface);
+    backdrop-filter: blur(10px);
+    font-size: 0.8rem; color: var(--text3);
+    transition: all 0.3s;
+  }
+  .platform-badge:hover { border-color: var(--border2); color: var(--purple2); transform: translateY(-2px); }
+  .platform-badge svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+  /* ── COUNTDOWN ── */
+  .hero-right { display: flex; flex-direction: column; align-items: center; gap: 28px; }
+  .countdown-card {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius2);
+    padding: 36px 32px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 60px rgba(124,58,237,0.12), 0 20px 60px rgba(0,0,0,0.4);
+    animation: fadeUp 0.8s 0.3s ease both;
+    position: relative; overflow: hidden;
+  }
+  .countdown-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(124,58,237,0.07) 0%, transparent 60%, rgba(240,171,252,0.05) 100%);
+    pointer-events: none;
+  }
+  .countdown-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--purple); text-align: center; margin-bottom: 24px;
+  }
+  .countdown-grid {
+    display: grid; grid-template-columns: repeat(4,1fr); gap: 10px;
+  }
+  .cd-unit {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    background: rgba(124,58,237,0.08);
+    border: 1px solid rgba(167,139,250,0.15);
+    border-radius: var(--radius);
+    padding: 16px 8px;
+    position: relative; overflow: hidden;
+  }
+  .cd-unit::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(167,139,250,0.08) 0%, transparent 100%);
+    pointer-events: none;
+  }
+  .cd-num {
+    font-family: 'Instrument Serif', serif;
+    font-size: 2.4rem; line-height: 1; color: var(--purple2);
+    filter: drop-shadow(0 0 12px rgba(167,139,250,0.6));
+    transition: all 0.3s;
+    position: relative; z-index: 1;
+  }
+  .cd-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text4); position: relative; z-index: 1;
+  }
+  .cd-released {
+    text-align: center;
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.6rem;
+    background: linear-gradient(135deg, var(--purple2), var(--pink));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    filter: drop-shadow(0 0 20px rgba(167,139,250,0.5));
+    padding: 20px 0;
+  }
+  .cd-released small {
+    display: block; font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem; color: var(--text3);
+    -webkit-text-fill-color: var(--text3); margin-top: 6px;
+  }
+
+  /* floating hearts */
+  .floater {
+    position: absolute; pointer-events: none; z-index: 0;
+    animation: floatUp 6s ease-in-out infinite;
+    opacity: 0;
+  }
+  @keyframes floatUp {
+    0%  { transform: translateY(0) scale(0.8); opacity: 0; }
+    20% { opacity: 0.4; }
+    80% { opacity: 0.2; }
+    100%{ transform: translateY(-80px) scale(1.2); opacity: 0; }
+  }
+
+  /* ── SECTION SHARED ── */
+  section { position: relative; z-index: 1; padding: 100px 0; }
+  .section-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--purple); margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.1; letter-spacing: -0.02em;
+    color: var(--text); margin-bottom: 18px;
+  }
+  .section-sub {
+    font-size: 1rem; color: var(--text3); line-height: 1.75;
+    max-width: 580px; font-weight: 300;
+  }
+  .section-header { margin-bottom: 60px; }
+  .divider {
+    width: 48px; height: 2px;
+    background: linear-gradient(90deg, var(--purple), var(--pink));
+    border-radius: 2px; margin: 16px 0 20px;
+    box-shadow: 0 0 10px rgba(167,139,250,0.5);
+  }
+
+  /* ── FEATURES ── */
+  #features { background: transparent; }
+  .features-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+  }
+  .feature-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius2);
+    padding: 28px 24px;
+    backdrop-filter: blur(16px);
+    transition: all 0.4s;
+    position: relative; overflow: hidden;
+    cursor: default;
+  }
+  .feature-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(124,58,237,0.06) 0%, transparent 60%);
+    opacity: 0; transition: opacity 0.4s;
+  }
+  .feature-card:hover {
+    border-color: var(--border2);
+    transform: translateY(-4px);
+    box-shadow: 0 0 40px var(--glow), 0 20px 40px rgba(0,0,0,0.3);
+  }
+  .feature-card:hover::before { opacity: 1; }
+  .feature-icon {
+    width: 48px; height: 48px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(167,139,250,0.1));
+    border: 1px solid rgba(167,139,250,0.2);
+    margin-bottom: 18px; font-size: 1.3rem;
+    box-shadow: 0 0 20px rgba(124,58,237,0.15);
+    transition: all 0.3s;
+  }
+  .feature-card:hover .feature-icon { box-shadow: 0 0 30px rgba(124,58,237,0.35); transform: scale(1.05); }
+  .feature-name {
+    font-size: 0.95rem; font-weight: 500; color: var(--text2); margin-bottom: 8px;
+  }
+  .feature-desc { font-size: 0.82rem; color: var(--text4); line-height: 1.6; }
+  .feature-card.wide { grid-column: span 2; }
+
+  /* ── WHY ── */
+  #why { background: transparent; }
+  .why-inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  .why-visual {
+    position: relative; display: flex; align-items: center; justify-content: center;
+  }
+  .journal-mockup {
+    width: 280px; height: 340px;
+    background: linear-gradient(150deg, #1e1632, #160f2a);
+    border-radius: 20px 28px 28px 20px;
+    border: 1px solid rgba(167,139,250,0.2);
+    box-shadow: 0 0 80px rgba(124,58,237,0.25), 0 40px 80px rgba(0,0,0,0.5),
+                8px 0 0 0 #2d1f5e;
+    position: relative; overflow: hidden;
+    animation: gentleFloat 5s ease-in-out infinite;
+  }
+  @keyframes gentleFloat {
+    0%,100% { transform: translateY(0) rotate(-1deg); }
+    50%      { transform: translateY(-12px) rotate(0.5deg); }
+  }
+  .journal-mockup::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 24px;
+    background: linear-gradient(90deg, #2d1f5e, #1e1632);
+    border-right: 1px solid rgba(167,139,250,0.15);
+  }
+  .journal-lines {
+    padding: 30px 28px 30px 40px; display: flex; flex-direction: column; gap: 10px; height: 100%;
+  }
+  .jl { height: 1px; background: rgba(167,139,250,0.1); border-radius: 1px; }
+  .jl:nth-child(1)  { width: 85%; }
+  .jl:nth-child(2)  { width: 72%; opacity:0.7; }
+  .jl:nth-child(3)  { width: 91%; }
+  .jl:nth-child(4)  { width: 60%; opacity:0.5; }
+  .jl:nth-child(6)  { width: 88%; }
+  .jl:nth-child(7)  { width: 76%; opacity:0.8; }
+  .jl:nth-child(8)  { width: 55%; opacity:0.5; }
+  .jl:nth-child(10) { width: 82%; }
+  .jl:nth-child(11) { width: 70%; opacity:0.6; }
+  .jl:nth-child(12) { width: 93%; }
+  .jl:nth-child(13) { width: 40%; opacity:0.4; }
+  .jl-gap { height: 8px; }
+  .lock-badge {
+    position: absolute; top: 20px; right: 20px;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: linear-gradient(135deg, #7c3aed, #9333ea);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 20px rgba(124,58,237,0.6);
+    font-size: 0.9rem;
+    animation: lockPulse 3s ease-in-out infinite;
+  }
+  @keyframes lockPulse {
+    0%,100% { box-shadow: 0 0 20px rgba(124,58,237,0.6); }
+    50%      { box-shadow: 0 0 40px rgba(124,58,237,0.9); }
+  }
+
+  .why-points { display: flex; flex-direction: column; gap: 20px; margin-top: 32px; }
+  .why-point {
+    display: flex; gap: 16px; align-items: flex-start;
+    padding: 18px 20px; border-radius: var(--radius);
+    border: 1px solid var(--border); background: var(--surface);
+    backdrop-filter: blur(10px); transition: all 0.3s;
+  }
+  .why-point:hover { border-color: var(--border2); box-shadow: 0 0 20px var(--glow); }
+  .why-point-icon {
+    width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+    background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(167,139,250,0.1));
+    border: 1px solid rgba(167,139,250,0.18);
+    display: flex; align-items: center; justify-content: center; font-size: 0.95rem;
+  }
+  .why-point-text h4 { font-size: 0.9rem; color: var(--text2); margin-bottom: 4px; font-weight: 500; }
+  .why-point-text p  { font-size: 0.82rem; color: var(--text4); line-height: 1.55; }
+
+  /* ── FAQ ── */
+  #faq { background: transparent; }
+  .faq-list { display: flex; flex-direction: column; gap: 10px; max-width: 780px; }
+  .faq-item {
+    border: 1px solid var(--border); border-radius: var(--radius2);
+    background: var(--surface); backdrop-filter: blur(12px);
+    overflow: hidden; transition: border-color 0.3s;
+  }
+  .faq-item.open { border-color: var(--border2); }
+  .faq-q {
+    width: 100%; background: none; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 24px; text-align: left;
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+    color: var(--text2); font-weight: 400;
+    transition: color 0.3s;
+  }
+  .faq-item.open .faq-q { color: var(--purple2); }
+  .faq-chevron {
+    width: 20px; height: 20px; flex-shrink: 0; color: var(--text4);
+    transition: transform 0.4s, color 0.3s;
+  }
+  .faq-item.open .faq-chevron { transform: rotate(180deg); color: var(--purple); }
+  .faq-a {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s;
+    padding: 0 24px; font-size: 0.87rem; color: var(--text3); line-height: 1.7;
+  }
+  .faq-a.open { max-height: 200px; padding: 0 24px 20px; }
+
+  /* ── CONTACT ── */
+  #contact { background: transparent; }
+  .contact-card {
+    max-width: 660px; margin: 0 auto;
+    background: var(--surface); border: 1px solid var(--border2);
+    border-radius: var(--radius2); padding: 60px 56px;
+    backdrop-filter: blur(20px); text-align: center;
+    position: relative; overflow: hidden;
+    box-shadow: 0 0 80px rgba(124,58,237,0.12);
+  }
+  .contact-card::before {
+    content:''; position:absolute; inset:0;
+    background: radial-gradient(circle at 50% 0%, rgba(124,58,237,0.1) 0%, transparent 60%);
+  }
+  .contact-card p { font-size: 0.95rem; color: var(--text3); line-height: 1.75; margin-bottom: 28px; }
+  .contact-socials {
+    display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+  }
+  .social-pill {
+    padding: 10px 20px; border-radius: 100px;
+    border: 1px solid var(--border2); background: var(--surface2);
+    color: var(--text3); font-size: 0.83rem; text-decoration: none;
+    transition: all 0.3s; font-family: 'DM Mono', monospace; letter-spacing: 0.04em;
+    display: flex; align-items: center; gap: 7px;
+  }
+  .social-pill:hover {
+    color: var(--purple2); border-color: var(--purple);
+    background: rgba(124,58,237,0.1); transform: translateY(-2px);
+    box-shadow: 0 0 20px var(--glow);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative; z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 40px 0;
+    text-align: center;
+  }
+  .footer-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem; letter-spacing: 0.08em;
+    color: var(--text4);
+  }
+  .footer-text span {
+    color: var(--purple); filter: drop-shadow(0 0 6px rgba(167,139,250,0.6));
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(28px); transition: all 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 960px) {
+    .hero-inner  { grid-template-columns: 1fr; }
+    .hero-right  { display: none; }
+    .features-grid { grid-template-columns: repeat(2,1fr); }
+    .feature-card.wide { grid-column: span 2; }
+    .why-inner   { grid-template-columns: 1fr; }
+    .why-visual  { display: none; }
+  }
+  @media (max-width: 640px) {
+    .wrap { padding: 0 20px; }
+    .features-grid { grid-template-columns: 1fr; }
+    .feature-card.wide { grid-column: span 1; }
+    .contact-card { padding: 36px 24px; }
+    nav .inner { padding: 0 20px; }
+    .nav-links a { display: none; }
+  }
+
+  /* ── STAR PARTICLES ── */
+  .stars-layer { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  .star {
+    position: absolute; border-radius: 50%;
+    background: white; animation: twinkle var(--d,4s) var(--delay,0s) ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%,100% { opacity: var(--min,0.1); transform: scale(1); }
+    50%      { opacity: var(--max,0.7); transform: scale(1.3); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Background blobs -->
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<!-- Stars -->
+<div class="stars-layer" id="stars"></div>
+
+<!-- Navigation -->
+<nav id="nav">
+  <div class="inner">
+    <a class="nav-brand" href="#hero">Diary</a>
+    <div class="nav-links">
+      <a href="#features"  data-i18n="nav.features">Features</a>
+      <a href="#why"       data-i18n="nav.why">Why Diary?</a>
+      <a href="#faq"       data-i18n="nav.faq">FAQ</a>
+      <a href="#contact"   data-i18n="nav.contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="hero-left">
+
+        <h1 class="hero-title">
+          <span class="glow-word">Diary</span>
+        </h1>
+        <div class="hero-byline">by Blockhunter Software</div>
+
+        <p class="hero-desc" data-i18n="hero.desc">
+          Your thoughts stay yours. A quiet place to write freely —<br>
+          protected with <em>AES-256 encryption</em>, stored only on your device.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#countdown" class="btn btn-primary" data-i18n="hero.download">↓ Download</a>
+          <a href="#faq"       class="btn btn-ghost"   data-i18n="hero.faq">FAQ</a>
+          <a href="#contact"   class="btn btn-ghost"   data-i18n="hero.contact">Contact</a>
+        </div>
+
+        <div class="platform-badges">
+          <div class="platform-badge">
+            <!-- Windows -->
+            <svg viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 0h7.5v7.5H0zM8.5 0H16v7.5H8.5zM0 8.5h7.5V16H0zM8.5 8.5H16V16H8.5z"/>
+            </svg>
+            Windows
+          </div>
+          <div class="platform-badge">
+            <!-- Linux penguin simplified -->
+            <svg viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 0a4 4 0 0 0-4 4c0 1.1.4 2.1 1 2.8C3.4 7.6 2 9.6 2 12c0 .6.4 1 1 1h10c.6 0 1-.4 1-1 0-2.4-1.4-4.4-3-5.2A4 4 0 0 0 8 0zm0 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4zM5 13c.3-1.7 1.5-3 3-3s2.7 1.3 3 3H5z"/>
+            </svg>
+            Linux
+          </div>
+        </div>
+      </div>
+
+      <!-- Countdown -->
+      <div class="hero-right" id="countdown">
+        <div class="countdown-card">
+          <div class="countdown-label" data-i18n="countdown.label">Release Countdown</div>
+          <div id="cd-display">
+            <div class="countdown-grid">
+              <div class="cd-unit"><div class="cd-num" id="cd-days">--</div><div class="cd-lbl" data-i18n="countdown.days">Days</div></div>
+              <div class="cd-unit"><div class="cd-num" id="cd-hours">--</div><div class="cd-lbl" data-i18n="countdown.hours">Hours</div></div>
+              <div class="cd-unit"><div class="cd-num" id="cd-mins">--</div><div class="cd-lbl" data-i18n="countdown.mins">Mins</div></div>
+              <div class="cd-unit"><div class="cd-num" id="cd-secs">--</div><div class="cd-lbl" data-i18n="countdown.secs">Secs</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FEATURES ── -->
+<section id="features">
+  <div class="wrap">
+    <div class="section-header reveal">
+      <div class="section-eyebrow" data-i18n="features.eyebrow">Features</div>
+      <h2 class="section-title" data-i18n="features.title">Everything you need. Nothing you don't.</h2>
+      <div class="divider"></div>
+      <p class="section-sub" data-i18n="features.sub">Diary is intentionally small and focused. No bloat, no subscriptions, no servers. Just you and your words.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-name" data-i18n="f.enc.name">AES-256 Encryption</div>
+        <div class="feature-desc" data-i18n="f.enc.desc">Industry-standard encryption protects every entry. Your password is the only key — not stored anywhere.</div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">📴</div>
+        <div class="feature-name" data-i18n="f.offline.name">100% Offline</div>
+        <div class="feature-desc" data-i18n="f.offline.desc">No internet connection needed, ever. Your journal never leaves your device.</div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🛡️</div>
+        <div class="feature-name" data-i18n="f.priv.name">Zero Tracking</div>
+        <div class="feature-desc" data-i18n="f.priv.desc">No analytics, no telemetry, no crash reports. Nothing is collected because nothing is sent.</div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-name" data-i18n="f.fast.name">Lightweight & Fast</div>
+        <div class="feature-desc" data-i18n="f.fast.desc">Opens instantly. No Electron overhead. Diary is built to be lean and responsive.</div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🎁</div>
+        <div class="feature-name" data-i18n="f.free.name">Forever Free</div>
+        <div class="feature-desc" data-i18n="f.free.desc">No trial period, no premium tier, no paywalls. Diary is a hobby project made with care — free for everyone.</div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🔑</div>
+        <div class="feature-name" data-i18n="f.fernet.name">Fernet Encryption</div>
+        <div class="feature-desc" data-i18n="f.fernet.desc">Uses Fernet symmetric encryption built on AES-256-CBC. A proven, auditable cryptographic standard.</div>
+      </div>
+      <div class="feature-card wide reveal">
+        <div class="feature-icon">🖥️</div>
+        <div class="feature-name" data-i18n="f.platforms.name">Windows & Linux</div>
+        <div class="feature-desc" data-i18n="f.platforms.desc">Native builds for Windows 10/11 and major Linux distributions. No dependencies required — just download and run.</div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">✍️</div>
+        <div class="feature-name" data-i18n="f.simple.name">Simply Honest</div>
+        <div class="feature-desc" data-i18n="f.simple.desc">A clean, distraction-free writing experience. Your journal the way it should be.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHY ── -->
+<section id="why">
+  <div class="wrap">
+    <div class="why-inner">
+      <div class="why-visual">
+        <div class="journal-mockup">
+          <div class="journal-lines">
+            <div class="jl"></div><div class="jl"></div><div class="jl"></div><div class="jl"></div>
+            <div class="jl-gap"></div>
+            <div class="jl"></div><div class="jl"></div><div class="jl"></div><div class="jl"></div>
+            <div class="jl-gap"></div>
+            <div class="jl"></div><div class="jl"></div><div class="jl"></div><div class="jl"></div>
+            <div class="jl-gap"></div>
+            <div class="jl"></div><div class="jl"></div><div class="jl"></div><div class="jl"></div>
+          </div>
+          <div class="lock-badge">🔒</div>
+        </div>
+      </div>
+      <div class="why-right reveal">
+        <div class="section-eyebrow" data-i18n="why.eyebrow">Why Diary?</div>
+        <h2 class="section-title" data-i18n="why.title">Write freely. No one is watching.</h2>
+        <div class="divider"></div>
+        <p class="section-sub" data-i18n="why.sub">Most journaling apps ask you to trust them with your most private thoughts. Diary removes that trust requirement entirely — because there's simply no server to send your data to.</p>
+        <div class="why-points">
+          <div class="why-point">
+            <div class="why-point-icon">🏠</div>
+            <div class="why-point-text">
+              <h4 data-i18n="why.p1.h">Local-first, always</h4>
+              <p data-i18n="why.p1.p">Your entries are files on your own disk. You own them completely.</p>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-point-icon">🤫</div>
+            <div class="why-point-text">
+              <h4 data-i18n="why.p2.h">Password-based encryption</h4>
+              <p data-i18n="why.p2.p">Your password generates the key. Without it, the encrypted files are meaningless noise.</p>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-point-icon">💜</div>
+            <div class="why-point-text">
+              <h4 data-i18n="why.p3.h">A hobby project, made with care</h4>
+              <p data-i18n="why.p3.p">No company behind this. No investors. Just a developer who wanted a journal they could trust.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section id="faq">
+  <div class="wrap">
+    <div class="section-header reveal">
+      <div class="section-eyebrow" data-i18n="faq.eyebrow">FAQ</div>
+      <h2 class="section-title" data-i18n="faq.title">Good questions deserve honest answers.</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="faq-list reveal" id="faq-list"></div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-card reveal">
+      <div class="section-eyebrow" data-i18n="contact.eyebrow" style="text-align:center;margin-bottom:14px;">Contact</div>
+      <h2 class="section-title" data-i18n="contact.title" style="text-align:center;">Say hello ✉️</h2>
+      <div class="divider" style="margin:16px auto 24px;"></div>
+      <p data-i18n="contact.desc">This is a hobby project — so there's no support team, just a developer who genuinely cares. All social links and ways to reach Blockhunter Software will be listed here once available.</p>
+      <div class="contact-socials">
+        <a href="#" class="social-pill">🌐 Website</a>
+        <a href="#" class="social-pill">🐙 GitHub</a>
+        <a href="#" class="social-pill">🐦 Twitter / X</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="wrap">
+    <p class="footer-text">Made with <span>♥</span> by Blockhunter Software</p>
+  </div>
+</footer>
+
+<script>
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// RELEASE DATE — change this to set the countdown target
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const RELEASE_DATE = new Date('2026-09-01T00:00:00');
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// i18n STRINGS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const i18n = {
+  en: {
+    'nav.features':      'Features',
+    'nav.why':           'Why Diary?',
+    'nav.faq':           'FAQ',
+    'nav.contact':       'Contact',
+    'hero.eyebrow':      'Free · Offline · Encrypted',
+    'hero.desc':         'Your thoughts stay yours. A quiet place to write freely —\nprotected with AES-256 encryption, stored only on your device.',
+    'hero.download':     '↓ Download',
+    'hero.faq':          'FAQ',
+    'hero.contact':      'Contact',
+    'countdown.label':   'Coming Soon',
+    'countdown.days':    'Days',
+    'countdown.hours':   'Hours',
+    'countdown.mins':    'Mins',
+    'countdown.secs':    'Secs',
+    'countdown.released':'Available Now',
+    'countdown.rel.sub': 'Download Diary for free.',
+    'features.eyebrow':  'Features',
+    'features.title':    'Everything you need. Nothing you don\'t.',
+    'features.sub':      'Diary is intentionally small and focused. No bloat, no subscriptions, no servers. Just you and your words.',
+    'f.enc.name':        'AES-256 Encryption',
+    'f.enc.desc':        'Industry-standard encryption protects every entry. Your password is the only key — not stored anywhere.',
+    'f.offline.name':    '100% Offline',
+    'f.offline.desc':    'No internet connection needed, ever. Your journal never leaves your device.',
+    'f.priv.name':       'Zero Tracking',
+    'f.priv.desc':       'No analytics, no telemetry, no crash reports. Nothing is collected because nothing is sent.',
+    'f.fast.name':       'Lightweight & Fast',
+    'f.fast.desc':       'Opens instantly. No Electron overhead. Diary is built to be lean and responsive.',
+    'f.free.name':       'Forever Free',
+    'f.free.desc':       'No trial period, no premium tier, no paywalls. Diary is a hobby project made with care — free for everyone.',
+    'f.fernet.name':     'Fernet Encryption',
+    'f.fernet.desc':     'Uses Fernet symmetric encryption built on AES-256-CBC. A proven, auditable cryptographic standard.',
+    'f.platforms.name':  'Windows & Linux',
+    'f.platforms.desc':  'Native builds for Windows 10/11 and major Linux distributions. No dependencies required — just download and run.',
+    'f.simple.name':     'Simply Honest',
+    'f.simple.desc':     'A clean, distraction-free writing experience. Your journal the way it should be.',
+    'why.eyebrow':       'Why Diary?',
+    'why.title':         'Write freely. No one is watching.',
+    'why.sub':           'Most journaling apps ask you to trust them with your most private thoughts. Diary removes that trust requirement entirely — because there\'s simply no server to send your data to.',
+    'why.p1.h':          'Local-first, always',
+    'why.p1.p':          'Your entries are files on your own disk. You own them completely.',
+    'why.p2.h':          'Password-based encryption',
+    'why.p2.p':          'Your password generates the key. Without it, the encrypted files are meaningless noise.',
+    'why.p3.h':          'A hobby project, made with care',
+    'why.p3.p':          'No company behind this. No investors. Just a developer who wanted a journal they could trust.',
+    'faq.eyebrow':       'FAQ',
+    'faq.title':         'Good questions deserve honest answers.',
+    'contact.eyebrow':   'Contact',
+    'contact.title':     'Say hello ✉️',
+    'contact.desc':      'This is a hobby project — so there\'s no support team, just a developer who genuinely cares. All social links and ways to reach Blockhunter Software will be listed here once available.',
+    'faq.items': [
+      { q: 'How secure is Diary?', a: 'Every journal entry is encrypted using AES-256 via Fernet symmetric encryption. The key is derived from your password using a secure key derivation function. Without your password, the data is completely unreadable.' },
+      { q: 'Is any data uploaded anywhere?', a: 'No. Diary has no network functionality whatsoever. There is no server, no cloud sync, no analytics, no telemetry. Everything stays on your machine.' },
+      { q: 'What happens if I forget my password?', a: 'Your entries cannot be recovered without the correct password — that\'s by design. The encryption is strong enough that there is no backdoor. Please keep your password safe.' },
+      { q: 'Is Diary free?', a: 'Yes, completely. There is no paid version, no "pro" tier, no donations asked. Diary is a personal hobby project shared freely.' },
+      { q: 'Does Diary support Linux?', a: 'Yes. A native Linux build is available. It runs on most major distributions without additional dependencies.' },
+      { q: 'Does Diary support Windows?', a: 'Yes. Diary is available as a native Windows application, compatible with Windows 10 and Windows 11.' },
+    ]
+  },
+  de: {
+    'nav.features':      'Funktionen',
+    'nav.why':           'Warum Diary?',
+    'nav.faq':           'FAQ',
+    'nav.contact':       'Kontakt',
+    'hero.eyebrow':      'Kostenlos · Offline · Verschlüsselt',
+    'hero.desc':         'Deine Gedanken gehören dir. Ein ruhiger Ort zum freien Schreiben —\ngeschützt mit AES-256-Verschlüsselung, gespeichert nur auf deinem Gerät.',
+    'hero.download':     '↓ Herunterladen',
+    'hero.faq':          'FAQ',
+    'hero.contact':      'Kontakt',
+    'countdown.label':   'Release-Countdown',
+    'countdown.days':    'Tage',
+    'countdown.hours':   'Std',
+    'countdown.mins':    'Min',
+    'countdown.secs':    'Sek',
+    'countdown.released':'Jetzt verfügbar',
+    'countdown.rel.sub': 'Diary jetzt kostenlos herunterladen.',
+    'features.eyebrow':  'Funktionen',
+    'features.title':    'Alles, was du brauchst. Nichts, was du nicht brauchst.',
+    'features.sub':      'Diary ist bewusst klein und fokussiert. Kein Ballast, keine Abonnements, keine Server. Nur du und deine Worte.',
+    'f.enc.name':        'AES-256-Verschlüsselung',
+    'f.enc.desc':        'Branchenstandard-Verschlüsselung schützt jeden Eintrag. Dein Passwort ist der einzige Schlüssel — nirgendwo gespeichert.',
+    'f.offline.name':    '100% Offline',
+    'f.offline.desc':    'Keine Internetverbindung erforderlich. Dein Tagebuch verlässt dein Gerät niemals.',
+    'f.priv.name':       'Kein Tracking',
+    'f.priv.desc':       'Keine Analysen, keine Telemetrie, keine Absturzberichte. Nichts wird gesammelt, weil nichts gesendet wird.',
+    'f.fast.name':       'Leicht & Schnell',
+    'f.fast.desc':       'Öffnet sofort. Kein Electron-Overhead. Diary ist auf Effizienz ausgelegt.',
+    'f.free.name':       'Dauerhaft kostenlos',
+    'f.free.desc':       'Kein Testzeitraum, keine Premium-Stufe, keine Bezahlschranken. Ein Hobbyprojekt, mit Liebe gemacht.',
+    'f.fernet.name':     'Fernet-Verschlüsselung',
+    'f.fernet.desc':     'Verwendet Fernet-symmetrische Verschlüsselung auf Basis von AES-256-CBC. Ein bewährter, nachvollziehbarer Kryptostandard.',
+    'f.platforms.name':  'Windows & Linux',
+    'f.platforms.desc':  'Native Builds für Windows 10/11 und die wichtigsten Linux-Distributionen. Keine Abhängigkeiten — einfach herunterladen und starten.',
+    'f.simple.name':     'Ehrlich einfach',
+    'f.simple.desc':     'Eine saubere, ablenkungsfreie Schreiboberfläche. Dein Tagebuch, so wie es sein sollte.',
+    'why.eyebrow':       'Warum Diary?',
+    'why.title':         'Schreib frei. Niemand schaut zu.',
+    'why.sub':           'Die meisten Tagebuch-Apps verlangen dein Vertrauen für deine privatesten Gedanken. Diary macht dieses Vertrauen überflüssig — denn es gibt schlicht keinen Server, an den deine Daten geschickt werden könnten.',
+    'why.p1.h':          'Lokal zuerst, immer',
+    'why.p1.p':          'Deine Einträge sind Dateien auf deiner eigenen Festplatte. Du besitzt sie vollständig.',
+    'why.p2.h':          'Passwortbasierte Verschlüsselung',
+    'why.p2.p':          'Dein Passwort erzeugt den Schlüssel. Ohne ihn sind die verschlüsselten Dateien bedeutungsloser Datenmüll.',
+    'why.p3.h':          'Ein Hobbyprojekt, mit Sorgfalt gemacht',
+    'why.p3.p':          'Kein Unternehmen dahinter. Keine Investoren. Nur ein Entwickler, der ein Tagebuch wollte, dem er vertrauen kann.',
+    'faq.eyebrow':       'FAQ',
+    'faq.title':         'Gute Fragen verdienen ehrliche Antworten.',
+    'contact.eyebrow':   'Kontakt',
+    'contact.title':     'Sag Hallo ✉️',
+    'contact.desc':      'Das ist ein Hobbyprojekt — also kein Support-Team, nur ein Entwickler, dem es wirklich wichtig ist. Alle Social-Links und Kontaktmöglichkeiten zu Blockhunter Software werden hier verlinkt, sobald sie verfügbar sind.',
+    'faq.items': [
+      { q: 'Wie sicher ist Diary?', a: 'Jeder Tagebucheintrag wird mit AES-256 via Fernet-Symmetrieverschlüsselung verschlüsselt. Der Schlüssel wird aus deinem Passwort über eine sichere Schlüsselableitungsfunktion erzeugt. Ohne dein Passwort sind die Daten vollständig unlesbar.' },
+      { q: 'Werden Daten irgendwo hochgeladen?', a: 'Nein. Diary hat keinerlei Netzwerkfunktionalität. Es gibt keinen Server, keine Cloud-Synchronisation, keine Analysen, keine Telemetrie. Alles bleibt auf deinem Rechner.' },
+      { q: 'Was passiert, wenn ich mein Passwort vergesse?', a: 'Deine Einträge können ohne das korrekte Passwort nicht wiederhergestellt werden — das ist so gewollt. Die Verschlüsselung ist stark genug, dass es keine Hintertür gibt. Bitte bewahre dein Passwort sicher auf.' },
+      { q: 'Ist Diary kostenlos?', a: 'Ja, vollständig. Es gibt keine kostenpflichtige Version, kein „Pro"-Abo, keine Spendenhinweise. Diary ist ein persönliches Hobbyprojekt, das frei geteilt wird.' },
+      { q: 'Unterstützt Diary Linux?', a: 'Ja. Ein nativer Linux-Build ist verfügbar. Er läuft auf den meisten wichtigen Distributionen ohne zusätzliche Abhängigkeiten.' },
+      { q: 'Unterstützt Diary Windows?', a: 'Ja. Diary ist als native Windows-Anwendung erhältlich, kompatibel mit Windows 10 und Windows 11.' },
+    ]
+  }
+};
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// DETECT LANGUAGE
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const lang = (navigator.language || navigator.userLanguage || 'en').startsWith('de') ? 'de' : 'en';
+const t = i18n[lang];
+document.documentElement.lang = lang;
+
+// Apply translations
+document.querySelectorAll('[data-i18n]').forEach(el => {
+  const key = el.getAttribute('data-i18n');
+  if (t[key]) el.textContent = t[key];
+});
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// BUILD FAQ
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const faqList = document.getElementById('faq-list');
+t['faq.items'].forEach((item, i) => {
+  const el = document.createElement('div');
+  el.className = 'faq-item';
+  el.innerHTML = `
+    <button class="faq-q" aria-expanded="false">
+      <span>${item.q}</span>
+      <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </button>
+    <div class="faq-a">${item.a}</div>
+  `;
+  faqList.appendChild(el);
+  const btn = el.querySelector('.faq-q');
+  const ans = el.querySelector('.faq-a');
+  btn.addEventListener('click', () => {
+    const open = el.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+    ans.classList.toggle('open', open);
+  });
+});
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// COUNTDOWN
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const cdDays  = document.getElementById('cd-days');
+const cdHours = document.getElementById('cd-hours');
+const cdMins  = document.getElementById('cd-mins');
+const cdSecs  = document.getElementById('cd-secs');
+const cdDisp  = document.getElementById('cd-display');
+
+function pad(n) { return String(Math.max(0,n)).padStart(2,'0'); }
+
+function tickCountdown() {
+  const now  = Date.now();
+  const diff = RELEASE_DATE.getTime() - now;
+
+  if (diff <= 0) {
+    cdDisp.innerHTML = `
+      <div class="cd-released">
+        ${t['countdown.released']}
+        <small>${t['countdown.rel.sub']}</small>
+      </div>`;
+    return;
+  }
+
+  const days  = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const mins  = Math.floor((diff % 3600000) / 60000);
+  const secs  = Math.floor((diff % 60000) / 1000);
+
+  const prev = [cdDays.textContent, cdHours.textContent, cdMins.textContent, cdSecs.textContent];
+  const next = [pad(days), pad(hours), pad(mins), pad(secs)];
+  [[cdDays, 0],[cdHours, 1],[cdMins, 2],[cdSecs, 3]].forEach(([el, i]) => {
+    if (prev[i] !== next[i]) {
+      el.style.transform = 'translateY(-6px)';
+      el.style.opacity   = '0';
+      setTimeout(() => {
+        el.textContent   = next[i];
+        el.style.transition = 'none';
+        el.style.transform  = 'translateY(6px)';
+        el.style.opacity    = '0';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            el.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+            el.style.transform  = 'translateY(0)';
+            el.style.opacity    = '1';
+          });
+        });
+      }, 150);
+    }
+  });
+}
+tickCountdown();
+setInterval(tickCountdown, 1000);
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// STARS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const starsLayer = document.getElementById('stars');
+for (let i = 0; i < 90; i++) {
+  const s = document.createElement('div');
+  s.className = 'star';
+  const size = Math.random() * 2.5 + 0.5;
+  const x    = Math.random() * 100;
+  const y    = Math.random() * 100;
+  const dur  = 3 + Math.random() * 5;
+  const del  = Math.random() * 8;
+  const minO = 0.05 + Math.random() * 0.1;
+  const maxO = 0.3  + Math.random() * 0.5;
+  s.style.cssText = `
+    width:${size}px; height:${size}px;
+    left:${x}%; top:${y}%;
+    --d:${dur}s; --delay:${del}s; --min:${minO}; --max:${maxO};
+  `;
+  starsLayer.appendChild(s);
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// SCROLL REVEAL
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 60);
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// SUBTLE PARALLAX on blobs
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+document.addEventListener('mousemove', (e) => {
+  const mx = (e.clientX / window.innerWidth  - 0.5) * 30;
+  const my = (e.clientY / window.innerHeight - 0.5) * 20;
+  document.querySelectorAll('.blob').forEach((b, i) => {
+    const f = (i + 1) * 0.4;
+    b.style.transform = `translate(${mx*f}px, ${my*f}px)`;
+  });
+});
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// FLOATING HEARTS in countdown card
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const cdCard = document.querySelector('.countdown-card');
+const hearts = ['✦','✧','·','⋆','˚'];
+for (let i = 0; i < 6; i++) {
+  const f = document.createElement('div');
+  f.className = 'floater';
+  f.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+  f.style.cssText = `
+    left:${10 + Math.random()*80}%;
+    bottom: ${Math.random()*20}%;
+    font-size:${0.6 + Math.random()*0.6}rem;
+    color: rgba(167,139,250,0.6);
+    animation-delay: ${Math.random()*6}s;
+    animation-duration: ${5 + Math.random()*4}s;
+  `;
+  cdCard.appendChild(f);
+}
+</script>
+</body>
+</html>
