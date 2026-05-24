@@ -1,19 +1,27 @@
 {
-  "projects": {
-      "blockhunter-software": {
-      "project_name": "Diary",
-      "last_updated": "23.05.2026",
-      "description": "A small diary app to save your secrets encrypted",
-      "url": "https://blockhunter0007.github.io/projects/diary",
-      "images": [],
-      "header_image": ""
+      socials: {
+        twitch: "https://www.twitch.tv/blockhunter0007",
+        youtube: "https://www.youtube.com/@blockhunter0007",
+        tiktok: "https://www.tiktok.com/@blockhunter0007",
+        throne: "https://throne.com/blockhunter"
+      },
+      status: [
+        {
+          en: "working on the diary",
+          de: "arbeite an dem Tagebuch"
+        },
+       
+      ],
+      projects: [
+        {
+          name: "Diary",
+          description: {
+            en: "A simple minimalistic offline diary app.",
+            de: "Eine simple minimale offline Tagebuch App"
+          },
+          url: "/projects/diary",
+          image: null,
+          tags: ["offline", "privacy", "safe"]
+        }
+      ]
     }
-  },
-  "socials": {
-    "x": "none",
-    "twitch": "https://www.twitch.tv/blockhunter0007",
-    "youtube": "https://www.youtube.com/@blockhunter0007",
-    "tiktok": "https://www.tiktok.com/@blockhunter0007",
-    "throne": "https://throne.com/blockhunter"
-  }
-}
