@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blockhunter0007 — a quiet place online</title>
+<meta name="description" content="A personal homepage by Blockhunter0007. Soft projects made with care.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Klee+One:wght@400;600&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ─────────────────────────────────────────
+   CSS CUSTOM PROPERTIES
+───────────────────────────────────────── */
+:root {
+  --font-display: 'Klee One', cursive;
+  --font-body: 'Nunito', sans-serif;
+  --font-handwrite: 'Caveat', cursive;
+
+  /* Light Mode */
+  --bg-primary: #fdf6f0;
+  --bg-secondary: #fff0f5;
+  --bg-card: rgba(255, 255, 255, 0.72);
+  --bg-card-hover: rgba(255, 255, 255, 0.92);
+  --text-primary: #3a2a35;
+  --text-secondary: #7a5a6a;
+  --text-muted: #b8909a;
+  --accent-1: #e8a0bf;
+  --accent-2: #c9b1e8;
+  --accent-3: #f7c5d5;
+  --accent-glow: rgba(232, 160, 191, 0.35);
+  --border-soft: rgba(232, 160, 191, 0.25);
+  --shadow-soft: 0 4px 24px rgba(180, 120, 150, 0.12);
+  --shadow-hover: 0 8px 40px rgba(180, 120, 150, 0.22);
+  --grad-hero: linear-gradient(135deg, #fdf0f8 0%, #f5e8ff 50%, #fde8ef 100%);
+  --grad-section: linear-gradient(180deg, #fdf6f0 0%, #fff0f5 100%);
+  --particle-opacity: 0.5;
+  --header-bg: rgba(253, 246, 240, 0.82);
+}
+
+[data-theme="dark"] {
+  --bg-primary: #120a18;
+  --bg-secondary: #1a0f22;
+  --bg-card: rgba(30, 16, 42, 0.75);
+  --bg-card-hover: rgba(40, 22, 58, 0.90);
+  --text-primary: #f0e6f8;
+  --text-secondary: #c4a8d8;
+  --text-muted: #8a6a9a;
+  --accent-1: #c084e0;
+  --accent-2: #e080b0;
+  --accent-3: #9060c8;
+  --accent-glow: rgba(192, 132, 224, 0.25);
+  --border-soft: rgba(192, 132, 224, 0.18);
+  --shadow-soft: 0 4px 32px rgba(100, 40, 160, 0.22);
+  --shadow-hover: 0 8px 48px rgba(120, 50, 200, 0.35);
+  --grad-hero: linear-gradient(135deg, #130a1a 0%, #1e0d2e 50%, #150a20 100%);
+  --grad-section: linear-gradient(180deg, #120a18 0%, #1a0f22 100%);
+  --particle-opacity: 0.4;
+  --header-bg: rgba(18, 10, 24, 0.85);
+}
+
+/* ─────────────────────────────────────────
+   RESET & BASE
+───────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.75;
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background 0.5s ease, color 0.4s ease;
+}
+
+a {
+  color: var(--accent-1);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+a:hover { color: var(--accent-2); }
+
+img { max-width: 100%; display: block; }
+
+/* ─────────────────────────────────────────
+   PARTICLE CANVAS
+───────────────────────────────────────── */
+#particle-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: var(--particle-opacity);
+}
+
+/* ─────────────────────────────────────────
+   HEADER
+───────────────────────────────────────── */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  backdrop-filter: blur(14px) saturate(1.3);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--border-soft);
+  padding: 0 2rem;
+  height: 64px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  transition: background 0.5s ease, border-color 0.4s ease;
+}
+
+.header-left .site-name {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+.header-left .site-name:hover { opacity: 1; }
+
+.header-center {
+  text-align: center;
+}
+.header-center .logo-text {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+.header-center .logo-sub {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  font-weight: 400;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  justify-content: flex-end;
+}
+
+.icon-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border-soft);
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  box-shadow: var(--shadow-soft);
+}
+.icon-btn:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--accent-1);
+  box-shadow: 0 0 12px var(--accent-glow);
+  transform: scale(1.08);
+  color: var(--accent-1);
+}
+.icon-btn:focus-visible {
+  outline: 2px solid var(--accent-1);
+  outline-offset: 2px;
+}
+
+/* ─────────────────────────────────────────
+   MAIN LAYOUT
+───────────────────────────────────────── */
+main {
+  position: relative;
+  z-index: 1;
+  padding-top: 64px;
+}
+
+.section-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 5rem 1.5rem;
+}
+
+/* ─────────────────────────────────────────
+   HERO
+───────────────────────────────────────── */
+.hero {
+  background: var(--grad-hero);
+  min-height: 94vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.6s ease;
+}
+
+.hero-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  transition: background 0.6s ease;
+}
+.hero-glow-1 {
+  width: 520px; height: 520px;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+  top: -100px; left: -100px;
+  animation: driftA 18s ease-in-out infinite;
+}
+.hero-glow-2 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(201,177,232,0.2) 0%, transparent 70%);
+  bottom: -60px; right: -60px;
+  animation: driftB 22s ease-in-out infinite;
+}
+
+@keyframes driftA {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(40px, 30px) scale(1.05); }
+  66% { transform: translate(-20px, 50px) scale(0.97); }
+}
+@keyframes driftB {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  40% { transform: translate(-30px, -25px) scale(1.08); }
+  70% { transform: translate(20px, 20px) scale(0.95); }
+}
+
+.hero-content {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  max-width: 700px;
+  animation: fadeInUp 1.1s ease both;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-eyebrow {
+  font-family: var(--font-handwrite);
+  font-size: 1.1rem;
+  color: var(--accent-1);
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.05em;
+  animation: fadeInUp 1.1s 0.15s ease both;
+}
+
+.hero-headline {
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 5.5vw, 3.4rem);
+  font-weight: 600;
+  line-height: 1.28;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 1.1s 0.25s ease both;
+}
+.hero-headline em {
+  font-style: italic;
+  color: var(--accent-1);
+}
+
+.hero-sub {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 520px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.85;
+  animation: fadeInUp 1.1s 0.4s ease both;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeInUp 1.1s 0.55s ease both;
+}
+
+.btn-soft {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.8rem;
+  border-radius: 2rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1.5px solid var(--border-soft);
+  letter-spacing: 0.02em;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 4px 20px var(--accent-glow);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px var(--accent-glow);
+  color: #fff;
+}
+.btn-ghost {
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  backdrop-filter: blur(8px);
+}
+.btn-ghost:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--accent-1);
+  color: var(--accent-1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px var(--accent-glow);
+}
+.btn-soft:focus-visible {
+  outline: 2px solid var(--accent-1);
+  outline-offset: 3px;
+}
+
+/* ─────────────────────────────────────────
+   SECTION TITLES
+───────────────────────────────────────── */
+.section-label {
+  font-family: var(--font-handwrite);
+  font-size: 0.95rem;
+  color: var(--accent-1);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.3rem;
+  display: block;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 3.5vw, 2.2rem);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2.5rem;
+  line-height: 1.3;
+}
+
+/* ─────────────────────────────────────────
+   ABOUT
+───────────────────────────────────────── */
+.about-section {
+  background: var(--grad-section);
+  transition: background 0.6s ease;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+@media (max-width: 640px) {
+  .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+.about-text p {
+  color: var(--text-secondary);
+  margin-bottom: 1.2rem;
+  font-size: 1.02rem;
+}
+.about-text p:last-child { margin-bottom: 0; }
+
+.about-snip {
+  font-family: var(--font-handwrite);
+  font-size: 1.15rem;
+  color: var(--accent-1);
+  margin: 1.8rem 0 !important;
+  padding-left: 1.1rem;
+  border-left: 2px solid var(--accent-1);
+  opacity: 0.8;
+  font-style: italic;
+}
+
+.about-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-soft);
+  border-radius: 1.5rem;
+  padding: 1.8rem;
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.about-trait {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+.trait-icon {
+  font-size: 1.3rem;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 0.05rem;
+}
+.trait-label {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  margin-bottom: 0.1rem;
+}
+
+/* ─────────────────────────────────────────
+   STATUS / DEVLOG
+───────────────────────────────────────── */
+.status-section {
+  padding: 3rem 1.5rem;
+}
+
+.status-inner {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.status-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.status-entry {
+  background: var(--bg-card);
+  border: 1px solid var(--border-soft);
+  border-radius: 1rem;
+  padding: 1rem 1.4rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(8px);
+  animation: fadeInUp 0.6s ease both;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.status-entry:hover {
+  border-color: var(--accent-1);
+  box-shadow: 0 4px 24px var(--accent-glow);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent-1);
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 0.48rem;
+  box-shadow: 0 0 8px var(--accent-glow);
+  animation: pulse 2.5s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.status-text {
+  font-family: var(--font-handwrite);
+  font-size: 1.12rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ─────────────────────────────────────────
+   PROJECTS
+───────────────────────────────────────── */
+.projects-section {
+  background: var(--grad-section);
+  transition: background 0.6s ease;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.project-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-soft);
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(10px);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  animation: fadeInUp 0.7s ease both;
+}
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--accent-1);
+}
+
+.project-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-family: var(--font-display);
+  color: var(--text-muted);
+  position: relative;
+  overflow: hidden;
+}
+.project-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.project-img-placeholder {
+  width: 100%;
+  height: 160px;
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-card) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.8rem;
+}
+
+.project-body {
+  padding: 1.4rem 1.5rem 1.5rem;
+}
+
+.project-name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.project-desc {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 1.1rem;
+}
+
+.tag {
+  font-size: 0.75rem;
+  background: rgba(var(--accent-r, 200), var(--accent-g, 130), var(--accent-b, 190), 0.14);
+  color: var(--accent-1);
+  border: 1px solid var(--border-soft);
+  padding: 0.2rem 0.7rem;
+  border-radius: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.88rem;
+  color: var(--accent-1);
+  font-weight: 600;
+  transition: gap 0.2s;
+}
+.project-link:hover { gap: 0.7rem; color: var(--accent-2); }
+
+/* ─────────────────────────────────────────
+   SOCIALS
+───────────────────────────────────────── */
+.socials-section {}
+
+.socials-intro {
+  font-family: var(--font-handwrite);
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.socials-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.4rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-soft);
+  border-radius: 1rem;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  font-weight: 600;
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-soft);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.social-btn:hover {
+  border-color: var(--accent-1);
+  color: var(--accent-1);
+  box-shadow: 0 4px 24px var(--accent-glow);
+  transform: translateY(-2px);
+}
+.social-btn:focus-visible {
+  outline: 2px solid var(--accent-1);
+  outline-offset: 2px;
+}
+
+.social-icon {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.social-icon-fallback {
+  width: 26px;
+  height: 26px;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ─────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────── */
+.site-footer {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-soft);
+  padding: 3.5rem 1.5rem 2.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.5s ease;
+}
+
+.footer-glow {
+  position: absolute;
+  width: 400px; height: 200px;
+  background: radial-gradient(ellipse, var(--accent-glow) 0%, transparent 70%);
+  left: 50%; top: 0; transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.footer-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.footer-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--text-primary);
+  margin-bottom: 0.8rem;
+}
+
+.footer-message {
+  font-family: var(--font-handwrite);
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  font-style: italic;
+  line-height: 1.7;
+}
+
+.footer-meta {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  opacity: 0.7;
+  line-height: 1.9;
+}
+
+/* ─────────────────────────────────────────
+   SCROLL REVEAL
+───────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─────────────────────────────────────────
+   MISC
+───────────────────────────────────────── */
+.divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border-soft), transparent);
+  margin: 0;
+}
+
+/* Loading skeleton */
+.skeleton {
+  background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-secondary) 50%, var(--bg-card) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 0.5rem;
+  height: 1.2rem;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- AUDIO -->
+<audio id="bg-music" loop preload="auto">
+  <source src="assets/theme.ogg" type="audio/ogg">
+</audio>
+
+<!-- PARTICLES -->
+<canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+<!-- HEADER -->
+<header class="site-header" role="banner">
+  <div class="header-left">
+    <a href="#" class="site-name" aria-label="Go to top"></a>
+  </div>              
+  <div class="header-center" aria-hidden="true">
+    <div class="logo-text">Blockhunter0007</div>
+    <div class="logo-sub"></div>
+  </div>
+  <div class="header-right">
+    <button class="icon-btn" id="theme-toggle" aria-label="Toggle theme" title="Toggle dark/light mode">
+      <span id="theme-icon">🌙</span>
+    </button>
+    <button class="icon-btn" id="music-toggle" aria-label="Toggle music" title="Toggle music" style="display:none">
+      <span id="music-icon">🎵</span>
+    </button>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main>
+
+  <!-- HERO -->
+  <section class="hero" id="hero" aria-labelledby="hero-headline">
+    <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
+    <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow" id="hero-eyebrow">✦ welcome ✦</p>
+      <h1 class="hero-headline" id="hero-headline">
+        <span id="hero-title-line"></span>
+      </h1>
+      <p class="hero-sub" id="hero-sub"></p>
+      <div class="hero-buttons">
+        <a href="#projects" class="btn-soft btn-primary" id="btn-projects">✦ Projects</a>
+        <a href="#socials" class="btn-soft btn-ghost" id="btn-socials">Socials</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ABOUT -->
+  <section class="about-section" id="about" aria-labelledby="about-title">
+    <div class="section-wrap">
+      <div class="reveal">
+        <span class="section-label" id="label-about"></span>
+        <h2 class="section-title" id="about-title" id="about-heading"></h2>
+      </div>
+      <div class="about-grid reveal">
+        <div class="about-text" id="about-text">
+          <!-- JS injected -->
+        </div>
+        <div class="about-card reveal">
+          <!-- JS injected traits -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- STATUS / DEVLOG -->
+  <section class="status-section" id="status" aria-labelledby="status-title">
+    <div class="status-inner">
+      <div class="reveal">
+        <span class="section-label" id="label-status"></span>
+        <h2 class="section-title" id="status-title"></h2>
+      </div>
+      <div class="status-scroll reveal" id="status-list" aria-live="polite">
+        <div class="skeleton" style="height: 3rem; border-radius: 1rem;"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PROJECTS -->
+  <section class="projects-section" id="projects" aria-labelledby="projects-title">
+    <div class="section-wrap">
+      <div class="reveal">
+        <span class="section-label" id="label-projects"></span>
+        <h2 class="section-title" id="projects-title"></h2>
+      </div>
+      <div class="projects-grid" id="projects-grid" aria-live="polite">
+        <div class="skeleton" style="height: 260px; border-radius: 1.5rem;"></div>
+        <div class="skeleton" style="height: 260px; border-radius: 1.5rem;"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SOCIALS -->
+  <section class="socials-section" id="socials" aria-labelledby="socials-title">
+    <div class="section-wrap">
+      <div class="reveal">
+        <span class="section-label" id="label-socials"></span>
+        <h2 class="section-title" id="socials-title"></h2>
+        <p class="socials-intro" id="socials-intro"></p>
+      </div>
+      <div class="socials-grid reveal" id="socials-list" aria-live="polite">
+        <div class="skeleton" style="height: 3rem; border-radius: 1rem; width: 160px;"></div>
+        <div class="skeleton" style="height: 3rem; border-radius: 1rem; width: 160px;"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-glow" aria-hidden="true"></div>
+  <div class="footer-inner">
+    <div class="footer-title">Blockhunter0007</div>
+    <p class="footer-message" id="footer-message"></p>
+    <p class="footer-meta" id="footer-meta"></p>
+  </div>
+</footer>
+
+<script>
+/* ─────────────────────────────────────────
+   TRANSLATIONS
+───────────────────────────────────────── */
+const translations = {
+  en: {
+    heroEyebrow: "✦ welcome ✦",
+    heroTitle: "Ideas and dreams that got reality",
+    heroSub: "Hi, I'm Blockhunter0007. I'm 15, I like programming to help others, I use Almost all my programmes myself. If you need an app/programm contact me",
+    btnProjects: "✦ Projects",
+    btnSocials: "Socials",
+
+    labelAbout: "about me",
+    aboutTitle: "The real person behind this.",
+    about1: "I'm 15. I code mostly at night and stay up late. Im an overthinker.",
+    aboutSnip1: "Likes and dislikes",
+    about2: "I like calming People, but only if they are not many.",
+    aboutSnip2: "Personality Mentality and Emotions",
+    about3: "Im someone that gets hooked quickly into large projects and forgets time completely. I do things when they are urgent not when I only need to do them. I get depressed quickly and I'm unstable.",
+
+    traits: [
+      { icon: "🌙", label: "Night coder", desc: "working past 3 am" },
+      { icon: "🛠️", label: "Solo builder", desc: "one person, way to many unfinished projects" },
+      { icon: "🌸", label: "Helpful software", desc: "development for you and me" },
+    ],
+
+    labelStatus: "lately",
+    statusTitle: "What I'm up to",
+
+    labelProjects: "projects",
+    projectsTitle: "Things I built.",
+    visitProject: "visit →",
+    noProjects: "No projects to show yet — check back soon.",
+
+    labelSocials: "find me",
+    socialsTitle: "The places I just exist (online).",
+    socialsIntro: "here are the places where I sometimes exist online ✦",
+
+    footerMessage: "Made during the night\nFeel free to contact me for whishes or questions.",
+    footerMeta: "Blockhunter0007 · Personal indie website · No tracking, no ads, no noise.\nAll projects build with love and without AI.",
+  },
+  de: {
+    heroEyebrow: "✦ willkommen ✦",
+    heroTitle: "Ideen und Träume die war werden",
+    heroSub: "Hi, ich bin Blockhunter0007. Ich bin 15, Ich mag es Dinge zu programmieren die anderen helfen, fast alles was ich programmiere nutze ich selbst. Wenn du eine App/Programm Idee hast schreib mir bitte.",
+    btnProjects: "✦ Projekte",
+    btnSocials: "Socials",
+
+    labelAbout: "über mich",
+    aboutTitle: "Die echte Person dahinter.",
+    about1: "Ich bin 15 und programmiere hauptsächlich nachts und bleibe lange wach. Ich bin sehr nachdenklich",
+    aboutSnip1: "Likes and Dislikes",
+    about2: "Ich mag entspannende Menschen solange es nicht viele sind.",
+    aboutSnip2: "Personality Mentality and Emotions",
+    about3: "Ich bin jemand der sehr schnell von Ideen in große Projekte mitgerissen wird und neben bei die Zeit komplett vergisst. Ich mache Aufgaben nur wenn Druck ausgeübt wird, nicht wenn ich sie in nächster Zeit abgeben soll. Ich werde sehr schnell und bin emotional instabil",
+
+    traits: [
+      { icon: "🌙", label: "Nacht-Coder", desc: "programmieren bis 3 Uhr morgens" },
+      { icon: "🛠️", label: "Solo-Entwickler", desc: "eine Person, viel zu viele halbfertige Projekte" },
+      { icon: "🌸", label: "Hilfreiche Software", desc: "Software für dich und mich" },
+    ],
+
+    labelStatus: "zuletzt",
+    statusTitle: "Was ich gerade mache",
+
+    labelProjects: "projekte",
+    projectsTitle: "Dinge, die ich gebaut habe.",
+    visitProject: "ansehen →",
+    noProjects: "Noch keine Projekte — schau bald wieder vorbei.",
+
+    labelSocials: "finde mich",
+    socialsTitle: "Die Orte, an denen ich online existiere.",
+    socialsIntro: "hier sind die orte, wo ich existiere (online)✦",
+
+    footerMessage: "Gemacht in schlaflosen Nächten\nDanke, Kontaktiere mich bei Fragen oder Wünschen",
+    footerMeta: "Blockhunter0007 · Persönliche Indie-Website · Kein Tracking, keine Werbung.\nAlle Projekte mit Liebe und ohne KI programmiert",
+  }
+};
+
+function getLang() {
+  const lang = navigator.language || 'en';
+  if (lang.startsWith('de')) return 'de';
+  return 'en';
+}
+
+const lang = getLang();
+const t = translations[lang];
+
+/* ─────────────────────────────────────────
+   THEME SYSTEM
+───────────────────────────────────────── */
+const html = document.documentElement;
+const themeIcon = document.getElementById('theme-icon');
+const themeToggle = document.getElementById('theme-toggle');
+
+function applyTheme(theme) {
+  html.setAttribute('data-theme', theme);
+  themeIcon.textContent = theme === 'dark' ? '🌙' : '☀️';
+  themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+  localStorage.setItem('bh-theme', theme);
+}
+
+const saved = localStorage.getItem('bh-theme');
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+const initTheme = saved || (prefersDark ? 'dark' : 'light');
+applyTheme(initTheme);
+
+themeToggle.addEventListener('click', () => {
+  applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+
+/* ─────────────────────────────────────────
+   MUSIC SYSTEM
+───────────────────────────────────────── */
+const audio = document.getElementById('bg-music');
+const musicToggle = document.getElementById('music-toggle');
+const musicIcon = document.getElementById('music-icon');
+let musicLoaded = false;
+let isMuted = false;
+
+audio.volume = 0.25;
+
+audio.addEventListener('canplaythrough', () => {
+  musicLoaded = true;
+  musicToggle.style.display = 'flex';
+  audio.play().catch(() => {});
+}, { once: true });
+
+audio.addEventListener('error', () => {
+  musicToggle.style.display = 'none';
+});
+
+// Autoplay attempt
+audio.load();
+
+function fadeAudio(target, duration = 600) {
+  const start = audio.volume;
+  const diff = target - start;
+  const startTime = performance.now();
+  function step(now) {
+    const p = Math.min((now - startTime) / duration, 1);
+    audio.volume = Math.max(0, Math.min(1, start + diff * p));
+    if (p < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+musicToggle.addEventListener('click', () => {
+  isMuted = !isMuted;
+  if (isMuted) {
+    fadeAudio(0);
+    musicIcon.textContent = '🔇';
+    musicToggle.setAttribute('aria-label', 'Unmute music');
+  } else {
+    audio.play().catch(() => {});
+    fadeAudio(0.25);
+    musicIcon.textContent = '🎵';
+    musicToggle.setAttribute('aria-label', 'Mute music');
+  }
+});
+
+/* ─────────────────────────────────────────
+   APPLY TRANSLATIONS
+───────────────────────────────────────── */
+document.documentElement.lang = lang;
+
+document.getElementById('hero-eyebrow').textContent = t.heroEyebrow;
+
+const heroLines = t.heroTitle.split('\n');
+document.getElementById('hero-title-line').innerHTML =
+  heroLines.map((l, i) => `<span style="display:block">${i === 1 ? '<em>' + l + '</em>' : l}</span>`).join('');
+
+document.getElementById('hero-sub').textContent = t.heroSub;
+document.getElementById('btn-projects').textContent = t.btnProjects;
+document.getElementById('btn-socials').textContent = t.btnSocials;
+
+document.getElementById('label-about').textContent = t.labelAbout;
+document.getElementById('about-title').textContent = t.aboutTitle;
+
+// About text
+const aboutText = document.getElementById('about-text');
+aboutText.innerHTML = `
+  <p>${t.about1}</p>
+  <p class="about-snip">${t.aboutSnip1}</p>
+  <p>${t.about2}</p>
+  <p class="about-snip">${t.aboutSnip2}</p>
+  <p>${t.about3}</p>
+`;
+
+// About card traits
+const aboutCard = document.querySelector('.about-card');
+aboutCard.innerHTML = t.traits.map(tr => `
+  <div class="about-trait">
+    <span class="trait-icon" aria-hidden="true">${tr.icon}</span>
+    <div>
+      <div class="trait-label">${tr.label}</div>
+      <div>${tr.desc}</div>
+    </div>
+  </div>
+`).join('');
+
+document.getElementById('label-status').textContent = t.labelStatus;
+document.getElementById('status-title').textContent = t.statusTitle;
+document.getElementById('label-projects').textContent = t.labelProjects;
+document.getElementById('projects-title').textContent = t.projectsTitle;
+document.getElementById('label-socials').textContent = t.labelSocials;
+document.getElementById('socials-title').textContent = t.socialsTitle;
+document.getElementById('socials-intro').textContent = t.socialsIntro;
+document.getElementById('footer-message').innerHTML = t.footerMessage.replace('\n', '<br>');
+document.getElementById('footer-meta').innerHTML = t.footerMeta.replace('\n', '<br>');
+
+/* ─────────────────────────────────────────
+   LOAD DATA.JSON
+───────────────────────────────────────── */
+const PROJECT_EMOJIS = ['🌸', '🌙', '✦', '🍃', '🌷', '🪄', '🫧', '🌿'];
+
+async function loadData() {
+  let data = null;
+  try {
+    const res = await fetch('/assets/data.json');
+    if (!res.ok) throw new Error('not found');
+    data = await res.json();
+  } catch {
+    // Use demo data if file not found
+    data = {
+      socials: {
+        twitch: "https://www.twitch.tv/blockhunter0007",
+        youtube: "https://www.youtube.com/@blockhunter0007",
+        tiktok: "https://www.tiktok.com/@blockhunter0007",
+        throne: "https://throne.com/blockhunter"
+      },
+      status: [
+      ],
+      projects: [
+        {
+          name: "An error occured",
+          description: {
+            en: "Error loading JSON",
+            de: "Ladeprobleme beim laden der JSON"
+          },
+          url: "/",
+          image: null,
+          tags: ["error"]
+        },
+      ]
+    };
+  }
+  renderStatus(data.status || []);
+  renderProjects(data.projects || []);
+  renderSocials(data.socials || {});
+}
+
+function renderStatus(entries) {
+  const list = document.getElementById('status-list');
+  if (!entries.length) {
+    list.innerHTML = `<p style="color:var(--text-muted); font-family:var(--font-handwrite); font-size:1.05rem;">— quiet for now —</p>`;
+    return;
+  }
+  list.innerHTML = entries.map((e, i) => `
+    <div class="status-entry" style="animation-delay:${i * 0.12}s">
+      <span class="status-dot" aria-hidden="true"></span>
+      <span class="status-text">${escHtml(e[lang] || e.en || '')}</span>
+    </div>
+  `).join('');
+}
+
+function renderProjects(projects) {
+  const grid = document.getElementById('projects-grid');
+  if (!projects.length) {
+    grid.innerHTML = `<p style="color:var(--text-muted)">${escHtml(t.noProjects)}</p>`;
+    return;
+  }
+  grid.innerHTML = projects.map((p, i) => {
+    const desc = (typeof p.description === 'object') ? (p.description[lang] || p.description.en || '') : (p.description || '');
+    const emoji = PROJECT_EMOJIS[i % PROJECT_EMOJIS.length];
+    const imgHtml = p.image
+      ? `<div class="project-img"><img src="${escAttr(p.image)}" alt="${escAttr(p.name)}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=project-img-placeholder aria-hidden=true>${emoji}</div>'"></div>`
+      : `<div class="project-img-placeholder" aria-hidden="true">${emoji}</div>`;
+    const tagsHtml = (p.tags || []).map(tag => `<span class="tag">${escHtml(tag)}</span>`).join('');
+    const linkHtml = p.url && p.url !== '#'
+      ? `<a href="${escAttr(p.url)}" class="project-link" aria-label="Visit ${escAttr(p.name)}">${escHtml(t.visitProject)}</a>`
+      : '';
+    return `
+      <article class="project-card" style="animation-delay:${i * 0.1}s">
+        ${imgHtml}
+        <div class="project-body">
+          <h3 class="project-name">${escHtml(p.name)}</h3>
+          <p class="project-desc">${escHtml(desc)}</p>
+          ${tagsHtml ? `<div class="project-tags">${tagsHtml}</div>` : ''}
+          ${linkHtml}
+        </div>
+      </article>
+    `;
+  }).join('');
+}
+
+const SOCIAL_FALLBACK_ICONS = {
+  youtube: 'YT',
+  twitch: 'TW',
+  tiktok: 'TT',
+  throne: '👑',
+  twitter: '✦',
+  x: 'x',
+  github: 'gh',
+  instagram: 'insta',
+  discord: '💬',
+};
+
+function renderSocials(socials) {
+  const list = document.getElementById('socials-list');
+  const entries = Object.entries(socials).filter(([, v]) => v && v !== 'none');
+  if (!entries.length) {
+    list.innerHTML = `<p style="color:var(--text-muted); font-family:var(--font-handwrite)">— nowhere yet, but soon —</p>`;
+    return;
+  }
+  list.innerHTML = entries.map(([platform, url]) => {
+    const name = platform.charAt(0).toUpperCase() + platform.slice(1);
+    const fallback = SOCIAL_FALLBACK_ICONS[platform.toLowerCase()] || '✦';
+    return `
+      <a href="${escAttr(url)}" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="${escAttr(name)} profile">
+        <img
+          src="assets/socials/${escAttr(platform.toLowerCase())}.png"
+          alt="${escAttr(name)} icon"
+          class="social-icon"
+          onerror="this.outerHTML='<span class=social-icon-fallback aria-hidden=true>${fallback}</span>'"
+          loading="lazy"
+        >
+        <span>${escHtml(name)}</span>
+      </a>
+    `;
+  }).join('');
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function escAttr(s) {
+  return String(s).replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+loadData();
+
+/* ─────────────────────────────────────────
+   SCROLL REVEAL
+───────────────────────────────────────── */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+/* ─────────────────────────────────────────
+   PARTICLE SYSTEM
+───────────────────────────────────────── */
+(function() {
+  const canvas = document.getElementById('particle-canvas');
+  const ctx = canvas.getContext('2d');
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let W, H, particles = [];
+
+  const SHAPES = [
+    { type: 'heart', weight: 40 },
+    { type: 'star', weight: 20 },
+    { type: 'sparkle', weight: 15 },
+    { type: 'circle', weight: 10 },
+    { type: 'text', weight: 15 }
+  ];
+
+  const EASTER_EGGS = [
+    "You matter.", "Take your time.", "I'm glad you're here.",
+    "Your feelings are allowed.", "Some thoughts need quiet places.",
+    "It's okay to rest.", "The internet can still be soft.",
+    "You survived every hard day.", "Be gentle with yourself.",
+    "Small things matter too."
+  ];
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function weightedShape() {
+    const total = SHAPES.reduce((s, x) => s + x.weight, 0);
+    let r = Math.random() * total;
+    for (const s of SHAPES) {
+      r -= s.weight;
+      if (r <= 0) return s.type;
+    }
+    return 'heart';
+  }
+
+  function makeParticle() {
+    const type = weightedShape();
+    return {
+      type,
+      x: Math.random() * W,
+      y: Math.random() * H + H,
+      size: type === 'text' ? 0 : (Math.random() * 10 + 5),
+      fontSize: Math.random() * 11 + 10,
+      text: EASTER_EGGS[Math.floor(Math.random() * EASTER_EGGS.length)],
+      speed: Math.random() * 0.4 + 0.1,
+      drift: (Math.random() - 0.5) * 0.3,
+      opacity: Math.random() * 0.5 + 0.2,
+      rotation: Math.random() * Math.PI * 2,
+      rotSpeed: (Math.random() - 0.5) * 0.01,
+      phase: Math.random() * Math.PI * 2,
+      wobble: Math.random() * 0.008 + 0.002,
+    };
+  }
+
+  function drawHeart(ctx, x, y, size) {
+    ctx.beginPath();
+    ctx.moveTo(x, y + size * 0.3);
+    ctx.bezierCurveTo(x, y, x - size, y, x - size, y + size * 0.3);
+    ctx.bezierCurveTo(x - size, y + size * 0.65, x, y + size, x, y + size);
+    ctx.bezierCurveTo(x, y + size, x + size, y + size * 0.65, x + size, y + size * 0.3);
+    ctx.bezierCurveTo(x + size, y, x, y, x, y + size * 0.3);
+    ctx.fill();
+  }
+
+  function drawStar(ctx, x, y, size) {
+    for (let i = 0; i < 5; i++) {
+      const angle = (i * Math.PI * 2) / 5 - Math.PI / 2;
+      const ax = x + Math.cos(angle) * size;
+      const ay = y + Math.sin(angle) * size;
+      const ia = angle + Math.PI / 5;
+      const ix = x + Math.cos(ia) * size * 0.4;
+      const iy = y + Math.sin(ia) * size * 0.4;
+      i === 0 ? ctx.moveTo(ax, ay) : ctx.lineTo(ax, ay);
+      ctx.lineTo(ix, iy);
+    }
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  function getAccentColor() {
+    return getComputedStyle(document.documentElement).getPropertyValue('--accent-1').trim() || '#e8a0bf';
+  }
+  function getAccent2Color() {
+    return getComputedStyle(document.documentElement).getPropertyValue('--accent-2').trim() || '#c9b1e8';
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    const a1 = getAccentColor();
+    const a2 = getAccent2Color();
+    const colors = [a1, a2, '#f7c5d5', '#d4a0f0'];
+
+    for (const p of particles) {
+      ctx.save();
+      ctx.globalAlpha = p.opacity;
+      ctx.fillStyle = colors[Math.floor(Math.random() * colors.length) % colors.length];
+      ctx.strokeStyle = ctx.fillStyle;
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rotation);
+
+      if (p.type === 'heart') {
+        drawHeart(ctx, 0, 0, p.size * 0.5);
+      } else if (p.type === 'star') {
+        ctx.beginPath();
+        drawStar(ctx, 0, 0, p.size * 0.5);
+      } else if (p.type === 'sparkle') {
+        ctx.beginPath();
+        for (let i = 0; i < 4; i++) {
+          const a = (i * Math.PI) / 2;
+          ctx.moveTo(0, 0);
+          ctx.lineTo(Math.cos(a) * p.size, Math.sin(a) * p.size);
+        }
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      } else if (p.type === 'circle') {
+        ctx.beginPath();
+        ctx.arc(0, 0, p.size * 0.4, 0, Math.PI * 2);
+        ctx.fill();
+      } else if (p.type === 'text') {
+        ctx.font = `${p.fontSize}px 'Caveat', cursive`;
+        ctx.fillStyle = a1;
+        ctx.globalAlpha = p.opacity * 0.6;
+        ctx.fillText(p.text, 0, 0);
+      }
+
+      ctx.restore();
+    }
+  }
+
+  function update() {
+    const time = performance.now() * 0.001;
+    for (const p of particles) {
+      p.y -= p.speed;
+      p.x += p.drift + Math.sin(time * p.wobble * 100 + p.phase) * 0.3;
+      p.rotation += p.rotSpeed;
+      p.opacity = 0.15 + Math.abs(Math.sin(time * 0.3 + p.phase)) * 0.45;
+
+      // reset when offscreen
+      if (p.y < -60 || p.x < -100 || p.x > W + 100) {
+        p.x = Math.random() * W;
+        p.y = H + 50;
+        p.speed = Math.random() * 0.4 + 0.1;
+        p.drift = (Math.random() - 0.5) * 0.3;
+      }
+    }
+  }
+
+  function tick() {
+    update();
+    draw();
+    requestAnimationFrame(tick);
+  }
+
+  function init() {
+    resize();
+    const count = prefersReduced ? 0 : Math.min(Math.floor(W * H / 22000), 60);
+    particles = Array.from({ length: count }, () => {
+      const p = makeParticle();
+      p.y = Math.random() * H; // scatter on init
+      return p;
+    });
+    requestAnimationFrame(tick);
+  }
+
+  window.addEventListener('resize', () => {
+    resize();
+  });
+
+  // Wait for fonts
+  document.fonts.ready.then(init);
+})();
+</script>
+</body>
+</html>
