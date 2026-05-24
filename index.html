@@ -1103,6 +1103,7 @@ async function loadData() {
     data = await res.json();
   } catch {
     // Use demo data if file not found
+    console.log("Error loading Json")
     data = {
       socials: {
         twitch: "https://www.twitch.tv/blockhunter0007",
