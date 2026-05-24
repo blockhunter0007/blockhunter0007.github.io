@@ -1,670 +1,1344 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blockhunter0007</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blockhunter0007 – a quiet place on the internet</title>
+<meta name="description" content="Soft projects made with care. A personal homepage by Blockhunter0007.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Nunito:wght@300;400;500;600&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
 
-        :root {
-            --neon-purple: #bf00ff;
-            --neon-glow: #bf00ff;
-            --deep-black: #0a0a0a;
-            --dark-grey: #1a1a1a;
-            --card-bg: rgba(26, 26, 26, 0.85);
-            --text-primary: #ffffff;
-            --text-secondary: #b0b0b0;
-        }
+<style>
+/* ─── CSS Variables ─────────────────────────────────────── */
+:root {
+  --bg:          #fdf8f5;
+  --bg2:         #fef0f4;
+  --surface:     rgba(255,255,255,0.72);
+  --surface2:    rgba(255,240,248,0.6);
+  --border:      rgba(220,180,200,0.3);
+  --text:        #3a2a35;
+  --text-soft:   #7a5a6a;
+  --text-muted:  #b08898;
+  --accent:      #e87fa0;
+  --accent2:     #c97bb8;
+  --accent-soft: rgba(232,127,160,0.15);
+  --accent-glow: rgba(232,127,160,0.3);
+  --gold:        #d4956a;
+  --radius:      20px;
+  --radius-lg:   32px;
+  --shadow:      0 4px 32px rgba(180,100,130,0.12);
+  --shadow-lg:   0 12px 60px rgba(180,100,130,0.18);
+  --font-body:   'Nunito', sans-serif;
+  --font-serif:  'Lora', serif;
+  --font-hand:   'Caveat', cursive;
+  --transition:  0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
 
-        body {
-            font-family: 'Exo 2', sans-serif;
-            background: var(--deep-black);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+[data-theme="dark"] {
+  --bg:          #16101c;
+  --bg2:         #1e1428;
+  --surface:     rgba(36,24,48,0.85);
+  --surface2:    rgba(48,30,64,0.6);
+  --border:      rgba(140,80,180,0.2);
+  --text:        #f0e4f5;
+  --text-soft:   #c4a8d8;
+  --text-muted:  #8a6aa0;
+  --accent:      #c67de8;
+  --accent2:     #9b6ec4;
+  --accent-soft: rgba(198,125,232,0.12);
+  --accent-glow: rgba(198,125,232,0.25);
+  --gold:        #e8b87a;
+  --shadow:      0 4px 32px rgba(100,40,140,0.3);
+  --shadow-lg:   0 12px 60px rgba(100,40,140,0.4);
+}
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(ellipse at top, rgba(191, 0, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at bottom, rgba(191, 0, 255, 0.05) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: -1;
-        }
+/* ─── Reset ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 
-        h1, h2, h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-        }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  overflow-x: hidden;
+  transition: background var(--transition), color var(--transition);
+}
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+}
 
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 40px 20px;
-            position: relative;
-        }
+/* ─── Typography ─────────────────────────────────────────── */
+h1, h2, h3 { font-family: var(--font-serif); font-weight: 500; line-height: 1.25; }
+h1 { font-size: clamp(2.2rem, 6vw, 4rem); }
+h2 { font-size: clamp(1.5rem, 3.5vw, 2.2rem); }
+h3 { font-size: 1.05rem; }
+p { color: var(--text-soft); }
+.hand { font-family: var(--font-hand); }
 
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
+/* ─── Background Canvas ──────────────────────────────────── */
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.55;
+}
 
-        .hero-image-wrapper {
-            margin-bottom: 30px;
-            position: relative;
-            display: inline-block;
-        }
+/* ─── Layout ─────────────────────────────────────────────── */
+.wrapper { position: relative; z-index: 1; }
+.container { max-width: 1080px; margin: 0 auto; padding: 0 clamp(1.2rem, 5vw, 3rem); }
+section { padding: clamp(4rem, 8vw, 7rem) 0; }
 
-        .hero-image {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--neon-purple);
-            box-shadow: 
-                0 0 20px var(--neon-glow),
-                0 0 40px var(--neon-glow),
-                inset 0 0 20px rgba(191, 0, 255, 0.2);
-            animation: pulseGlow 3s ease-in-out infinite;
-        }
+/* ─── Nav ────────────────────────────────────────────────── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 1.1rem 0;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  background: rgba(253,248,245,0.82);
+  transition: background var(--transition);
+}
+[data-theme="dark"] nav { background: rgba(22,16,28,0.88); }
 
-        @keyframes pulseGlow {
-            0%, 100% {
-                box-shadow: 
-                    0 0 20px var(--neon-glow),
-                    0 0 40px var(--neon-glow),
-                    inset 0 0 20px rgba(191, 0, 255, 0.2);
-            }
-            50% {
-                box-shadow: 
-                    0 0 30px var(--neon-glow),
-                    0 0 60px var(--neon-glow),
-                    inset 0 0 30px rgba(191, 0, 255, 0.3);
-            }
-        }
+.nav-inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+}
 
-        .hero h1 {
-            font-size: clamp(2rem, 5vw, 4rem);
-            font-weight: 900;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 
-                0 0 10px var(--neon-purple),
-                0 0 20px var(--neon-purple),
-                0 0 30px var(--neon-purple);
-            animation: glitchText 5s infinite;
-        }
+.nav-left {
+  font-family: var(--font-hand);
+  font-size: 1rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-left:hover { color: var(--accent); }
 
-        @keyframes glitchText {
-            0%, 90%, 100% {
-                text-shadow: 
-                    0 0 10px var(--neon-purple),
-                    0 0 20px var(--neon-purple),
-                    0 0 30px var(--neon-purple);
-            }
-            93% {
-                text-shadow: 
-                    -2px 0 var(--neon-purple),
-                    0 0 20px var(--neon-purple);
-            }
-            95% {
-                text-shadow: 
-                    2px 0 var(--neon-purple),
-                    0 0 20px var(--neon-purple);
-            }
-        }
+.nav-center { text-align: center; }
 
-        .hero p {
-            font-size: clamp(1rem, 2vw, 1.2rem);
-            color: var(--text-secondary);
-            margin-bottom: 30px;
-        }
+.nav-title {
+  font-family: var(--font-serif);
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: var(--accent);
+  line-height: 1;
+  text-shadow: 0 0 20px var(--accent-glow);
+}
 
-        .social-links {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+.nav-by {
+  font-family: var(--font-hand);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 0.1rem;
+}
 
-        .social-link {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            background: var(--card-bg);
-            border: 2px solid var(--neon-purple);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
+.nav-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+}
 
-        .social-link:hover {
-            transform: translateY(-5px);
-            box-shadow: 
-                0 5px 20px rgba(191, 0, 255, 0.5),
-                0 0 30px rgba(191, 0, 255, 0.3);
-            border-color: var(--text-primary);
-        }
+.icon-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 0.42rem 0.9rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--text-soft);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  white-space: nowrap;
+}
+.icon-btn:hover, .icon-btn:focus-visible {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+  outline: none;
+}
+.icon-btn:focus-visible { box-shadow: 0 0 0 2px var(--accent); }
 
-        .social-link img {
-            width: 28px;
-            height: 28px;
-            object-fit: contain;
-        }
+/* ─── Snip ───────────────────────────────────────────────── */
+.snip {
+  font-family: var(--font-hand);
+  font-size: 1rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 0.5rem 0 1.5rem;
+  opacity: 0.85;
+  font-style: italic;
+}
 
-        /* Projects Section */
-        .projects-section {
-            padding: 80px 20px;
-            min-height: 100vh;
-        }
+/* ─── Section header ─────────────────────────────────────── */
+.section-head { text-align: center; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+.section-head h2 { margin-bottom: 0.6rem; }
+.section-head p { max-width: 520px; margin: 0 auto; }
 
-        .section-title {
-            font-size: clamp(2rem, 4vw, 3rem);
-            text-align: center;
-            margin-bottom: 60px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            position: relative;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
-        }
+/* ─── Divider ────────────────────────────────────────────── */
+.divider {
+  width: 50px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  border-radius: 2px;
+  margin: 0 auto 1.5rem;
+  opacity: 0.5;
+}
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--neon-purple), transparent);
-            box-shadow: 0 0 10px var(--neon-purple);
-        }
+/* ─── Hero ───────────────────────────────────────────────── */
+.hero {
+  min-height: 92vh;
+  display: flex;
+  align-items: center;
+  padding: 5rem 0 4rem;
+  position: relative;
+}
 
-        .projects-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.8rem;
+}
 
-        @media (min-width: 768px) {
-            .projects-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
+.hero-label {
+  font-family: var(--font-hand);
+  font-size: 1.05rem;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+  opacity: 0.85;
+}
 
-        @media (min-width: 1200px) {
-            .projects-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
+.hero-headline {
+  max-width: 760px;
+  background: linear-gradient(135deg, var(--text) 0%, var(--accent2) 55%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
-        .project-card {
-            background: var(--card-bg);
-            border: 2px solid rgba(191, 0, 255, 0.3);
-            border-radius: 15px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            position: relative;
-        }
+.hero-sub {
+  max-width: 520px;
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--text-soft);
+}
 
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(191, 0, 255, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  justify-content: center;
+}
 
-        .project-card:hover::before {
-            left: 100%;
-        }
+.badge {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 0.32rem 0.85rem;
+  font-size: 0.78rem;
+  color: var(--text-soft);
+  letter-spacing: 0.02em;
+}
 
-        .project-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--neon-purple);
-            box-shadow: 
-                0 10px 40px rgba(191, 0, 255, 0.4),
-                0 0 30px rgba(191, 0, 255, 0.2);
-        }
+.hero-btns {
+  display: flex;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 0.3rem;
+}
 
-        .project-image {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            display: block;
-        }
+/* ─── Buttons ────────────────────────────────────────────── */
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 0.9rem 2.2rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 6px 28px var(--accent-glow);
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.15);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.btn-primary:hover::after, .btn-primary:focus-visible::after { opacity: 1; }
+.btn-primary:hover, .btn-primary:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px var(--accent-glow);
+  outline: none;
+}
 
-        .project-content {
-            padding: 25px;
-        }
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 0.7rem 1.6rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s;
+  backdrop-filter: blur(8px);
+}
+.btn-secondary:hover, .btn-secondary:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+  outline: none;
+}
 
-        .project-title {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--neon-purple);
-            text-shadow: 0 0 10px rgba(191, 0, 255, 0.5);
-        }
+/* ─── About ──────────────────────────────────────────────── */
+.about-card {
+  max-width: 680px;
+  margin: 0 auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: clamp(2rem, 5vw, 3.2rem);
+  backdrop-filter: blur(16px);
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+.about-card::after {
+  content: '♡';
+  position: absolute;
+  bottom: -1.5rem;
+  right: 2rem;
+  font-size: 8rem;
+  color: var(--accent-soft);
+  line-height: 1;
+  pointer-events: none;
+}
 
-        .project-description {
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            line-height: 1.6;
-        }
+.about-header {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  margin-bottom: 1.8rem;
+}
 
-        .project-button {
-            display: inline-block;
-            padding: 12px 30px;
-            background: transparent;
-            border: 2px solid var(--neon-purple);
-            color: var(--text-primary);
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
-        }
+.about-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 20px var(--accent-glow);
+}
 
-        .project-button:hover {
-            background: var(--neon-purple);
-            box-shadow: 
-                0 0 20px var(--neon-purple),
-                inset 0 0 10px rgba(255, 255, 255, 0.2);
-            transform: scale(1.05);
-        }
+.about-name {
+  font-family: var(--font-hand);
+  font-size: 1.25rem;
+  color: var(--text);
+  display: block;
+}
 
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
+.about-role {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
 
-        .modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 1;
-        }
+.about-body p {
+  color: var(--text-soft);
+  line-height: 1.9;
+  margin-bottom: 1.1rem;
+}
+.about-body p:last-child { margin-bottom: 0; }
+.about-body em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--text);
+}
 
-        .modal-content {
-            background: var(--dark-grey);
-            border: 2px solid var(--neon-purple);
-            border-radius: 20px;
-            max-width: 900px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            box-shadow: 
-                0 0 50px rgba(191, 0, 255, 0.5),
-                inset 0 0 30px rgba(191, 0, 255, 0.1);
-            animation: modalSlideIn 0.3s ease;
-        }
+/* ─── Status / Devlog ────────────────────────────────────── */
+.status-section { padding-bottom: 0; }
 
-        @keyframes modalSlideIn {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
+.status-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
 
-        .modal-header {
-            padding: 30px;
-            border-bottom: 2px solid rgba(191, 0, 255, 0.3);
-            position: relative;
-        }
+.status-entry {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.4rem 1rem 1.2rem;
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  transition: box-shadow 0.25s;
+}
+.status-entry:hover { box-shadow: var(--shadow); }
 
-        .modal-title {
-            font-size: 2rem;
-            color: var(--neon-purple);
-            margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(191, 0, 255, 0.5);
-        }
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin-top: 0.55rem;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px var(--accent-glow);
+  animation: pulse-dot 2.5s ease-in-out infinite;
+}
 
-        .modal-updated {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
 
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
-            border: 2px solid var(--neon-purple);
-            background: transparent;
-            color: var(--text-primary);
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            font-family: 'Orbitron', sans-serif;
-        }
+.status-text {
+  font-family: var(--font-hand);
+  font-size: 1.05rem;
+  color: var(--text-soft);
+  line-height: 1.5;
+}
 
-        .close-modal:hover {
-            background: var(--neon-purple);
-            transform: rotate(90deg);
-            box-shadow: 0 0 20px var(--neon-purple);
-        }
+/* ─── Projects ───────────────────────────────────────────── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.2rem;
+}
 
-        .modal-body {
-            padding: 30px;
-        }
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
 
-        .modal-description {
-            color: var(--text-secondary);
-            margin-bottom: 30px;
-            line-height: 1.8;
-            font-size: 1.1rem;
-        }
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
 
-        .modal-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(232,127,160,0.25);
+}
+.project-card:hover::before { opacity: 1; }
+.project-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-        .modal-gallery img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-            border: 2px solid rgba(191, 0, 255, 0.3);
-            transition: all 0.3s ease;
-        }
+.project-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+  background: var(--accent-soft);
+}
 
-        .modal-gallery img:hover {
-            border-color: var(--neon-purple);
-            box-shadow: 0 0 20px rgba(191, 0, 255, 0.5);
-            transform: scale(1.05);
-        }
+.project-img-placeholder {
+  width: 100%;
+  height: 140px;
+  background: linear-gradient(135deg, var(--accent-soft), rgba(201,123,184,0.12));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.8rem;
+}
 
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
+.project-body {
+  padding: 1.4rem 1.5rem 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
 
-        ::-webkit-scrollbar-track {
-            background: var(--deep-black);
-        }
+.project-name {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text);
+}
 
-        ::-webkit-scrollbar-thumb {
-            background: var(--neon-purple);
-            border-radius: 5px;
-        }
+.project-desc {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  line-height: 1.7;
+  flex: 1;
+}
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--text-primary);
-        }
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.3rem;
+}
 
-        /* Loading State */
-        .loading {
-            text-align: center;
-            padding: 100px 20px;
-            font-size: 1.5rem;
-            color: var(--neon-purple);
-        }
+.tag {
+  background: var(--accent-soft);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 0.2rem 0.7rem;
+  font-size: 0.72rem;
+  color: var(--accent);
+  font-family: var(--font-body);
+}
 
-        .loading::after {
-            content: '...';
-            animation: dots 1.5s infinite;
-        }
+/* ─── Socials ────────────────────────────────────────────── */
+.socials-intro {
+  text-align: center;
+  max-width: 480px;
+  margin: 0 auto 2.5rem;
+}
+.socials-intro p { margin-top: 0.6rem; }
 
-        @keyframes dots {
-            0%, 20% { content: '.'; }
-            40% { content: '..'; }
-            60%, 100% { content: '...'; }
-        }
-    </style>
+.socials-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.social-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  text-decoration: none;
+  color: var(--text-soft);
+  font-size: 0.92rem;
+  font-weight: 500;
+  transition: all 0.25s;
+  backdrop-filter: blur(12px);
+  min-width: 160px;
+}
+.social-btn:hover, .social-btn:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 28px var(--accent-glow);
+  outline: none;
+}
+
+.social-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.social-icon-placeholder {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: var(--accent-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+/* ─── Footer ─────────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 3rem 0 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  text-align: center;
+}
+
+.footer-logo {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--accent);
+  text-shadow: 0 0 16px var(--accent-glow);
+}
+
+.footer-tagline {
+  font-family: var(--font-hand);
+  font-size: 1rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.footer-note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  max-width: 440px;
+  line-height: 1.6;
+}
+
+.footer-hearts {
+  font-size: 1.1rem;
+  letter-spacing: 0.4rem;
+  opacity: 0.5;
+}
+
+/* ─── Scroll reveal ──────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ─── Animations ─────────────────────────────────────────── */
+@keyframes float-up {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes pulse-glow {
+  0%, 100% { text-shadow: 0 0 20px var(--accent-glow); }
+  50% { text-shadow: 0 0 40px var(--accent-glow), 0 0 60px var(--accent-glow); }
+}
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-inner > * { animation: fade-in-up 0.7s ease both; }
+.hero-inner > *:nth-child(1) { animation-delay: 0.05s; }
+.hero-inner > *:nth-child(2) { animation-delay: 0.15s; }
+.hero-inner > *:nth-child(3) { animation-delay: 0.25s; }
+.hero-inner > *:nth-child(4) { animation-delay: 0.35s; }
+.hero-inner > *:nth-child(5) { animation-delay: 0.45s; }
+
+/* ─── Loading states ─────────────────────────────────────── */
+.loading-shimmer {
+  background: linear-gradient(90deg, var(--surface) 25%, var(--accent-soft) 50%, var(--surface) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius);
+  height: 1em;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .nav-inner { grid-template-columns: auto 1fr auto; }
+  .nav-left { font-size: 0.82rem; }
+  .nav-title { font-size: 1.35rem; }
+  .icon-btn span { display: none; }
+  .hero { min-height: 80vh; }
+}
+</style>
 </head>
 <body>
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-image-wrapper">
-                <img src="assets/socials/main.png" alt="Profile" class="hero-image" id="heroImage">
-            </div>
-            <h1>Welcome to Blockhunter0007's Site</h1>
-            <p>Here I share my projects and socials</p>
-            <div class="social-links" id="socialLinks"></div>
-        </div>
-    </section>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
 
-    <!-- Projects Section -->
-    <section class="projects-section">
-        <div class="container">
-            <h2 class="section-title">Projects</h2>
-            <div class="projects-grid" id="projectsGrid">
-                <div class="loading">Loading projects</div>
-            </div>
-        </div>
-    </section>
+<div class="wrapper">
 
-    <!-- Modal -->
-    <div class="modal" id="projectModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="modalTitle"></h2>
-                <p class="modal-updated" id="modalUpdated"></p>
-                <button class="close-modal" id="closeModal">×</button>
-            </div>
-            <div class="modal-body">
-                <p class="modal-description" id="modalDescription"></p>
-                <div class="modal-gallery" id="modalGallery"></div>
-            </div>
+  <!-- ── NAV ─────────────────────────────────────── -->
+  <nav aria-label="Main navigation">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#" class="nav-left" aria-label="Home">Blockhunter0007</a>
+
+        <div class="nav-center">
+          <div class="nav-title" aria-label="Blockhunter0007">Blockhunter0007</div>
+          <div class="nav-by">by Blockhunter Software</div>
         </div>
+
+        <div class="nav-right">
+          <button class="icon-btn" id="music-btn" aria-label="Toggle music" style="display:none">
+            <span id="music-icon">🎵</span>
+            <span id="music-label"></span>
+          </button>
+          <button class="icon-btn" id="theme-btn" aria-label="Toggle dark/light mode">
+            <span id="theme-icon">🌙</span>
+            <span id="theme-label"></span>
+          </button>
+        </div>
+      </div>
     </div>
+  </nav>
 
-    <script>
-        // State
-        let projectsData = {};
+  <!-- ── HERO ────────────────────────────────────── -->
+  <section class="hero" aria-labelledby="hero-headline">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-label" id="hero-label"></div>
+        <h1 class="hero-headline" id="hero-headline"></h1>
+        <p class="hero-sub" id="hero-sub"></p>
+        <div class="hero-badges" id="hero-badges"></div>
+        <div class="hero-btns">
+          <a href="#projects" class="btn-primary" id="hero-btn-projects">
+            <span>✦</span> <span id="btn-projects-text"></span>
+          </a>
+          <a href="#socials" class="btn-secondary" id="hero-btn-socials">
+            <span id="btn-socials-text"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        // Fetch data
-        async function fetchData() {
-            try {
-                const response = await fetch(`${window.location.pathname.replace(/[^/]+$/, '')}assets/data.json`);
-                if (!response.ok) throw new Error('Failed to fetch data');
-                const data = await response.json();
-                return data;
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                document.getElementById('projectsGrid').innerHTML = 
-                    '<p style="text-align: center; color: var(--text-secondary);">Failed to load projects. Please check the data.json file.</p>';
-                return null;
-            }
+  <!-- ── ABOUT ────────────────────────────────────── -->
+  <section aria-labelledby="about-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="divider"></div>
+        <h2 id="about-heading"></h2>
+      </div>
+      <div class="about-card reveal">
+        <div class="about-header">
+          <div class="about-avatar" aria-hidden="true">🌙</div>
+          <div>
+            <span class="about-name">Blockhunter0007</span>
+            <span class="about-role" id="about-role"></span>
+          </div>
+        </div>
+        <div class="about-body" id="about-body"></div>
+      </div>
+      <p class="snip" id="about-snip"></p>
+    </div>
+  </section>
+
+  <!-- ── STATUS ───────────────────────────────────── -->
+  <section class="status-section" aria-labelledby="status-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="divider"></div>
+        <h2 id="status-heading"></h2>
+        <p id="status-sub"></p>
+      </div>
+      <div class="status-cards reveal" id="status-cards">
+        <div class="loading-shimmer" style="height:56px;"></div>
+      </div>
+      <p class="snip" id="status-snip"></p>
+    </div>
+  </section>
+
+  <!-- ── PROJECTS ─────────────────────────────────── -->
+  <section id="projects" aria-labelledby="projects-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="divider"></div>
+        <h2 id="projects-heading"></h2>
+        <p id="projects-sub"></p>
+      </div>
+      <div class="projects-grid reveal" id="projects-grid">
+        <div class="loading-shimmer" style="height:240px;"></div>
+        <div class="loading-shimmer" style="height:240px;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SOCIALS ──────────────────────────────────── -->
+  <section id="socials" aria-labelledby="socials-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="divider"></div>
+        <h2 id="socials-heading"></h2>
+      </div>
+      <div class="socials-intro reveal">
+        <p id="socials-text"></p>
+      </div>
+      <div class="socials-row reveal" id="socials-row">
+        <div class="loading-shimmer" style="height:60px; width:160px;"></div>
+      </div>
+      <p class="snip" id="socials-snip"></p>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ───────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">Blockhunter0007</div>
+        <div class="footer-tagline" id="footer-tagline"></div>
+        <p class="footer-note" id="footer-note"></p>
+        <p class="footer-note" id="footer-privacy"></p>
+        <div class="footer-hearts" aria-hidden="true">♡ ✦ ♡ ✦ ♡</div>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /wrapper -->
+
+<script>
+/* ════════════════════════════════════════════════════════════
+   THEME SYSTEM
+════════════════════════════════════════════════════════════ */
+let isDark = false;
+
+(function initTheme() {
+  const saved = localStorage.getItem('bh-theme');
+  if (saved) {
+    isDark = saved === 'dark';
+  } else {
+    isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  applyTheme(false);
+})();
+
+function applyTheme(save = true) {
+  document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+  const icon = document.getElementById('theme-icon');
+  const label = document.getElementById('theme-label');
+  if (icon) icon.textContent = isDark ? '☀️' : '🌙';
+  if (label) label.textContent = isDark ? (currentLang === 'de' ? 'Hell' : 'Light') : (currentLang === 'de' ? 'Dunkel' : 'Dark');
+  if (save) localStorage.setItem('bh-theme', isDark ? 'dark' : 'light');
+}
+
+document.getElementById('theme-btn').addEventListener('click', () => {
+  isDark = !isDark;
+  applyTheme();
+});
+
+/* ════════════════════════════════════════════════════════════
+   LANGUAGE SYSTEM
+════════════════════════════════════════════════════════════ */
+const lang = (navigator.language || 'en').toLowerCase();
+const currentLang = lang.startsWith('de') ? 'de' : 'en';
+
+const t = {
+  en: {
+    hero_label: "a quiet corner of the internet ♡",
+    hero_headline: "Late-night ideas turned into real things.",
+    hero_sub: "Hi. I'm Blockhunter0007 — a 15-year-old solo developer building small, careful software. Most of my projects started because I needed something that didn't exist yet. Maybe you need them too.",
+    hero_badges: ["solo developer", "15 years old", "night coder", "cozy software", "still learning"],
+    btn_projects: "Projects",
+    btn_socials: "Socials",
+    about_heading: "About me",
+    about_role: "solo developer · Blockhunter Software",
+    about_paragraphs: [
+      "I'm 15. I build things mostly late at night, when the world gets quiet and my thoughts get loud. I'm an overthinker by nature — always turning ideas over and over until they feel right.",
+      "A lot of my projects came from real problems I had. Things I needed and couldn't find anywhere. At some point I figured: <em>if I need this, maybe other people do too.</em> So I started sharing what I made.",
+      "I'm still learning. Every project is a little bit better than the last one. I like making software that feels safe and personal — things that don't demand too much from you.",
+      "This page is my small place on the internet. I'm glad you found it.",
+    ],
+    about_snip: "You do not have to understand everything immediately.",
+    status_heading: "what's going on",
+    status_sub: "little late-night notes from the studio",
+    status_snip: "Some thoughts take time.",
+    projects_heading: "Projects",
+    projects_sub: "things I made, with care",
+    socials_heading: "find me",
+    socials_text: "here are the places where I exist online. no pressure to follow anywhere — just in case you want to.",
+    socials_snip: "Soft things still matter.",
+    footer_tagline: "made carefully during quiet nights.",
+    footer_note: "Thank you for visiting this small corner of the internet. This is an indie personal website — not a company, not a startup. Just me.",
+    footer_privacy: "No tracking. No analytics. No cookies. Your visit stays yours.",
+    music_on: "Music",
+    music_off: "Muted",
+    theme_dark: "Dark",
+    theme_light: "Light",
+  },
+  de: {
+    hero_label: "eine ruhige ecke im internet ♡",
+    hero_headline: "Nächtliche Ideen, die zu echten Dingen wurden.",
+    hero_sub: "Hallo. Ich bin Blockhunter0007 — ein 15-jähriger Solo-Entwickler, der kleine, sorgfältige Software baut. Die meisten meiner Projekte entstanden, weil ich etwas brauchte, das es noch nicht gab. Vielleicht brauchst du es auch.",
+    hero_badges: ["solo entwickler", "15 jahre alt", "nacht-coder", "cozy software", "noch am lernen"],
+    btn_projects: "Projekte",
+    btn_socials: "Socials",
+    about_heading: "Über mich",
+    about_role: "solo entwickler · Blockhunter Software",
+    about_paragraphs: [
+      "Ich bin 15. Ich baue Sachen meistens spät nachts, wenn die Welt ruhig wird und meine Gedanken laut. Ich bin von Natur aus ein Überdenker — ich drehe Ideen immer wieder um, bis sie sich richtig anfühlen.",
+      "Viele meiner Projekte kamen aus echten Problemen, die ich hatte. Dinge, die ich brauchte und nirgendwo finden konnte. Irgendwann dachte ich mir: <em>Wenn ich das brauche, brauchen es vielleicht andere auch.</em> Also fing ich an, das zu teilen, was ich gebaut hatte.",
+      "Ich lerne noch. Jedes Projekt ist ein bisschen besser als das letzte. Ich mag Software machen, die sich sicher und persönlich anfühlt — Dinge, die nicht zu viel von dir verlangen.",
+      "Diese Seite ist mein kleiner Platz im Internet. Ich freue mich, dass du sie gefunden hast.",
+    ],
+    about_snip: "Du musst nicht alles sofort verstehen.",
+    status_heading: "was gerade läuft",
+    status_sub: "kleine nächtliche notizen aus dem studio",
+    status_snip: "Manche Gedanken brauchen Zeit.",
+    projects_heading: "Projekte",
+    projects_sub: "dinge, die ich mit sorgfalt gemacht habe",
+    socials_heading: "find me",
+    socials_text: "hier sind die orte, an denen ich im internet existiere. kein druck zu folgen — nur falls du möchtest.",
+    socials_snip: "Sanfte Dinge haben auch einen Platz.",
+    footer_tagline: "sorgfältig gebaut in ruhigen nächten.",
+    footer_note: "Danke, dass du diese kleine Ecke des Internets besucht hast. Das ist eine persönliche indie-Seite — kein Unternehmen, kein Startup. Nur ich.",
+    footer_privacy: "Kein Tracking. Keine Analyse. Keine Cookies. Dein Besuch gehört dir.",
+    music_on: "Musik",
+    music_off: "Stumm",
+    theme_dark: "Dunkel",
+    theme_light: "Hell",
+  }
+};
+
+const T = t[currentLang];
+
+/* ── Apply static translations ── */
+document.documentElement.lang = currentLang;
+
+function set(id, html) {
+  const el = document.getElementById(id);
+  if (el) el.innerHTML = html;
+}
+
+set('hero-label', T.hero_label);
+set('hero-headline', T.hero_headline);
+set('hero-sub', T.hero_sub);
+set('btn-projects-text', T.btn_projects);
+set('btn-socials-text', T.btn_socials);
+set('about-heading', T.about_heading);
+set('about-role', T.about_role);
+set('about-body', T.about_paragraphs.map(p => `<p>${p}</p>`).join(''));
+set('about-snip', T.about_snip);
+set('status-heading', T.status_heading);
+set('status-sub', T.status_sub);
+set('status-snip', T.status_snip);
+set('projects-heading', T.projects_heading);
+set('projects-sub', T.projects_sub);
+set('socials-heading', T.socials_heading);
+set('socials-text', T.socials_text);
+set('socials-snip', T.socials_snip);
+set('footer-tagline', T.footer_tagline);
+set('footer-note', T.footer_note);
+set('footer-privacy', T.footer_privacy);
+
+// Hero badges
+const badgesEl = document.getElementById('hero-badges');
+if (badgesEl) {
+  badgesEl.innerHTML = T.hero_badges.map(b => `<span class="badge">${b}</span>`).join('');
+}
+
+// Theme label
+document.getElementById('theme-label').textContent = isDark ? T.theme_light : T.theme_dark;
+document.getElementById('theme-icon').textContent = isDark ? '☀️' : '🌙';
+
+/* ════════════════════════════════════════════════════════════
+   MUSIC SYSTEM
+════════════════════════════════════════════════════════════ */
+(function initMusic() {
+  const btn = document.getElementById('music-btn');
+  const icon = document.getElementById('music-icon');
+  const label = document.getElementById('music-label');
+  let audio = null;
+  let muted = false;
+  let loaded = false;
+
+  try {
+    audio = new Audio('assets/theme.ogg');
+    audio.loop = true;
+    audio.volume = 0;
+
+    audio.addEventListener('canplaythrough', () => {
+      if (loaded) return;
+      loaded = true;
+      btn.style.display = 'flex';
+      label.textContent = T.music_on;
+      icon.textContent = '🎵';
+
+      audio.play().then(() => {
+        // Fade in
+        let v = 0;
+        const fade = setInterval(() => {
+          v = Math.min(v + 0.02, 0.25);
+          audio.volume = v;
+          if (v >= 0.25) clearInterval(fade);
+        }, 80);
+      }).catch(() => {});
+    });
+
+    audio.addEventListener('error', () => {
+      btn.style.display = 'none';
+    });
+
+    audio.load();
+  } catch(e) {
+    btn.style.display = 'none';
+    return;
+  }
+
+  btn.addEventListener('click', () => {
+    if (!audio) return;
+    muted = !muted;
+
+    if (muted) {
+      let v = audio.volume;
+      const fade = setInterval(() => {
+        v = Math.max(v - 0.03, 0);
+        audio.volume = v;
+        if (v <= 0) { clearInterval(fade); audio.pause(); }
+      }, 60);
+      icon.textContent = '🔇';
+      label.textContent = T.music_off;
+    } else {
+      audio.play().catch(() => {});
+      let v = 0;
+      audio.volume = 0;
+      const fade = setInterval(() => {
+        v = Math.min(v + 0.02, 0.25);
+        audio.volume = v;
+        if (v >= 0.25) clearInterval(fade);
+      }, 80);
+      icon.textContent = '🎵';
+      label.textContent = T.music_on;
+    }
+  });
+})();
+
+/* ════════════════════════════════════════════════════════════
+   DATA LOADING
+════════════════════════════════════════════════════════════ */
+
+// Social platform display names
+const SOCIAL_NAMES = {
+  x: 'X (Twitter)', twitter: 'X (Twitter)',
+  twitch: 'Twitch', youtube: 'YouTube',
+  tiktok: 'TikTok', instagram: 'Instagram',
+  throne: 'Throne', discord: 'Discord',
+  github: 'GitHub', mastodon: 'Mastodon',
+};
+
+// Social icon emoji fallbacks
+const SOCIAL_EMOJI = {
+  x: '✕', twitter: '✕', twitch: '🎮', youtube: '▶',
+  tiktok: '♪', instagram: '📷', throne: '♛',
+  discord: '💬', github: '⟨⟩', mastodon: '🐘',
+};
+
+// Project emoji fallbacks
+const PROJECT_EMOJI = ['📓','🛠️','🌙','✨','🎨','🔒','💌','🌸','🪴','⭐'];
+
+async function loadData() {
+  let data = null;
+
+  try {
+    const res = await fetch('/assets/data.json');
+    if (res.ok) data = await res.json();
+  } catch(e) { /* silent */ }
+
+  // Fallback demo data if fetch fails
+  if (!data) {
+    data = {
+      socials: {
+        x: "none",
+        twitch: "https://www.twitch.tv/blockhunter0007",
+        youtube: "https://www.youtube.com/@blockhunter0007",
+        tiktok: "https://www.tiktok.com/@blockhunter0007",
+        throne: "https://throne.com/blockhunter"
+      },
+      status: [
+        {
+          en: "working on cozy things again tonight",
+          de: "arbeite heute nacht wieder an cozy dingen"
+        },
+        {
+          en: "fixing a small bug that's been bothering me for days",
+          de: "behebe einen kleinen bug, der mich seit tagen nervt"
         }
-
-        // Render social links
-        function renderSocials(socials) {
-            const container = document.getElementById('socialLinks');
-            container.innerHTML = '';
-
-            if (!socials) return;
-
-            Object.entries(socials).forEach(([key, value]) => {
-                if (value && value !== 'none') {
-                    const link = document.createElement('a');
-                    link.href = value;
-                    link.target = '_blank';
-                    link.rel = 'noopener noreferrer';
-                    link.className = 'social-link';
-                    link.innerHTML = `<img src="assets/socials/${key}.png" alt="${key}" onerror="this.style.display='none'">`;
-                    container.appendChild(link);
-                }
-            });
+      ],
+      projects: [
+        {
+          name: "Diary",
+          description: {
+            en: "A quiet offline diary app for difficult thoughts. No cloud, no account, just you and your words.",
+            de: "Eine ruhige Offline-Tagebuch App für schwierige Gedanken. Keine Cloud, kein Account — nur du und deine Worte."
+          },
+          url: "/projects/diary",
+          image: "/assets/projects/diary.png",
+          tags: ["offline", "privacy", "safe"]
         }
+      ]
+    };
+  }
 
-        // Render projects
-        function renderProjects(projects) {
-            const container = document.getElementById('projectsGrid');
-            container.innerHTML = '';
+  renderStatus(data.status || []);
+  renderProjects(data.projects || []);
+  renderSocials(data.socials || {});
+}
 
-            if (!projects || Object.keys(projects).length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">No projects found.</p>';
-                return;
-            }
+/* ── Status ── */
+function renderStatus(entries) {
+  const container = document.getElementById('status-cards');
+  if (!entries.length) {
+    container.innerHTML = `<p class="snip" style="text-align:left;padding:0">${currentLang === 'de' ? 'noch keine updates.' : 'no updates yet.'}</p>`;
+    return;
+  }
 
-            Object.entries(projects).forEach(([key, project]) => {
-                const card = document.createElement('div');
-                card.className = 'project-card';
-                card.dataset.projectKey = key;
+  container.innerHTML = entries.map(entry => {
+    const text = entry[currentLang] || entry.en || '';
+    return `
+      <div class="status-entry">
+        <div class="status-dot" aria-hidden="true"></div>
+        <div class="status-text">${text}</div>
+      </div>
+    `;
+  }).join('');
+}
 
-                const imagePath = project.header_image 
-                    ? `assets/${key}/${project.header_image}` 
-                    : 'assets/placeholder.png';
+/* ── Projects ── */
+function renderProjects(projects) {
+  const grid = document.getElementById('projects-grid');
+  if (!projects.length) {
+    grid.innerHTML = `<p class="snip">${currentLang === 'de' ? 'noch keine projekte.' : 'no projects yet.'}</p>`;
+    return;
+  }
 
-                card.innerHTML = `
-                    <img src="${imagePath}" alt="${project.project_name}" class="project-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22250%22%3E%3Crect fill=%22%231a1a1a%22 width=%22300%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23bf00ff%22 font-family=%22Orbitron%22 font-size=%2220%22%3ENo Image%3C/text%3E%3C/svg%3E'">
-                    <div class="project-content">
-                        <h3 class="project-title">${project.project_name}</h3>
-                        <p class="project-description">${project.description}</p>
-                        <a href="${project.url}" target="_blank" rel="noopener noreferrer" class="project-button" onclick="event.stopPropagation()">View Project</a>
-                    </div>
-                `;
+  grid.innerHTML = projects.map((p, i) => {
+    const desc = typeof p.description === 'object'
+      ? (p.description[currentLang] || p.description.en || '')
+      : (p.description || '');
+    const tags = (p.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('');
+    const emoji = PROJECT_EMOJI[i % PROJECT_EMOJI.length];
 
-                card.addEventListener('click', (e) => {
-                    if (!e.target.classList.contains('project-button')) {
-                        openModal(key, project);
-                    }
-                });
+    let imgHtml;
+    if (p.image) {
+      imgHtml = `<img src="${p.image}" alt="${p.name}" class="project-img" loading="lazy" onerror="this.parentNode.replaceChild(Object.assign(document.createElement('div'),{className:'project-img-placeholder',innerHTML:'${emoji}'}),this)">`;
+    } else {
+      imgHtml = `<div class="project-img-placeholder" aria-hidden="true">${emoji}</div>`;
+    }
 
-                container.appendChild(card);
-            });
+    const href = p.url || '#';
+    const isExternal = href.startsWith('http');
+
+    return `
+      <a href="${href}" class="project-card"${isExternal ? ' target="_blank" rel="noopener noreferrer"' : ''} aria-label="${p.name}">
+        ${imgHtml}
+        <div class="project-body">
+          <div class="project-name">${p.name}</div>
+          <p class="project-desc">${desc}</p>
+          ${tags ? `<div class="project-tags">${tags}</div>` : ''}
+        </div>
+      </a>
+    `;
+  }).join('');
+}
+
+/* ── Socials ── */
+function renderSocials(socials) {
+  const row = document.getElementById('socials-row');
+  const entries = Object.entries(socials).filter(([, v]) => v && v !== 'none');
+
+  if (!entries.length) {
+    row.innerHTML = `<p class="snip">${currentLang === 'de' ? 'noch keine links.' : 'no links yet.'}</p>`;
+    return;
+  }
+
+  row.innerHTML = entries.map(([platform, url]) => {
+    const name = SOCIAL_NAMES[platform] || (platform.charAt(0).toUpperCase() + platform.slice(1));
+    const emoji = SOCIAL_EMOJI[platform] || '✦';
+    const imgPath = `assets/socials/${platform}.png`;
+
+    return `
+      <a href="${url}" class="social-btn" target="_blank" rel="noopener noreferrer" aria-label="${name}">
+        <img src="${imgPath}" alt="${name}" class="social-icon" loading="lazy"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="social-icon-placeholder" style="display:none" aria-hidden="true">${emoji}</span>
+        <span>${name}</span>
+      </a>
+    `;
+  }).join('');
+}
+
+loadData();
+
+/* ════════════════════════════════════════════════════════════
+   BACKGROUND PARTICLES
+════════════════════════════════════════════════════════════ */
+(function bgParticles() {
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const easterEggs = [
+    'You matter.',
+    'Take your time.',
+    "I'm glad you're here.",
+    'Your feelings are allowed to exist.',
+    'Some thoughts need quiet places.',
+    'You survived every difficult day so far.',
+    "It's okay to rest.",
+    'The internet can still be soft.',
+    'You are enough.',
+    'Be gentle with yourself.',
+  ];
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function randomType() {
+    const r = Math.random();
+    if (r < 0.70) return 'heart';
+    if (r < 0.84) return 'star';
+    if (r < 0.95) return 'sparkle';
+    return 'egg';
+  }
+
+  function createParticle() {
+    const type = randomType();
+    return {
+      type,
+      x: Math.random() * W,
+      y: H + 30,
+      size: type === 'egg' ? 11 : (7 + Math.random() * 13),
+      speed: 0.25 + Math.random() * 0.55,
+      drift: (Math.random() - 0.5) * 0.35,
+      opacity: 0,
+      maxOpacity: 0.10 + Math.random() * 0.16,
+      fadeIn: true,
+      text: type === 'egg' ? easterEggs[Math.floor(Math.random() * easterEggs.length)] : '',
+      rotation: Math.random() * Math.PI * 2,
+      rotSpeed: (Math.random() - 0.5) * 0.008,
+    };
+  }
+
+  const SYMBOLS = { heart: '♡', star: '✦', sparkle: '✧' };
+
+  function getColor(type) {
+    if (isDark) {
+      if (type === 'heart') return 'rgba(198,125,232,0.65)';
+      if (type === 'star') return 'rgba(220,180,255,0.5)';
+      return 'rgba(160,110,210,0.45)';
+    } else {
+      if (type === 'heart') return 'rgba(232,127,160,0.65)';
+      if (type === 'star') return 'rgba(212,149,106,0.5)';
+      return 'rgba(190,110,150,0.45)';
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => {
+      ctx.save();
+      ctx.globalAlpha = p.opacity;
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rotation);
+      if (p.type === 'egg') {
+        ctx.font = `${p.size}px 'Caveat', cursive`;
+        ctx.fillStyle = isDark ? 'rgba(220,180,255,0.45)' : 'rgba(180,100,140,0.38)';
+        ctx.textAlign = 'center';
+        ctx.fillText(p.text, 0, 0);
+      } else {
+        ctx.font = `${p.size}px serif`;
+        ctx.fillStyle = getColor(p.type);
+        ctx.textAlign = 'center';
+        ctx.fillText(SYMBOLS[p.type] || '♡', 0, 0);
+      }
+      ctx.restore();
+    });
+  }
+
+  function tick() {
+    if (!prefersReducedMotion) {
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.y -= p.speed;
+        p.x += p.drift;
+        p.rotation += p.rotSpeed;
+        if (p.fadeIn) {
+          p.opacity = Math.min(p.opacity + 0.007, p.maxOpacity);
+          if (p.opacity >= p.maxOpacity) p.fadeIn = false;
         }
+        if (p.y < -50) particles.splice(i, 1);
+      }
+      if (particles.length < 55 && Math.random() < 0.25) particles.push(createParticle());
+    }
+    draw();
+    requestAnimationFrame(tick);
+  }
 
-        // Open modal
-        function openModal(projectKey, project) {
-            const modal = document.getElementById('projectModal');
-            const title = document.getElementById('modalTitle');
-            const updated = document.getElementById('modalUpdated');
-            const description = document.getElementById('modalDescription');
-            const gallery = document.getElementById('modalGallery');
+  resize();
+  window.addEventListener('resize', resize);
 
-            
-            // Gallery
-            gallery.innerHTML = '';
-            if (project.images && project.images.length > 0) {
-                project.images.forEach(img => {
-                    const imgElement = document.createElement('img');
-                    imgElement.src = `assets/${projectKey}/${img}`;
-                    imgElement.alt = project.project_name;
-                    imgElement.onerror = function() { this.style.display = 'none'; };
-                    gallery.appendChild(imgElement);
-                });
-            } else if (project.header_image) {
-                const imgElement = document.createElement('img');
-                imgElement.src = `assets/${projectKey}/${project.header_image}`;
-                imgElement.alt = project.project_name;
-                imgElement.onerror = function() { this.style.display = 'none'; };
-                gallery.appendChild(imgElement);
-            }
-            title.textContent = project.project_name;
-            updated.textContent = `Last Updated: ${project.last_updated}`;
-            description.textContent = project.description;
-            
+  // Initial spread
+  for (let i = 0; i < 38; i++) {
+    const p = createParticle();
+    p.y = Math.random() * H;
+    p.opacity = Math.random() * p.maxOpacity;
+    p.fadeIn = false;
+    particles.push(p);
+  }
+  tick();
+})();
 
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        // Close modal
-
-        // Close modal
-        function closeModal() {
-            const modal = document.getElementById('projectModal');
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        // Event listeners
-        document.getElementById('closeModal').addEventListener('click', closeModal);
-        document.getElementById('projectModal').addEventListener('click', (e) => {
-            if (e.target.id === 'projectModal') {
-                closeModal();
-            }
-        });
-
-        // Escape key to close modal
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeModal();
-            }
-        });
-
-        // Initialize
-        async function init() {
-            const data = await fetchData();
-            console.log(await fetchData());
-            //const data = {"projects": {"app-cheathub": {"project_name": "Cheathub","last_updated": "20.11.2025","description": "Cheathub is the best way to get safe and free cheats","url": "https://blockhunter0007.github.io/cheathub","images": [],"header_image": "headder.png"},},"socials": {"x": "none","twitch": "https://www.twitch.tv/blockhunter0007","youtube": "https://www.youtube.com/@blockhunter0007","tiktok": "https://www.tiktok.com/@blockhunter0007"}}
-            if (data) {
-                projectsData = data.projects;
-                renderSocials(data.socials);
-                renderProjects(data.projects);
-            }
-        }
-
-        // Run on load
-        init();
-    </script>
+/* ════════════════════════════════════════════════════════════
+   SCROLL REVEAL
+════════════════════════════════════════════════════════════ */
+(function scrollReveal() {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+})();
+</script>
 </body>
 </html>
