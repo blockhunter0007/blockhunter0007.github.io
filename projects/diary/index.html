@@ -1362,11 +1362,11 @@ set('dl-donation-note', t.dl_donation);
 
 const dlMainBtn = document.getElementById('dl-main-btn');
 if (os === 'linux') {
-  dlMainBtn.href = '/download/linux';
+  dlMainBtn.href = '/downloads/diary_linux.zip';
   document.getElementById('dl-os-icon').textContent = '🐧';
   set('dl-main-btn-text', t.dl_linux);
 } else {
-  dlMainBtn.href = '/download/windows';
+  dlMainBtn.href = '/downloads/diary_windows.zip';
   document.getElementById('dl-os-icon').textContent = '🪟';
   set('dl-main-btn-text', t.dl_win);
 }
@@ -1374,8 +1374,8 @@ if (os === 'linux') {
 // Alt download buttons
 const altsEl = document.getElementById('dl-alts');
 const altPlatforms = os === 'linux'
-  ? [{ label: t.dl_win, href: '/download/windows', icon: '🪟' }]
-  : [{ label: t.dl_linux, href: '/download/linux', icon: '🐧' }];
+  ? [{ label: t.dl_win, href: '/downloads/diary_windows.zip', icon: '🪟' }]
+  : [{ label: t.dl_linux, href: '/downloads/diary_linux.zip', icon: '🐧' }];
 
 altPlatforms.forEach(p => {
   const a = document.createElement('a');
