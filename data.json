@@ -7,15 +7,15 @@
             "tags": ["productivity", "personal", "organization"],
             "files": {
                 "windows": {
-                    "version": "1.0.2",
+                    "version": "1.0.10",
                     "download_link": "https://blockhunter0007.github.io/downloads/diary_windows.zip"
                 },
                 "linux": {
-                    "version": "1.0.3",
+                    "version": "1.0.10",
                     "download_link": "https://blockhunter0007.github.io/downloads/diary_linux.zip"
                 },
                 "macos": {
-                    "version": "1.0.-3",
+                    "version": "1.0.-10",
                     "download_link": "https://blockhunter0007.github.io/downloads/diary_macos.zip"
                 }
             }
