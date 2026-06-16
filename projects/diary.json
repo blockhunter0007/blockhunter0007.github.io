@@ -3,13 +3,13 @@
   "version": "v3.1.0",
   "description": "A sleek, cross-platform diary app that keeps your thoughts organized and secure. With a clean interface and powerful features, Diary is the perfect companion for capturing your daily moments and reflections.",
 
-  "logo": "assets/diary.png",
+  "logo": "/assets/projects/diary.png",
   "logo_emoji": "📕",
 
   "platforms": {
-    "windows": { "active": true,  "link": "downloads/diary_windows.zip" },
+    "windows": { "active": true,  "link": "/downloads/diary_windows.zip" },
     "mac":     { "active": false,  "link": "" },
-    "linux":   { "active": true,  "link": "downloads/diary_linux.zip" },
+    "linux":   { "active": true,  "link": "/downloads/diary_linux.zip" },
     "ios":     { "active": false, "link": "" },
     "android": { "active": false, "link": "" }
   },
