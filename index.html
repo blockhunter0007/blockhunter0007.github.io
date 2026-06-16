@@ -522,7 +522,7 @@
         // Fetch data
         async function fetchData() {
             try {
-                const response = await fetch(`${window.location.pathname.replace(/[^/]+$/, '')}assets/data.json`);
+                const response = await fetch(`assets/data.json`);
                 if (!response.ok) throw new Error('Failed to fetch data');
                 const data = await response.json();
                 return data;
@@ -578,7 +578,7 @@
                     <div class="project-content">
                         <h3 class="project-title">${project.project_name}</h3>
                         <p class="project-description">${project.description}</p>
-                        <a href="download.html#${project.uuid}" target="_blank" rel="noopener noreferrer" class="project-button" onclick="event.stopPropagation()">View Project</a>
+                        <a href="downloads/download.html#${project.uuid}" target="_blank" rel="noopener noreferrer" class="project-button" onclick="event.stopPropagation()">View Project</a>
                     </div>
                 `;
 
