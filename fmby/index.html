@@ -1098,7 +1098,7 @@ const PROJECT_EMOJIS = ['🌸', '🌙', '✦', '🍃', '🌷', '🪄', '🫧', '
 async function loadData() {
   let data = null;
   try {
-    const res = await fetch('assets/data.json');
+    const res = await fetch('/assets/data.json');
     if (!res.ok) throw new Error('not found');
     data = await res.json();
   } catch {
