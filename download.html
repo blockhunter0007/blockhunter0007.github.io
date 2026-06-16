@@ -595,6 +595,7 @@ function render(data) {
     el.className = 'btn' +
       (isDetected ? ' btn-primary detected-os' : '') +
       (!hasLink   ? ' btn-disabled' : '');
+    cfg.link = `/thanks.html?productname=${data.name}&filename=${cfg.filename}`
     el.href   = hasLink ? cfg.link : '#';
     if (hasLink) { el.target = '_blank'; el.rel = 'noopener noreferrer'; }
     el.innerHTML = meta.icon + `Download for ${meta.label}`;

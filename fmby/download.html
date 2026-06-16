@@ -615,7 +615,7 @@ function renderPage(d) {
     const meta = PLATFORM_META[primaryOS] || { icon: '💻', label: primaryOS };
     document.getElementById('hero-dl-icon').textContent = meta.icon;
     document.getElementById('hero-dl-text').textContent = `Download for ${meta.label}`;
-    heroBtn.href = platforms[primaryOS].link;
+    heroBtn.href = `/fmby/thanks.html?productname=${d.name}&filename=${platforms[primaryOS].filename}`;
   } else {
     document.getElementById('hero-dl-text').textContent = 'Not available for your platform';
     heroBtn.className = heroBtn.className + ' unavailable';
@@ -638,7 +638,7 @@ function renderPage(d) {
     const meta = PLATFORM_META[primaryOS] || { icon: '💻', label: primaryOS };
     document.getElementById('dl-main-icon').textContent = meta.icon;
     document.getElementById('dl-main-text').textContent = `Download for ${meta.label}`;
-    mainBtn.href = platforms[primaryOS].link;
+    mainBtn.href = `/fmby/thanks.html?productname=${d.name}&filename=${platforms[primaryOS].filename}`;
   } else {
     mainBtn.className += ' unavailable';
     document.getElementById('dl-main-text').textContent = 'Not available';
@@ -652,7 +652,7 @@ function renderPage(d) {
     .forEach(([k, v]) => {
       const meta = PLATFORM_META[k] || { icon: '💻', label: k };
       const a = document.createElement('a');
-      a.href = v.link;
+      a.href = `/fmby/thanks.html?productname=${d.name}&filename=${v.filename}`;
       a.className = 'btn-secondary';
       a.innerHTML = `<span>${meta.icon}</span><span>${meta.label}</span>`;
       altsEl.appendChild(a);
@@ -667,7 +667,7 @@ function renderPage(d) {
 
     if (isActive) {
       const a = document.createElement('a');
-      a.href = v.link;
+      a.href = `/fmby/thanks.html?productname=${d.name}&filename=${v.filename}`;
       a.className = `dl-os-chip available${isCurrent ? ' active-os' : ''}`;
       a.innerHTML = `<span>${meta.icon}</span><span>${meta.label}</span>`;
       osGrid.appendChild(a);

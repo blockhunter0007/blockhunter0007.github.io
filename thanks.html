@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanks for Downloading — Blockhunter0007</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon-purple: #bf00ff;
+            --neon-glow: #bf00ff;
+            --deep-black: #0a0a0a;
+            --dark-grey: #1a1a1a;
+            --card-bg: rgba(26, 26, 26, 0.85);
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: var(--deep-black);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at top, rgba(191, 0, 255, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom, rgba(191, 0, 255, 0.06) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(191, 0, 255, 0.2);
+        }
+
+        .nav-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-primary);
+            text-decoration: none;
+            text-shadow: 0 0 10px rgba(191, 0, 255, 0.5);
+        }
+
+        .nav-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .nav-back:hover {
+            color: var(--neon-purple);
+            text-shadow: 0 0 8px rgba(191, 0, 255, 0.5);
+        }
+
+        .nav-back svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* ── MAIN ── */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 20px 80px;
+        }
+
+        /* ── CARD ── */
+        .card {
+            max-width: 600px;
+            width: 100%;
+            background: var(--card-bg);
+            border: 2px solid rgba(191, 0, 255, 0.3);
+            border-radius: 20px;
+            padding: 50px 40px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow:
+                0 0 60px rgba(191, 0, 255, 0.12),
+                0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: cardIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(191, 0, 255, 0.06), transparent);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes cardIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.97); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* ── SUCCESS RING ── */
+        .success-ring {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(191, 0, 255, 0.1);
+            border: 2px solid rgba(191, 0, 255, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            box-shadow:
+                0 0 20px rgba(191, 0, 255, 0.3),
+                inset 0 0 20px rgba(191, 0, 255, 0.1);
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+
+        .success-ring svg {
+            width: 36px;
+            height: 36px;
+            color: var(--neon-purple);
+            filter: drop-shadow(0 0 6px var(--neon-purple));
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(191, 0, 255, 0.3), inset 0 0 20px rgba(191, 0, 255, 0.1);
+            }
+            50% {
+                box-shadow: 0 0 35px rgba(191, 0, 255, 0.5), inset 0 0 30px rgba(191, 0, 255, 0.2);
+            }
+        }
+
+        /* ── STATUS BADGE ── */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(191, 0, 255, 0.1);
+            border: 1px solid rgba(191, 0, 255, 0.4);
+            border-radius: 999px;
+            padding: 6px 16px;
+            font-size: 0.8rem;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--neon-purple);
+            margin-bottom: 24px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--neon-purple);
+            box-shadow: 0 0 8px var(--neon-purple);
+            animation: blink 1.5s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* ── TITLE ── */
+        .card-title {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+            line-height: 1.3;
+            text-shadow:
+                0 0 10px var(--neon-purple),
+                0 0 20px var(--neon-purple);
+        }
+
+        .card-title span {
+            color: var(--neon-purple);
+        }
+
+        .card-desc {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 32px;
+            line-height: 1.7;
+        }
+
+        /* ── FILE BOX ── */
+        .file-box {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: rgba(191, 0, 255, 0.06);
+            border: 1px solid rgba(191, 0, 255, 0.25);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 28px;
+            text-align: left;
+        }
+
+        .file-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: rgba(191, 0, 255, 0.12);
+            border: 1px solid rgba(191, 0, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .file-icon svg {
+            width: 22px;
+            height: 22px;
+            color: var(--neon-purple);
+        }
+
+        .file-label {
+            font-size: 0.75rem;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .file-name {
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 380px;
+        }
+
+        /* ── DOWNLOAD BUTTON ── */
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 16px 30px;
+            background: transparent;
+            border: 2px solid var(--neon-purple);
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            margin-bottom: 16px;
+        }
+
+        .btn-download:hover {
+            background: var(--neon-purple);
+            box-shadow:
+                0 0 20px var(--neon-purple),
+                0 0 40px rgba(191, 0, 255, 0.4),
+                inset 0 0 10px rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .btn-download.disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .btn-download svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* ── BACK LINK ── */
+        .back-link {
+            display: inline-block;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            text-decoration: none;
+            letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            margin-bottom: 32px;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--neon-purple);
+            text-shadow: 0 0 8px rgba(191, 0, 255, 0.5);
+        }
+
+        /* ── DIVIDER ── */
+        .divider {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(191, 0, 255, 0.4), transparent);
+            margin-bottom: 32px;
+        }
+
+        /* ── NEXT STEPS ── */
+        .next-steps {
+            text-align: left;
+        }
+
+        .next-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--neon-purple);
+            text-shadow: 0 0 8px rgba(191, 0, 255, 0.5);
+            margin-bottom: 16px;
+        }
+
+        .step-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .step-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .step-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: rgba(191, 0, 255, 0.1);
+            border: 1px solid rgba(191, 0, 255, 0.4);
+            color: var(--neon-purple);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .step-list a {
+            color: var(--neon-purple);
+            text-decoration: none;
+            transition: text-shadow 0.3s ease;
+        }
+
+        .step-list a:hover {
+            text-shadow: 0 0 8px var(--neon-purple);
+        }
+
+        /* ── ERROR CARD ── */
+        .error-card {
+            max-width: 500px;
+            width: 100%;
+            background: var(--card-bg);
+            border: 2px solid rgba(191, 0, 255, 0.3);
+            border-radius: 20px;
+            padding: 50px 40px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .error-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .error-title {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+            color: var(--neon-purple);
+            text-shadow: 0 0 10px rgba(191, 0, 255, 0.5);
+        }
+
+        .error-body {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .error-body code {
+            font-family: monospace;
+            background: rgba(191, 0, 255, 0.1);
+            border: 1px solid rgba(191, 0, 255, 0.3);
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: var(--neon-purple);
+        }
+
+        .error-code {
+            display: inline-block;
+            font-family: monospace;
+            font-size: 0.85rem;
+            background: rgba(191, 0, 255, 0.06);
+            border: 1px solid rgba(191, 0, 255, 0.25);
+            border-radius: 8px;
+            padding: 10px 16px;
+            color: var(--text-secondary);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            border-top: 1px solid rgba(191, 0, 255, 0.15);
+            padding: 24px 20px;
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-copy {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--neon-purple);
+            text-shadow: 0 0 8px rgba(191, 0, 255, 0.5);
+        }
+
+        /* ── SCROLLBAR ── */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--deep-black); }
+        ::-webkit-scrollbar-thumb { background: var(--neon-purple); border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-primary); }
+
+        @media (max-width: 500px) {
+            .card { padding: 36px 24px; }
+            .error-card { padding: 36px 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="nav-inner">
+            <a href="/" class="nav-logo">Blockhunter0007</a>
+            <a href="/" class="nav-back">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"/>
+                </svg>
+                Home
+            </a>
+        </div>
+    </nav>
+
+    <!-- MAIN -->
+    <main id="main"></main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <span class="footer-copy">© 2025 Blockhunter0007</span>
+            <div class="footer-links">
+                <a href="/legal.html#terms" class="footer-link">Terms ↗</a>
+                <a href="/legal.html#privacy" class="footer-link">Privacy ↗</a>
+                <a href="mailto:blockhunter.software@gmail.com" class="footer-link">Contact ↗</a>
+                <a href="/" class="footer-link">Home ↗</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /* ─────────────────────────────────────────────────────────────
+           CONFIG — set your file hosting base path here
+        ───────────────────────────────────────────────────────────── */
+        const BASE_URL = 'https://blockhunter0007.github.io/downloads/';
+
+        /* ─────────────────────────────────────────────────────────────
+           PARSE URL PARAMS
+           Expected: thankyou.html?productname=MyApp&filename=myapp.zip
+        ───────────────────────────────────────────────────────────── */
+        const params      = new URLSearchParams(window.location.search);
+        const productName = params.get('productname') || '';
+        const filename    = params.get('filename')    || '';
+        const downloadURL = filename ? BASE_URL + filename : '';
+
+        /* ─────────────────────────────────────────────────────────────
+           HELPERS
+        ───────────────────────────────────────────────────────────── */
+        function escapeHTML(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        /* ─────────────────────────────────────────────────────────────
+           RENDER
+        ───────────────────────────────────────────────────────────── */
+        function render() {
+            const main = document.getElementById('main');
+
+            if (!productName && !filename) {
+                main.innerHTML = `
+                    <div class="error-card">
+                        <div class="error-icon">⚠️</div>
+                        <h2 class="error-title">Missing Parameters</h2>
+                        <p class="error-body">This page requires a <code>productname</code> and <code>filename</code> in the URL.</p>
+                        <span class="error-code">?productname=AppName&amp;filename=file.zip</span>
+                    </div>`;
+                document.title = 'Error — Blockhunter0007';
+                return;
+            }
+
+            document.title = `Thanks for downloading ${productName || filename} — Blockhunter0007`;
+
+            main.innerHTML = `
+                <div class="card">
+
+                    <!-- Success ring -->
+                    <div class="success-ring">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                    </div>
+
+                    <!-- Status badge -->
+                    <div class="status-badge">
+                        <span class="status-dot"></span>
+                        Download Ready
+                    </div>
+
+                    <!-- Heading -->
+                    <h1 class="card-title">
+                        Thanks for downloading<br>
+                        <span>${escapeHTML(productName || filename)}</span>
+                    </h1>
+                    <p class="card-desc">
+                        Your download should start automatically. If it doesn't, use the button below.
+                    </p>
+
+                    <!-- File info -->
+                    ${filename ? `
+                    <div class="file-box">
+                        <div class="file-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="12" y1="18" x2="12" y2="12"/>
+                                <line x1="9" y1="15" x2="15" y2="15"/>
+                            </svg>
+                        </div>
+                        <div class="file-info">
+                            <div class="file-label">File</div>
+                            <div class="file-name" title="${escapeHTML(filename)}">${escapeHTML(filename)}</div>
+                        </div>
+                    </div>` : ''}
+
+                    <!-- Download button -->
+                    <a
+                        id="downloadBtn"
+                        href="${escapeHTML(downloadURL)}"
+                        class="btn-download${!downloadURL ? ' disabled' : ''}"
+                        download
+                        ${!downloadURL ? 'aria-disabled="true"' : ''}
+                    >
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="8 17 12 21 16 17"/>
+                            <line x1="12" y1="21" x2="12" y2="7"/>
+                            <path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/>
+                        </svg>
+                        Download ${escapeHTML(productName || filename)}
+                    </a>
+
+                    <a href="/download.html${productName ? '#' + encodeURIComponent(productName.toLowerCase()) : ''}" class="back-link">
+                        ← Back to download page
+                    </a>
+
+                    <hr class="divider" />
+
+                    <!-- Next steps -->
+                    <div class="next-steps">
+                        <div class="next-label">What's Next</div>
+                        <ul class="step-list">
+                            <li>
+                                <span class="step-num">1</span>
+                                Open the downloaded file and follow the installation instructions.
+                            </li>
+                            <li>
+                                <span class="step-num">2</span>
+                                If your browser blocked the download, check your downloads folder or allow the file in your browser settings.
+                            </li>
+                            <li>
+                                <span class="step-num">3</span>
+                                Having trouble? Reach us at
+                                <a href="mailto:blockhunter.software@gmail.com">blockhunter.software@gmail.com</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>`;
+
+            /* Auto-trigger download after short delay */
+            if (downloadURL) {
+                setTimeout(() => {
+                    const link = document.createElement('a');
+                    link.href = downloadURL;
+                    link.download = filename;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }, 800);
+            }
+        }
+
+        render();
+    </script>
+</body>
+</html>
