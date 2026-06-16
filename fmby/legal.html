@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Legal — Blockhunter0007</title>
+  <meta name="description" content="Terms of Service, Privacy Policy, and DMCA Notice for Blockhunter0007." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Klee+One:wght@400;600&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =====================================================================
+       DESIGN TOKENS — from index.html
+    ===================================================================== */
+    :root {
+      --font-display:    'Klee One', cursive;
+      --font-body:       'Nunito', sans-serif;
+      --font-handwrite:  'Caveat', cursive;
+
+      /* Light mode */
+      --bg-primary:      #fdf6f0;
+      --bg-secondary:    #fff0f5;
+      --bg-card:         rgba(255,255,255,0.72);
+      --bg-card-hover:   rgba(255,255,255,0.92);
+      --text-primary:    #3a2a35;
+      --text-secondary:  #7a5a6a;
+      --text-muted:      #b8909a;
+      --accent-1:        #e8a0bf;
+      --accent-2:        #c9b1e8;
+      --accent-3:        #f7c5d5;
+      --accent-glow:     rgba(232,160,191,0.35);
+      --border-soft:     rgba(232,160,191,0.25);
+      --shadow-soft:     0 4px 24px rgba(180,120,150,0.12);
+      --shadow-hover:    0 8px 40px rgba(180,120,150,0.22);
+      --header-bg:       rgba(253,246,240,0.82);
+      --particle-opacity:0.5;
+
+      --nav-h:    64px;
+      --sidebar-w:260px;
+      --radius-md:1rem;
+      --radius-sm:0.6rem;
+      --transition:0.22s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    [data-theme="dark"] {
+      --bg-primary:      #120a18;
+      --bg-secondary:    #1a0f22;
+      --bg-card:         rgba(30,16,42,0.75);
+      --bg-card-hover:   rgba(40,22,58,0.90);
+      --text-primary:    #f0e6f8;
+      --text-secondary:  #c4a8d8;
+      --text-muted:      #8a6a9a;
+      --accent-1:        #c084e0;
+      --accent-2:        #e080b0;
+      --accent-3:        #9060c8;
+      --accent-glow:     rgba(192,132,224,0.25);
+      --border-soft:     rgba(192,132,224,0.18);
+      --shadow-soft:     0 4px 32px rgba(100,40,160,0.22);
+      --shadow-hover:    0 8px 48px rgba(120,50,200,0.35);
+      --header-bg:       rgba(18,10,24,0.85);
+      --particle-opacity:0.4;
+    }
+
+    /* =====================================================================
+       RESET & BASE
+    ===================================================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.75;
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      transition: background 0.5s ease, color 0.4s ease;
+    }
+
+    a { color: var(--accent-1); text-decoration: none; transition: color 0.2s; }
+    a:hover { color: var(--accent-2); }
+    button { cursor: pointer; font-family: var(--font-body); border: none; background: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* =====================================================================
+       PARTICLE CANVAS
+    ===================================================================== */
+    #particle-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: var(--particle-opacity);
+    }
+
+    /* =====================================================================
+       NAVIGATION
+    ===================================================================== */
+    .top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      backdrop-filter: blur(14px) saturate(1.3);
+      -webkit-backdrop-filter: blur(14px) saturate(1.3);
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--border-soft);
+      transition: background 0.5s ease, border-color 0.4s ease;
+    }
+
+    .nav-inner {
+      max-width: 100%;
+      padding: 0 1.5rem;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nav-left { display: flex; align-items: center; gap: 1rem; }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      opacity: 0.9;
+      transition: opacity 0.2s;
+    }
+    .nav-logo:hover { opacity: 1; color: var(--text-primary); }
+
+    .nav-logo-img {
+      width: 36px; height: 36px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .nav-sep { width: 1px; height: 18px; background: var(--border-soft); }
+
+    .nav-context {
+      font-family: var(--font-handwrite);
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .nav-actions { display: flex; align-items: center; gap: 0.6rem; }
+
+    .icon-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: 50%;
+      width: 38px; height: 38px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      transition: background 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+      box-shadow: var(--shadow-soft);
+    }
+    .icon-btn:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent-1);
+      box-shadow: 0 0 12px var(--accent-glow);
+      transform: scale(1.08);
+      color: var(--accent-1);
+    }
+    .icon-btn svg { width: 16px; height: 16px; }
+
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0.45rem 1.1rem;
+      border-radius: 2rem;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-soft);
+      background: var(--bg-card);
+      backdrop-filter: blur(8px);
+      transition: all 0.25s ease;
+      box-shadow: var(--shadow-soft);
+    }
+    .btn-back:hover {
+      color: var(--accent-1);
+      border-color: var(--accent-1);
+      box-shadow: 0 4px 20px var(--accent-glow);
+      transform: translateY(-1px);
+    }
+    .btn-back svg { width: 13px; height: 13px; }
+
+    .btn-menu {
+      display: none;
+      width: 38px; height: 38px;
+      border-radius: var(--radius-sm);
+      align-items: center; justify-content: center;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-soft);
+      background: var(--bg-card);
+      box-shadow: var(--shadow-soft);
+    }
+    .btn-menu svg { width: 16px; height: 16px; }
+
+    /* =====================================================================
+       LAYOUT SHELL
+    ===================================================================== */
+    .shell {
+      display: flex;
+      min-height: 100vh;
+      padding-top: var(--nav-h);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* =====================================================================
+       SIDEBAR
+    ===================================================================== */
+    .sidebar {
+      position: fixed;
+      top: var(--nav-h);
+      left: 0; bottom: 0;
+      width: var(--sidebar-w);
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-right: 1px solid var(--border-soft);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      z-index: 50;
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .sidebar-header {
+      padding: 1.6rem 1.4rem 1rem;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .sidebar-eyebrow {
+      font-family: var(--font-handwrite);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+      font-style: italic;
+    }
+
+    .sidebar-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .sidebar-nav { padding: 1rem 0.75rem; flex: 0; }
+
+    .doc-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 0.9rem;
+      border-radius: var(--radius-md);
+      text-align: left;
+      color: var(--text-secondary);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+      position: relative;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+    .doc-btn:hover {
+      background: var(--bg-card-hover);
+      color: var(--accent-1);
+    }
+    .doc-btn.active {
+      background: var(--bg-card-hover);
+      color: var(--accent-1);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+    }
+    .doc-btn.active::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 50%;
+      transform: translateY(-50%);
+      width: 3px; height: 22px;
+      border-radius: 0 3px 3px 0;
+      background: linear-gradient(to bottom, var(--accent-1), var(--accent-2));
+    }
+
+    .doc-btn-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-soft);
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .doc-btn.active .doc-btn-icon {
+      background: var(--accent-glow);
+      box-shadow: 0 0 10px var(--accent-glow);
+    }
+    .doc-btn-icon svg { width: 15px; height: 15px; color: var(--text-muted); }
+    .doc-btn.active .doc-btn-icon svg { color: var(--accent-1); }
+
+    .doc-btn-meta { display: flex; flex-direction: column; gap: 1px; }
+    .doc-btn-label { line-height: 1.3; }
+    .doc-btn-date {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+
+    /* Sidebar TOC */
+    .toc-section {
+      padding: 1rem 0.75rem;
+      border-top: 1px solid var(--border-soft);
+      margin-top: auto;
+    }
+
+    .toc-label {
+      font-family: var(--font-handwrite);
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-style: italic;
+      padding: 0 0.9rem;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .toc-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 0.9rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      transition: color 0.2s, background 0.2s;
+      line-height: 1.4;
+    }
+    .toc-link::before {
+      content: '✦';
+      font-size: 0.5rem;
+      color: var(--accent-1);
+      flex-shrink: 0;
+      opacity: 0.5;
+    }
+    .toc-link:hover { color: var(--accent-1); background: var(--accent-glow); }
+
+    /* Mobile overlay */
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 49;
+      backdrop-filter: blur(2px);
+    }
+    .sidebar-overlay.open { display: block; }
+
+    /* =====================================================================
+       MAIN CONTENT
+    ===================================================================== */
+    .main {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* Document panels */
+    .doc-panel {
+      display: none;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .doc-panel.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Document header */
+    .doc-header {
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+      border-bottom: 1px solid var(--border-soft);
+      padding: 3rem 4rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .doc-header::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .doc-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, var(--accent-1), transparent 60%);
+    }
+
+    .doc-header-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 14px;
+      background: var(--accent-glow);
+      border: 1px solid var(--border-soft);
+      border-radius: 2rem;
+      font-family: var(--font-handwrite);
+      font-size: 0.85rem;
+      color: var(--accent-1);
+      margin-bottom: 1.2rem;
+      letter-spacing: 0.04em;
+    }
+
+    .doc-header-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+
+    .doc-header-meta {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .doc-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-family: var(--font-body);
+    }
+    .doc-meta-item svg { width: 12px; height: 12px; }
+
+    /* Document body */
+    .doc-body {
+      padding: 3.5rem 4rem;
+      max-width: 860px;
+    }
+
+    /* Legal prose */
+    .legal-section { margin-bottom: 3.2rem; }
+
+    .legal-h2 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.9rem;
+      padding-top: 0.5rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.65rem;
+    }
+
+    .legal-h2-num {
+      font-family: var(--font-handwrite);
+      font-size: 1rem;
+      color: var(--accent-1);
+      flex-shrink: 0;
+    }
+
+    .legal-h3 {
+      font-family: var(--font-display);
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.6rem;
+      margin-top: 1.3rem;
+    }
+
+    .legal-p {
+      font-size: 0.93rem;
+      color: var(--text-secondary);
+      line-height: 1.85;
+      margin-bottom: 0.9rem;
+    }
+
+    .legal-ul {
+      list-style: none;
+      margin: 0.75rem 0 1.1rem;
+    }
+
+    .legal-ul li {
+      display: flex;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      padding: 3px 0;
+    }
+
+    .legal-ul li::before {
+      content: '✦';
+      color: var(--accent-1);
+      flex-shrink: 0;
+      font-size: 0.55rem;
+      margin-top: 0.4rem;
+    }
+
+    .legal-divider {
+      height: 1px;
+      background: var(--border-soft);
+      margin: 2.5rem 0;
+    }
+
+    /* Callout box */
+    .callout {
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-left: 3px solid var(--accent-1);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 1.1rem 1.4rem;
+      margin: 1.25rem 0 1.75rem;
+      backdrop-filter: blur(8px);
+      box-shadow: var(--shadow-soft);
+    }
+    .callout p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin: 0;
+    }
+    .callout strong { color: var(--text-primary); font-weight: 600; }
+
+    /* Contact block */
+    .contact-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 1.4rem 1.6rem;
+      margin-top: 1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-soft);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .contact-block:hover {
+      border-color: var(--accent-1);
+      box-shadow: 0 4px 24px var(--accent-glow);
+    }
+
+    .contact-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: var(--accent-glow);
+      border: 1px solid var(--border-soft);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-icon svg { width: 18px; height: 18px; color: var(--accent-1); }
+
+    .contact-body { flex: 1; }
+    .contact-label {
+      font-family: var(--font-handwrite);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 3px;
+    }
+    .contact-value {
+      font-family: var(--font-display);
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--accent-1);
+    }
+    .contact-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* DMCA numbered steps */
+    .dmca-steps {
+      counter-reset: dmca-step;
+      list-style: none;
+      margin: 1rem 0 1.5rem;
+    }
+
+    .dmca-steps li {
+      counter-increment: dmca-step;
+      display: flex;
+      gap: 0.9rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border-soft);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+    .dmca-steps li:last-child { border-bottom: none; }
+
+    .dmca-steps li::before {
+      content: counter(dmca-step, decimal-leading-zero);
+      font-family: var(--font-handwrite);
+      font-size: 1rem;
+      color: var(--accent-1);
+      padding-top: 1px;
+      flex-shrink: 0;
+      min-width: 28px;
+    }
+
+    /* Last updated badge */
+    .last-updated {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: 2rem;
+      padding: 4px 12px;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(8px);
+    }
+    .last-updated-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent-1);
+      box-shadow: 0 0 6px var(--accent-glow);
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    /* Document footer */
+    .doc-footer {
+      border-top: 1px solid var(--border-soft);
+      padding: 2rem 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      background: var(--bg-card);
+      backdrop-filter: blur(10px);
+    }
+
+    .doc-footer-copy {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-family: var(--font-body);
+    }
+
+    .doc-footer-links {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .doc-footer-link {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      transition: color 0.2s;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .doc-footer-link:hover { color: var(--accent-1); }
+
+    /* =====================================================================
+       MOBILE
+    ===================================================================== */
+    @media (max-width: 820px) {
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .main { margin-left: 0; }
+      .btn-menu { display: flex; }
+      .doc-header { padding: 2.2rem 1.5rem 1.8rem; }
+      .doc-body { padding: 2.2rem 1.5rem; }
+      .doc-footer { padding: 1.5rem; }
+    }
+
+    @media (max-width: 480px) {
+      .doc-header-title { font-size: 1.7rem; }
+      .doc-body { padding: 1.6rem 1rem; }
+      .doc-footer { padding: 1.2rem 1rem; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+<!-- ================================================================
+     NAVIGATION
+================================================================ -->
+<nav class="top-nav">
+  <div class="nav-inner">
+    <div class="nav-left">
+      <button class="btn-menu" id="btnMenu" onclick="toggleSidebar()" aria-label="Toggle menu">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+      <a href="/fmby/" class="nav-logo">
+        <img src="/images/logo.png" alt="Blockhunter0007 Logo" class="nav-logo-img" onerror="this.style.display='none'">
+        Blockhunter0007
+      </a>
+      <div class="nav-sep"></div>
+      <span class="nav-context">legal docs ✦</span>
+    </div>
+
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+        <svg id="iconSun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg id="iconMoon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <a href="/" class="btn-back">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+        </svg>
+        Back
+      </a>
+    </div>
+  </div>
+</nav>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+<div class="shell">
+
+  <!-- ================================================================
+       SIDEBAR
+  ================================================================ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-eyebrow">Blockhunter0007</div>
+      <div class="sidebar-title">Legal Documents</div>
+    </div>
+
+    <nav class="sidebar-nav" aria-label="Documents">
+      <button class="doc-btn active" id="nav-tos" onclick="showDoc('tos')">
+        <span class="doc-btn-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10 9 9 9 8 9"/>
+          </svg>
+        </span>
+        <span class="doc-btn-meta">
+          <span class="doc-btn-label">Terms of Service</span>
+          <span class="doc-btn-date">Effective: Jun 1, 2025</span>
+        </span>
+      </button>
+
+      <button class="doc-btn" id="nav-privacy" onclick="showDoc('privacy')">
+        <span class="doc-btn-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </span>
+        <span class="doc-btn-meta">
+          <span class="doc-btn-label">Privacy Policy</span>
+          <span class="doc-btn-date">Effective: Jun 1, 2025</span>
+        </span>
+      </button>
+
+      <button class="doc-btn" id="nav-dmca" onclick="showDoc('dmca')">
+        <span class="doc-btn-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </span>
+        <span class="doc-btn-meta">
+          <span class="doc-btn-label">DMCA Policy</span>
+          <span class="doc-btn-date">Effective: Jun 1, 2025</span>
+        </span>
+      </button>
+    </nav>
+
+    <div class="toc-section" id="tocSection">
+      <span class="toc-label">on this page</span>
+      <div id="tocLinks"></div>
+    </div>
+  </aside>
+
+  <!-- ================================================================
+       MAIN CONTENT
+  ================================================================ -->
+  <main class="main">
+
+    <!-- ────────────────────────────────────────────────────────────────
+         TERMS OF SERVICE
+    ──────────────────────────────────────────────────────────────────── -->
+    <div class="doc-panel active" id="doc-tos">
+      <div class="doc-header">
+        <div class="doc-header-tag">✦ Legal Document</div>
+        <h1 class="doc-header-title">Terms of Service</h1>
+        <div class="doc-header-meta">
+          <span class="doc-meta-item">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="11" rx="1.5"/><path d="M5 1v4M11 1v4M2 7h12"/></svg>
+            Effective: June 1, 2025
+          </span>
+          <span class="doc-meta-item">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v3l2 1"/></svg>
+            Last updated: June 1, 2025
+          </span>
+          <span class="doc-meta-item">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M5 8h6"/></svg>
+            Jurisdiction: Germany
+          </span>
+        </div>
+      </div>
+
+      <div class="doc-body">
+        <div class="last-updated">
+          <span class="last-updated-dot"></span>
+          Current version · No pending amendments
+        </div>
+
+        <div class="callout">
+          <p><strong>Please read these Terms carefully.</strong> By accessing or using any Blockhunter0007 product, website, or service, you agree to be bound by these Terms of Service. If you do not agree, do not use our services.</p>
+        </div>
+
+        <div class="legal-section" id="tos-s1">
+          <h2 class="legal-h2"><span class="legal-h2-num">01</span> Parties &amp; Agreement</h2>
+          <p class="legal-p">These Terms of Service ("Terms") constitute a legally binding agreement between you ("User," "you") and Blockhunter0007 ("we," "us," "our"), an independent software engineering studio. These Terms govern your access to and use of all software, websites, and services operated by Blockhunter0007 (collectively, the "Services").</p>
+          <p class="legal-p">By accessing or using the Services, you confirm that you have read, understood, and agree to be bound by these Terms. If you are using the Services on behalf of an organisation, you represent that you have the authority to bind that organisation to these Terms.</p>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-section" id="tos-s2">
+          <h2 class="legal-h2"><span class="legal-h2-num">02</span> Eligibility</h2>
+          <p class="legal-p">You must be at least 13 years of age to use the Services. If you are under 18, you represent that you have obtained your parent's or legal guardian's consent. We reserve the right to request proof of age or parental consent at any time.</p>
+          <p class="legal-p">You may not use the Services if you are located in a jurisdiction where such use is prohibited by applicable law.</p>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-section" id="tos-s3">
+          <h2 class="legal-h2"><span class="legal-h2-num">03</span> Permitted Use</h2>
+          <p class="legal-p">Subject to these Terms, we grant you a limited, non-exclusive, non-transferable, revocable licence to access and use the Services for your personal, non-commercial purposes.</p>
+          <p class="legal-p">You agree not to:</p>
+          <ul class="legal-ul">
+            <li>Reverse-engineer, decompile, or disassemble any part of the Services.</li>
+            <li>Use the Services to transmit harmful, unlawful, defamatory, or infringing content.</li>
+            <li>Attempt to gain unauthorised access to any system, network, or data.</li>
+            <li>Use automated means (bots, scrapers, crawlers) to access the Services without our express written consent.</li>
+            <li>Resell, sublicense, or otherwise exploit the Services for commercial purposes without our prior written consent.</li>
+          </ul>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-section" id="tos-s4">
+          <h2 class="legal-h2"><span class="legal-h2-num">04</span> User Content</h2>
+          <p class="legal-p">Certain Services (e.g. DayLog) allow you to create and store personal content ("User Content"). You retain all ownership rights in your User Content.</p>
+          <p class="legal-p">By storing User Content in our Services, you grant Blockhunter0007 a limited, revocable, non-exclusive licence to process and store that content solely for the purpose of delivering the Services to you. We do not use your User Content for any other purpose, including advertising, analytics, or training machine learning models.</p>
+          <p class="legal-p">You are solely responsible for your User Content and for ensuring it does not violate applicable law or third-party rights.</p>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-section" id="tos-s5">
+          <h2 class="legal-h2"><span class="legal-h2-num">05</span> Intellectual Property</h2>
+          <p class="legal-p">All rights, title, and interest in and to the Services — including software, design, text, graphics, and the Blockhunter0007 name and branding — are and remain the exclusive property of Blockhunter0007 and its licensors.</p>
+          <p class="legal-p">Nothing in these Terms grants you ownership of or rights in any Blockhunter0007 intellectual property, beyond the limited licence expressly stated in Section 3.</p>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-section" id="tos-s6">
+          <h2 class="legal-h2"><span class="legal-h2-num">06</span> Disclaimer of Warranties</h2>
+          <p class="legal-p">The Services are provided "as is" and "as available" without warranties of any kind, either express or implied, including but not limited to implied warranties of merchantability, fitness for a particular purpose, and non-infringement.</p>
+          <p class="legal-p">Blockhunter0007 does not warrant that the Services will be uninterrupted, error-free, or free of harmful components. You use the Services at your own risk.</p>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-section" id="tos-s7">
+          <h2 class="legal-h2"><span class="legal-h2-num">07</span> Limitation of Liability</h2>
+          <p class="legal-p">To the maximum extent permitted by applicable law, Blockhunter0007 shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of profits, data, or goodwill, arising out of or in connection with your use or inability to use the Services.</p>
+          <p class="legal-p">Our total aggregate liability to you for any claims arising under these Terms shall not exceed the amount you paid us (if any) in the twelve months preceding the claim.</p>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-section" id="tos-s8">
+          <h2 class="legal-h2"><span class="legal-h2-num">08</span> Termination</h2>
+          <p class="legal-p">We reserve the right to suspend or terminate your access to the Services at any time, with or without notice, if we reasonably believe you have violated these Terms.</p>
+          <p class="legal-p">You may terminate your use of the Services at any time by discontinuing use. Upon termination, all licences granted to you under these Terms will immediately cease.</p>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-section" id="tos-s9">
+          <h2 class="legal-h2"><span class="legal-h2-num">09</span> Governing Law &amp; Jurisdiction</h2>
+          <p class="legal-p">These Terms are governed by and construed in accordance with the laws of the Federal Republic of Germany, without regard to conflict of law principles. Any disputes arising under these Terms shall be subject to the exclusive jurisdiction of the courts competent for the registered place of business of Blockhunter0007.</p>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-section" id="tos-s10">
+          <h2 class="legal-h2"><span class="legal-h2-num">10</span> Changes to These Terms</h2>
+          <p class="legal-p">We reserve the right to update these Terms at any time. If we make material changes, we will notify you via the Services or by email, where applicable. The date of the most recent revision is always indicated at the top of this document.</p>
+          <p class="legal-p">Continued use of the Services after any changes constitutes your acceptance of the revised Terms.</p>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-section" id="tos-s11">
+          <h2 class="legal-h2"><span class="legal-h2-num">11</span> Contact</h2>
+          <p class="legal-p">Questions about these Terms? Reach us at:</p>
+          <div class="contact-block">
+            <div class="contact-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="contact-body">
+              <div class="contact-label">Legal Contact</div>
+              <div class="contact-value">blockhunter.software@gmail.com</div>
+              <div class="contact-sub">Subject: Terms of Service — [your question]</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc-footer">
+        <span class="doc-footer-copy">© 2025 Blockhunter0007 — All rights reserved</span>
+        <div class="doc-footer-links">
+          <button class="doc-footer-link" onclick="showDoc('privacy')">Privacy Policy</button>
+          <button class="doc-footer-link" onclick="showDoc('dmca')">DMCA</button>
+          <a href="https://blockhunter0007.github.io/" target="_blank" rel="noopener" class="doc-footer-link">Founder ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ────────────────────────────────────────────────────────────────
+         PRIVACY POLICY
+    ──────────────────────────────────────────────────────────────────── -->
+    <div class="doc-panel" id="doc-privacy">
+      <div class="doc-header">
+        <div class="doc-header-tag">✦ Legal Document</div>
+        <h1 class="doc-header-title">Privacy Policy</h1>
+        <div class="doc-header-meta">
+          <span class="doc-meta-item">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="11" rx="1.5"/><path d="M5 1v4M11 1v4M2 7h12"/></svg>
+            Effective: June 1, 2025
+          </span>
+          <span class="doc-meta-item">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v3l2 1"/></svg>
+            Last updated: June 1, 2025
+          </span>
+          <span class="doc-meta-item">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5A6.5 6.5 0 1 1 1.5 8"/><path d="M5 8h3V5"/></svg>
+            GDPR-aligned
+          </span>
+        </div>
+      </div>
+
+      <div class="doc-body">
+        <div class="last-updated">
+          <span class="last-updated-dot"></span>
+          GDPR-aligned · Privacy-first by design
+        </div>
+
+        <div class="callout">
+          <p><strong>Our position is simple:</strong> your data belongs to you. We collect the minimum necessary to operate, and nothing more. We do not sell, trade, or share your data with third parties for advertising or commercial purposes.</p>
+        </div>
+
+        <div class="legal-section" id="priv-s1">
+          <h2 class="legal-h2"><span class="legal-h2-num">01</span> Who We Are</h2>
+          <p class="legal-p">This Privacy Policy applies to all services operated by Blockhunter0007 ("we," "us," "our"), an independent software engineering studio. We are the data controller responsible for your personal data processed through our Services.</p>
+          <p class="legal-p">This policy is written in compliance with the EU General Data Protection Regulation (GDPR) and applicable German privacy law (BDSG).</p>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-section" id="priv-s2">
+          <h2 class="legal-h2"><span class="legal-h2-num">02</span> Data We Collect</h2>
+          <h3 class="legal-h3">Data you provide directly</h3>
+          <ul class="legal-ul">
+            <li>Account information (e.g. email address, chosen username) when you register for a Service.</li>
+            <li>User-generated content such as journal entries created within DayLog or similar applications.</li>
+            <li>Communications you send to us (support requests, project enquiries).</li>
+          </ul>
+          <h3 class="legal-h3">Data collected automatically</h3>
+          <ul class="legal-ul">
+            <li>Technical log data: IP address, browser type, device type, operating system, pages visited, and timestamps — retained for a maximum of 30 days for security and abuse prevention purposes.</li>
+            <li>Crash reports and error logs, which may include device and software configuration details, collected only with your prior consent where required by applicable law.</li>
+          </ul>
+          <h3 class="legal-h3">Data we do not collect</h3>
+          <ul class="legal-ul">
+            <li>Advertising identifiers or cross-site tracking data.</li>
+            <li>Biometric data or sensitive special-category personal data.</li>
+            <li>Content from your private journal entries for any purpose beyond delivery of the Service.</li>
+          </ul>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-section" id="priv-s3">
+          <h2 class="legal-h2"><span class="legal-h2-num">03</span> Legal Basis for Processing (GDPR Art. 6)</h2>
+          <p class="legal-p">We process your personal data on the following legal grounds:</p>
+          <ul class="legal-ul">
+            <li><strong>Contract performance (Art. 6(1)(b)):</strong> processing your account data and User Content to deliver the Services you have requested.</li>
+            <li><strong>Legitimate interests (Art. 6(1)(f)):</strong> processing technical logs to maintain the security and integrity of our infrastructure.</li>
+            <li><strong>Consent (Art. 6(1)(a)):</strong> optional features such as crash reporting, where we obtain your explicit consent before processing.</li>
+            <li><strong>Legal obligation (Art. 6(1)(c)):</strong> complying with applicable law, including responding to valid legal requests.</li>
+          </ul>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-section" id="priv-s4">
+          <h2 class="legal-h2"><span class="legal-h2-num">04</span> How We Use Your Data</h2>
+          <ul class="legal-ul">
+            <li>To provide, operate, and improve our Services.</li>
+            <li>To authenticate your identity and maintain account security.</li>
+            <li>To respond to support enquiries and project requests.</li>
+            <li>To detect and prevent fraud, abuse, and security incidents.</li>
+            <li>To comply with applicable legal obligations.</li>
+          </ul>
+          <p class="legal-p">We do not use your data for automated decision-making or profiling as defined under GDPR Art. 22.</p>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-section" id="priv-s5">
+          <h2 class="legal-h2"><span class="legal-h2-num">05</span> Data Sharing &amp; Third Parties</h2>
+          <p class="legal-p">We do not sell, rent, or trade your personal data. We may share data in the following limited circumstances:</p>
+          <ul class="legal-ul">
+            <li><strong>Infrastructure providers:</strong> cloud hosting and storage providers acting as data processors under a GDPR-compliant data processing agreement (DPA). These providers may not use your data for their own purposes.</li>
+            <li><strong>Legal requirements:</strong> where we are required to disclose data by law, court order, or competent authority. We will notify you of such requests to the extent permitted by law.</li>
+            <li><strong>Business transfers:</strong> in the event of a merger, acquisition, or sale of assets, your data may be transferred. You will be notified in advance and your data will remain subject to this Policy.</li>
+          </ul>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-section" id="priv-s6">
+          <h2 class="legal-h2"><span class="legal-h2-num">06</span> Data Retention</h2>
+          <p class="legal-p">We retain your personal data only as long as necessary for the purposes stated in this Policy, or as required by law:</p>
+          <ul class="legal-ul">
+            <li>Account data: retained for the duration of your account and deleted within 90 days of account closure upon request.</li>
+            <li>Technical logs: retained for a maximum of 30 days.</li>
+            <li>User Content: retained until you delete it or close your account.</li>
+            <li>Legal correspondence: retained for up to 10 years as required under German commercial law (HGB §257).</li>
+          </ul>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-section" id="priv-s7">
+          <h2 class="legal-h2"><span class="legal-h2-num">07</span> Your Rights (GDPR)</h2>
+          <p class="legal-p">Under the GDPR, you have the following rights regarding your personal data:</p>
+          <ul class="legal-ul">
+            <li><strong>Right of access (Art. 15):</strong> request a copy of the personal data we hold about you.</li>
+            <li><strong>Right to rectification (Art. 16):</strong> request correction of inaccurate data.</li>
+            <li><strong>Right to erasure (Art. 17):</strong> request deletion of your data, subject to legal retention obligations.</li>
+            <li><strong>Right to restriction (Art. 18):</strong> request that we restrict processing in certain circumstances.</li>
+            <li><strong>Right to data portability (Art. 20):</strong> receive your data in a structured, machine-readable format.</li>
+            <li><strong>Right to object (Art. 21):</strong> object to processing based on legitimate interests.</li>
+            <li><strong>Right to withdraw consent:</strong> withdraw consent at any time where processing is consent-based, without affecting prior lawful processing.</li>
+          </ul>
+          <p class="legal-p">To exercise any of these rights, contact us at the address below. We will respond within 30 days as required by the GDPR. You also have the right to lodge a complaint with a supervisory authority, in particular in the EU member state of your habitual residence, place of work, or the place of the alleged infringement.</p>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-section" id="priv-s8">
+          <h2 class="legal-h2"><span class="legal-h2-num">08</span> Security</h2>
+          <p class="legal-p">We implement technical and organisational security measures appropriate to the risk, including encryption in transit (TLS), encryption at rest for User Content, access controls, and regular security reviews.</p>
+          <p class="legal-p">No system is perfectly secure. If you discover a security vulnerability, please contact us responsibly at the address below before public disclosure.</p>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-section" id="priv-s9">
+          <h2 class="legal-h2"><span class="legal-h2-num">09</span> Cookies &amp; Local Storage</h2>
+          <p class="legal-p">Our website uses only essential, functional storage (cookies and localStorage) strictly necessary for operation, such as remembering your theme preference or mode selection. We do not use advertising cookies, analytics platforms, or third-party tracking scripts.</p>
+          <p class="legal-p">No consent banner is required for purely functional storage under the ePrivacy Directive and current GDPR guidance. If this changes, we will update this Policy accordingly.</p>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-section" id="priv-s10">
+          <h2 class="legal-h2"><span class="legal-h2-num">10</span> Contact &amp; Data Controller</h2>
+          <p class="legal-p">For privacy requests, data subject rights, or general enquiries about this Policy:</p>
+          <div class="contact-block">
+            <div class="contact-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="contact-body">
+              <div class="contact-label">Privacy / Data Controller</div>
+              <div class="contact-value">blockhunter.software@gmail.com</div>
+              <div class="contact-sub">Subject: Privacy Request — [Art. XX / topic]</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc-footer">
+        <span class="doc-footer-copy">© 2025 Blockhunter0007 — All rights reserved</span>
+        <div class="doc-footer-links">
+          <button class="doc-footer-link" onclick="showDoc('tos')">Terms of Service</button>
+          <button class="doc-footer-link" onclick="showDoc('dmca')">DMCA</button>
+          <a href="https://blockhunter0007.github.io/" target="_blank" rel="noopener" class="doc-footer-link">Founder ↗</a>
+          <a href="mailto:blockhunter.software@gmail.com" class="doc-footer-link">Contact ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ────────────────────────────────────────────────────────────────
+         DMCA POLICY
+    ──────────────────────────────────────────────────────────────────── -->
+    <div class="doc-panel" id="doc-dmca">
+      <div class="doc-header">
+        <div class="doc-header-tag">✦ Legal Document</div>
+        <h1 class="doc-header-title">DMCA Policy</h1>
+        <div class="doc-header-meta">
+          <span class="doc-meta-item">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="11" rx="1.5"/><path d="M5 1v4M11 1v4M2 7h12"/></svg>
+            Effective: June 1, 2025
+          </span>
+          <span class="doc-meta-item">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v3l2 1"/></svg>
+            17 U.S.C. § 512
+          </span>
+        </div>
+      </div>
+
+      <div class="doc-body">
+        <div class="last-updated">
+          <span class="last-updated-dot"></span>
+          DMCA Safe Harbor · 17 U.S.C. § 512
+        </div>
+
+        <div class="callout">
+          <p><strong>Blockhunter0007 respects intellectual property rights.</strong> We respond promptly to valid notices of alleged copyright infringement in accordance with the Digital Millennium Copyright Act (DMCA), 17 U.S.C. § 512, and equivalent provisions under applicable international law.</p>
+        </div>
+
+        <div class="legal-section" id="dmca-s1">
+          <h2 class="legal-h2"><span class="legal-h2-num">01</span> Filing a Takedown Notice</h2>
+          <p class="legal-p">If you believe that content available through our Services infringes your copyright, you may submit a written notification to our designated agent. Your notice must include all of the following elements, as required under 17 U.S.C. § 512(c)(3):</p>
+          <ol class="dmca-steps">
+            <li>A physical or electronic signature of the copyright owner, or a person authorized to act on their behalf.</li>
+            <li>Identification of the copyrighted work or works claimed to have been infringed. If multiple works are covered by a single notification, a representative list is acceptable.</li>
+            <li>Identification of the material that is claimed to be infringing or to be the subject of infringing activity, and information reasonably sufficient to permit us to locate the material (such as a URL or specific description).</li>
+            <li>Your contact information, including your full name, mailing address, telephone number, and an email address at which you can be reached.</li>
+            <li>A statement that you have a good faith belief that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or the law.</li>
+            <li>A statement, made under penalty of perjury, that the information in the notification is accurate, and that you are the copyright owner or are authorized to act on behalf of the owner.</li>
+          </ol>
+          <div class="callout">
+            <p><strong>Warning:</strong> under 17 U.S.C. § 512(f), any person who knowingly materially misrepresents that material is infringing may be subject to liability for damages. Ensure your claim is accurate before submitting.</p>
+          </div>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-section" id="dmca-s2">
+          <h2 class="legal-h2"><span class="legal-h2-num">02</span> Designated DMCA Agent</h2>
+          <p class="legal-p">Submit all DMCA notices to our designated agent via email. We do not accept takedown notices by post, phone, or social media. Email is the sole valid submission channel.</p>
+          <div class="contact-block">
+            <div class="contact-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="contact-body">
+              <div class="contact-label">Designated DMCA Agent</div>
+              <div class="contact-value">blockhunter.software@gmail.com</div>
+              <div class="contact-sub">Subject: DMCA Takedown Notice — [brief description]</div>
+            </div>
+          </div>
+          <p class="legal-p" style="margin-top:1rem;">We aim to acknowledge valid notices within 5 business days and act on confirmed, complete notices within 14 business days.</p>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-section" id="dmca-s3">
+          <h2 class="legal-h2"><span class="legal-h2-num">03</span> Our Response Process</h2>
+          <p class="legal-p">Upon receipt of a complete and valid takedown notice, we will:</p>
+          <ul class="legal-ul">
+            <li>Expeditiously remove or disable access to the allegedly infringing material.</li>
+            <li>Notify the user who submitted the content of the takedown, providing them a copy of the notice (with your personal contact information redacted as permitted by law).</li>
+            <li>Inform the affected user of their right to submit a counter-notification.</li>
+          </ul>
+          <p class="legal-p">Incomplete notices — those missing any required element — will not be processed. We will notify the submitter of any deficiency where reasonably practical.</p>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-section" id="dmca-s4">
+          <h2 class="legal-h2"><span class="legal-h2-num">04</span> Counter-Notification</h2>
+          <p class="legal-p">If you believe your content was removed or disabled as a result of a mistake or misidentification, you may submit a counter-notification. A valid counter-notification must contain, pursuant to 17 U.S.C. § 512(g)(3):</p>
+          <ul class="legal-ul">
+            <li>Your physical or electronic signature.</li>
+            <li>Identification of the material that was removed and the location at which it appeared before removal.</li>
+            <li>A statement under penalty of perjury that you have a good faith belief the material was removed or disabled as a result of mistake or misidentification.</li>
+            <li>Your full name, address, and telephone number, and a statement that you consent to the jurisdiction of the federal district court for the judicial district where your address is located (or, if outside the United States, to any judicial district in which Blockhunter0007 may be found), and that you will accept service of process from the party who submitted the original notice.</li>
+          </ul>
+          <p class="legal-p">Upon receipt of a valid counter-notification, we will forward it to the original complainant and may restore the removed content within 10 to 14 business days, unless the complainant files an action seeking a court order during that period.</p>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-section" id="dmca-s5">
+          <h2 class="legal-h2"><span class="legal-h2-num">05</span> Repeat Infringer Policy</h2>
+          <p class="legal-p">In appropriate circumstances and at our sole discretion, Blockhunter0007 will disable or terminate the accounts of users who are found to be repeat infringers of intellectual property rights.</p>
+          <p class="legal-p">We define a repeat infringer as a user against whom we have received multiple valid, confirmed DMCA takedown notices within any rolling 12-month period, or a user who demonstrates a pattern of infringing behaviour.</p>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-section" id="dmca-s6">
+          <h2 class="legal-h2"><span class="legal-h2-num">06</span> Scope &amp; Limitations</h2>
+          <p class="legal-p">This DMCA Policy applies to content hosted directly on Blockhunter0007 infrastructure. We are not responsible for third-party websites or services that may link to our Services or that may be linked to from our Services.</p>
+          <p class="legal-p">This policy does not limit any rights you may have to seek a court order or other legal remedy directly. Nothing here constitutes legal advice. If you are unsure whether your rights are being infringed, consult a qualified intellectual property attorney.</p>
+        </div>
+      </div>
+
+      <div class="doc-footer">
+        <span class="doc-footer-copy">© 2025 Blockhunter0007 — All rights reserved</span>
+        <div class="doc-footer-links">
+          <button class="doc-footer-link" onclick="showDoc('tos')">Terms of Service</button>
+          <button class="doc-footer-link" onclick="showDoc('privacy')">Privacy Policy</button>
+          <a href="https://blockhunter0007.github.io/" target="_blank" rel="noopener" class="doc-footer-link">Founder ↗</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ================================================================
+     SCRIPT
+================================================================ -->
+<script>
+  /* ── TOC definitions ── */
+  const tocDefs = {
+    tos: [
+      { id: 'tos-s1',  label: 'Parties & Agreement' },
+      { id: 'tos-s2',  label: 'Eligibility' },
+      { id: 'tos-s3',  label: 'Permitted Use' },
+      { id: 'tos-s4',  label: 'User Content' },
+      { id: 'tos-s5',  label: 'Intellectual Property' },
+      { id: 'tos-s6',  label: 'Disclaimer of Warranties' },
+      { id: 'tos-s7',  label: 'Limitation of Liability' },
+      { id: 'tos-s8',  label: 'Termination' },
+      { id: 'tos-s9',  label: 'Governing Law' },
+      { id: 'tos-s10', label: 'Changes to Terms' },
+      { id: 'tos-s11', label: 'Contact' },
+    ],
+    privacy: [
+      { id: 'priv-s1',  label: 'Who We Are' },
+      { id: 'priv-s2',  label: 'Data We Collect' },
+      { id: 'priv-s3',  label: 'Legal Basis (GDPR)' },
+      { id: 'priv-s4',  label: 'How We Use Data' },
+      { id: 'priv-s5',  label: 'Sharing & Third Parties' },
+      { id: 'priv-s6',  label: 'Data Retention' },
+      { id: 'priv-s7',  label: 'Your Rights (GDPR)' },
+      { id: 'priv-s8',  label: 'Security' },
+      { id: 'priv-s9',  label: 'Cookies & Local Storage' },
+      { id: 'priv-s10', label: 'Contact' },
+    ],
+    dmca: [
+      { id: 'dmca-s1', label: 'Filing a Notice' },
+      { id: 'dmca-s2', label: 'Designated Agent' },
+      { id: 'dmca-s3', label: 'Our Response Process' },
+      { id: 'dmca-s4', label: 'Counter-Notification' },
+      { id: 'dmca-s5', label: 'Repeat Infringer Policy' },
+      { id: 'dmca-s6', label: 'Scope & Limitations' },
+    ],
+  };
+
+  let currentDoc = 'tos';
+
+  function showDoc(id) {
+    if (currentDoc === id) { closeSidebar(); return; }
+    const prev = document.getElementById('doc-' + currentDoc);
+    const next = document.getElementById('doc-' + id);
+
+    prev.style.opacity = '0';
+    prev.style.transform = 'translateY(-6px)';
+    setTimeout(() => {
+      prev.classList.remove('active');
+      prev.style.opacity = '';
+      prev.style.transform = '';
+      next.classList.add('active');
+      requestAnimationFrame(() => {
+        next.style.opacity = '1';
+        next.style.transform = 'translateY(0)';
+      });
+    }, 200);
+
+    document.getElementById('nav-' + currentDoc).classList.remove('active');
+    document.getElementById('nav-' + id).classList.add('active');
+    currentDoc = id;
+    renderTOC(id);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    closeSidebar();
+  }
+
+  function renderTOC(id) {
+    const container = document.getElementById('tocLinks');
+    const items = tocDefs[id] || [];
+    container.innerHTML = items.map(item => `
+      <a href="#${item.id}" class="toc-link" onclick="closeSidebar()">${item.label}</a>
+    `).join('');
+  }
+
+  /* ── Sidebar (mobile) ── */
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebarOverlay').classList.toggle('open');
+  }
+  function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebarOverlay').classList.remove('open');
+  }
+
+  /* ── Theme ── */
+  let currentTheme = localStorage.getItem('bh_theme') || 'dark';
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    document.getElementById('iconSun').style.display  = theme === 'dark'  ? '' : 'none';
+    document.getElementById('iconMoon').style.display = theme === 'light' ? '' : 'none';
+  }
+  function toggleTheme() {
+    currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('bh_theme', currentTheme);
+    applyTheme(currentTheme);
+  }
+
+  /* ── Init ── */
+  applyTheme(currentTheme);
+  renderTOC('tos');
+</script>
+
+<!-- ================================================================
+     PARTICLE SYSTEM (from index.html)
+================================================================ -->
+<script>
+(function() {
+  const canvas = document.getElementById('particle-canvas');
+  const ctx = canvas.getContext('2d');
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let W, H, particles = [];
+
+  const SHAPES = [
+    { type: 'heart',   weight: 40 },
+    { type: 'star',    weight: 20 },
+    { type: 'sparkle', weight: 15 },
+    { type: 'circle',  weight: 10 },
+    { type: 'text',    weight: 15 },
+  ];
+
+  const EASTER_EGGS = [
+    "You matter.", "Take your time.", "I'm glad you're here.",
+    "Your feelings are allowed.", "Some thoughts need quiet places.",
+    "It's okay to rest.", "The internet can still be soft.",
+    "You survived every hard day.", "Be gentle with yourself.",
+    "Small things matter too."
+  ];
+
+  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+
+  function weightedShape() {
+    const total = SHAPES.reduce((s, x) => s + x.weight, 0);
+    let r = Math.random() * total;
+    for (const s of SHAPES) { r -= s.weight; if (r <= 0) return s.type; }
+    return 'heart';
+  }
+
+  function makeParticle() {
+    const type = weightedShape();
+    return {
+      type,
+      x: Math.random() * W,
+      y: Math.random() * H + H,
+      size: type === 'text' ? 0 : (Math.random() * 10 + 5),
+      fontSize: Math.random() * 11 + 10,
+      text: EASTER_EGGS[Math.floor(Math.random() * EASTER_EGGS.length)],
+      speed: Math.random() * 0.4 + 0.1,
+      drift: (Math.random() - 0.5) * 0.3,
+      opacity: Math.random() * 0.5 + 0.2,
+      rotation: Math.random() * Math.PI * 2,
+      rotSpeed: (Math.random() - 0.5) * 0.01,
+      phase: Math.random() * Math.PI * 2,
+      wobble: Math.random() * 0.008 + 0.002,
+    };
+  }
+
+  function drawHeart(ctx, x, y, size) {
+    ctx.beginPath();
+    ctx.moveTo(x, y + size * 0.3);
+    ctx.bezierCurveTo(x, y, x - size, y, x - size, y + size * 0.3);
+    ctx.bezierCurveTo(x - size, y + size * 0.65, x, y + size, x, y + size);
+    ctx.bezierCurveTo(x, y + size, x + size, y + size * 0.65, x + size, y + size * 0.3);
+    ctx.bezierCurveTo(x + size, y, x, y, x, y + size * 0.3);
+    ctx.fill();
+  }
+
+  function drawStar(ctx, x, y, size) {
+    ctx.beginPath();
+    for (let i = 0; i < 5; i++) {
+      const angle = (i * Math.PI * 2) / 5 - Math.PI / 2;
+      const ax = x + Math.cos(angle) * size, ay = y + Math.sin(angle) * size;
+      const ia = angle + Math.PI / 5;
+      const ix = x + Math.cos(ia) * size * 0.4, iy = y + Math.sin(ia) * size * 0.4;
+      i === 0 ? ctx.moveTo(ax, ay) : ctx.lineTo(ax, ay);
+      ctx.lineTo(ix, iy);
+    }
+    ctx.closePath(); ctx.fill();
+  }
+
+  function getAccentColor()  { return getComputedStyle(document.documentElement).getPropertyValue('--accent-1').trim() || '#e8a0bf'; }
+  function getAccent2Color() { return getComputedStyle(document.documentElement).getPropertyValue('--accent-2').trim() || '#c9b1e8'; }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    const a1 = getAccentColor(), a2 = getAccent2Color();
+    const colors = [a1, a2, '#f7c5d5', '#d4a0f0'];
+    for (const p of particles) {
+      ctx.save();
+      ctx.globalAlpha = p.opacity;
+      ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+      ctx.strokeStyle = ctx.fillStyle;
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rotation);
+      if (p.type === 'heart') { drawHeart(ctx, 0, 0, p.size * 0.5); }
+      else if (p.type === 'star') { ctx.beginPath(); drawStar(ctx, 0, 0, p.size * 0.5); }
+      else if (p.type === 'sparkle') {
+        ctx.beginPath();
+        for (let i = 0; i < 4; i++) {
+          const a = (i * Math.PI) / 2;
+          ctx.moveTo(0, 0); ctx.lineTo(Math.cos(a) * p.size, Math.sin(a) * p.size);
+        }
+        ctx.lineWidth = 1.5; ctx.stroke();
+      } else if (p.type === 'circle') { ctx.beginPath(); ctx.arc(0, 0, p.size * 0.4, 0, Math.PI * 2); ctx.fill(); }
+      else if (p.type === 'text') {
+        ctx.font = `${p.fontSize}px 'Caveat', cursive`;
+        ctx.fillStyle = a1; ctx.globalAlpha = p.opacity * 0.6;
+        ctx.fillText(p.text, 0, 0);
+      }
+      ctx.restore();
+    }
+  }
+
+  function update() {
+    const time = performance.now() * 0.001;
+    for (const p of particles) {
+      p.y -= p.speed;
+      p.x += p.drift + Math.sin(time * p.wobble * 100 + p.phase) * 0.3;
+      p.rotation += p.rotSpeed;
+      p.opacity = 0.15 + Math.abs(Math.sin(time * 0.3 + p.phase)) * 0.45;
+      if (p.y < -60 || p.x < -100 || p.x > W + 100) {
+        p.x = Math.random() * W; p.y = H + 50;
+        p.speed = Math.random() * 0.4 + 0.1;
+        p.drift = (Math.random() - 0.5) * 0.3;
+      }
+    }
+  }
+
+  function tick() { update(); draw(); requestAnimationFrame(tick); }
+
+  function init() {
+    resize();
+    const count = prefersReduced ? 0 : Math.min(Math.floor(W * H / 22000), 60);
+    particles = Array.from({ length: count }, () => {
+      const p = makeParticle(); p.y = Math.random() * H; return p;
+    });
+    requestAnimationFrame(tick);
+  }
+
+  window.addEventListener('resize', resize);
+  document.fonts.ready.then(init);
+})();
+</script>
+
+</body>
+</html>

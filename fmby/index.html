@@ -381,6 +381,12 @@ main {
   gap: 3rem;
   align-items: start;
 }
+.footer-link {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+.footer-link:hover { color: var(--accent-1); }
 @media (max-width: 640px) {
   .about-grid { grid-template-columns: 1fr; gap: 2rem; }
 }
@@ -878,6 +884,10 @@ main {
     <div class="footer-title">Blockhunter0007</div>
     <p class="footer-message" id="footer-message"></p>
     <p class="footer-meta" id="footer-meta"></p>
+    <br>
+    <a href="/fmby/legal.html#terms" class="footer-link">Terms ↗</a>
+    <a href="/fmby/legal.html#privacy" class="footer-link">Privacy ↗</a>
+    <a href="mailto:blockhunter.software@gmail.com" class="footer-link">Contact ↗</a>
   </div>
 </footer>
 

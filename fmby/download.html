@@ -404,6 +404,12 @@ footer {
   font-family: var(--font-hand); font-size: 1.1rem; color: var(--text-muted);
   display: none;
 }
+.footer-link {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+.footer-link:hover { color: var(--accent-1); }
 </style>
 </head>
 <body>
@@ -417,6 +423,7 @@ footer {
   <nav aria-label="Main navigation">
     <div class="container nav-inner">
       <span class="nav-logo-link" id="nav-brand"></span>
+      
       <div class="nav-center">
         <div class="nav-title" id="nav-title"></div>
         <div class="nav-version" id="nav-version"></div>
@@ -750,6 +757,12 @@ function renderPage(d) {
   /* — Footer — */
   document.getElementById('footer-logo').textContent = d.name;
   if (d.footer) {
+    d.footer += `
+    <br><br>
+    <a href="/fmby/legal.html#terms" class="footer-link">Terms ↗</a>
+    <a href="/fmby/legal.html#privacy" class="footer-link">Privacy ↗</a>
+    <a href="mailto:blockhunter.software@gmail.com" class="footer-link">Contact ↗</a>
+    `
     document.getElementById('footer-copy').innerHTML = d.footer;
   } else {
     document.getElementById('footer-copy').textContent = `© ${new Date().getFullYear()} ${d.name}`;
