@@ -657,7 +657,7 @@ async function init() {
 
   if (hash) {
     // Resolve relative to the current page directory
-    const url  = `projects/${hash}.json`;
+    const url  = `/projects/${hash}.json`;
     try {
       const res = await fetch(url);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);

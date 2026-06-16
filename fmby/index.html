@@ -754,7 +754,7 @@ main {
 
 <!-- AUDIO -->
 <audio id="bg-music" loop preload="auto">
-  <source src="assets/theme.ogg" type="audio/ogg">
+  <source src="/assets/theme.ogg" type="audio/ogg">
 </audio>
 
 <!-- PARTICLES -->
@@ -1202,7 +1202,7 @@ function renderSocials(socials) {
     return `
       <a href="${escAttr(url)}" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="${escAttr(name)} profile">
         <img
-          src="assets/socials/${escAttr(platform.toLowerCase())}.png"
+          src="/assets/socials/${escAttr(platform.toLowerCase())}.png"
           alt="${escAttr(name)} icon"
           class="social-icon"
           onerror="this.outerHTML='<span class=social-icon-fallback aria-hidden=true>${fallback}</span>'"

@@ -565,7 +565,7 @@ async function loadProduct() {
 
   let data;
   try {
-    const resp = await fetch(`projects/${hash}.json`);
+    const resp = await fetch(`/projects/${hash}.json`);
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
     data = await resp.json();
   } catch (e) {
