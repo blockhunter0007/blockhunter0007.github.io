@@ -7,11 +7,11 @@
   "logo_emoji": "📕",
 
   "platforms": {
-    "windows": { "active": true,  "link": "/downloads/diary_windows.zip" },
-    "mac":     { "active": false,  "link": "" },
-    "linux":   { "active": true,  "link": "/downloads/diary_linux.zip" },
-    "ios":     { "active": false, "link": "" },
-    "android": { "active": false, "link": "" }
+    "windows": { "active": true,  "link": "/downloads/diary_windows.zip" , "filename": "diary_windows.zip" },
+    "mac":     { "active": false,  "link": "" , "filename": "" },
+    "linux":   { "active": true,  "link": "/downloads/diary_linux.zip" , "filename": "diary_linux.zip" },
+    "ios":     { "active": false, "link": "" , "filename": "" },
+    "android": { "active": false, "link": "" , "filename": "" }
   },
 
   "features": [
