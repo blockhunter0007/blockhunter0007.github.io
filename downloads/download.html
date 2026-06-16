@@ -657,7 +657,6 @@ async function init() {
 
   if (hash) {
     // Resolve relative to the current page directory
-    const base = window.location.href.replace(/#.*$/, '').replace(/[^/]+$/, '');
     const url  = `projects/${hash}.json`;
     try {
       const res = await fetch(url);

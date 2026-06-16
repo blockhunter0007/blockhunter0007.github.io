@@ -1153,8 +1153,7 @@ function renderProjects(projects) {
     return;
   }
   grid.innerHTML = projects.map((p, i) => {
-    let after_url = p.url.split("#")[1] || "";
-    p.url = `fmby/download.html#${after_url}`;
+    p.url = `fmby/download.html#${p.uuid}`;
     const desc = (typeof p.description === 'object') ? (p.description[lang] || p.description.en || '') : (p.description || '');
     const emoji = PROJECT_EMOJIS[i % PROJECT_EMOJIS.length];
     const imgHtml = p.image

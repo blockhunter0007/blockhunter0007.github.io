@@ -21,7 +21,8 @@
       },
       "url": "/downloads/download.html#diary",
       "image": null,
-      "tags": ["offline", "privacy", "safe"]
+      "tags": ["offline", "privacy", "safe"],
+      "uuid": "diary"
     }
   ]
 }
