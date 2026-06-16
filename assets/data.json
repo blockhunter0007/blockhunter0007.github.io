@@ -19,7 +19,7 @@
         "en": "A simple minimalistic offline diary app.",
         "de": "Eine simple minimale offline Tagebuch App"
       },
-      "url": "/projects/diary",
+      "url": "/projects/download.html?diary",
       "image": null,
       "tags": ["offline", "privacy", "safe"]
     }

@@ -1,0 +1,31 @@
+{
+  "name": "Diary",
+  "version": "v3.1.0",
+  "description": "A sleek, cross-platform diary app that keeps your thoughts organized and secure. With a clean interface and powerful features, Diary is the perfect companion for capturing your daily moments and reflections.",
+
+  "logo": "assets/diary.png",
+  "logo_emoji": "📕",
+
+  "platforms": {
+    "windows": { "active": true,  "link": "downloads/diary_windows.zip" },
+    "mac":     { "active": false,  "link": "" },
+    "linux":   { "active": true,  "link": "downloads/diary_linux.zip" },
+    "ios":     { "active": false, "link": "" },
+    "android": { "active": false, "link": "" }
+  },
+
+  "features": [
+    { "icon": "⚡", "title": "Zero Lag",      "description": "Engineered for sub-millisecond response times on any hardware." }
+  ],
+
+  "screenshots": [],
+
+  "requirements": [
+    { "component": "OS",      "min": "Windows 10 64-bit / macOS 12",  "recommended": "Windows 11 / macOS 14" },
+    { "component": "CPU",     "min": "Dual-core 2.4 GHz",             "recommended": "Quad-core 3.5 GHz+" },
+    { "component": "RAM",     "min": "1 GB",                          "recommended": "16 GB" },
+    { "component": "Storage", "min": "150 MB",                        "recommended": "SSD" }
+  ],
+
+  "footer": "© 2025 Blockhunter Software &nbsp;·&nbsp; <a href=\"#\">Discord</a> &nbsp;·&nbsp; <a href=\"#\">GitHub</a>"
+}
