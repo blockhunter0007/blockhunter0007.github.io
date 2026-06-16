@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loading…</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Nunito:wght@300;400;500;600&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ─── CSS Variables ─────────────────────────────────────── */
+:root {
+  --bg:           #fdf8f5;
+  --bg2:          #fef0f4;
+  --surface:      rgba(255,255,255,0.72);
+  --surface2:     rgba(255,240,248,0.6);
+  --border:       rgba(220,180,200,0.3);
+  --text:         #3a2a35;
+  --text-soft:    #7a5a6a;
+  --text-muted:   #b08898;
+  --accent:       #e87fa0;
+  --accent2:      #c97bb8;
+  --accent-soft:  rgba(232,127,160,0.15);
+  --accent-glow:  rgba(232,127,160,0.3);
+  --radius:       20px;
+  --radius-lg:    32px;
+  --shadow:       0 4px 32px rgba(180,100,130,0.12);
+  --shadow-lg:    0 12px 60px rgba(180,100,130,0.18);
+  --font-body:    'Nunito', sans-serif;
+  --font-serif:   'Lora', serif;
+  --font-hand:    'Caveat', cursive;
+  --transition:   0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+[data-theme="dark"] {
+  --bg:           #16101c;
+  --bg2:          #1e1428;
+  --surface:      rgba(36,24,48,0.85);
+  --surface2:     rgba(48,30,64,0.6);
+  --border:       rgba(140,80,180,0.2);
+  --text:         #f0e4f5;
+  --text-soft:    #c4a8d8;
+  --text-muted:   #8a6aa0;
+  --accent:       #c67de8;
+  --accent2:      #9b6ec4;
+  --accent-soft:  rgba(198,125,232,0.12);
+  --accent-glow:  rgba(198,125,232,0.25);
+  --shadow:       0 4px 32px rgba(100,40,140,0.3);
+  --shadow-lg:    0 12px 60px rgba(100,40,140,0.4);
+}
+
+/* ─── Reset & Base ──────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  overflow-x: hidden;
+  transition: background var(--transition), color var(--transition);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  html { scroll-behavior: auto; }
+}
+
+/* ─── Typography ────────────────────────────────────────── */
+h1, h2, h3 { font-family: var(--font-serif); font-weight: 500; line-height: 1.25; }
+h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); }
+h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
+h3 { font-size: 1.1rem; }
+p  { font-size: 1rem; color: var(--text-soft); }
+a  { color: var(--accent); }
+
+/* ─── Background Canvas ─────────────────────────────────── */
+#bg-canvas {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 0; opacity: 0.55;
+}
+
+/* ─── Layout ────────────────────────────────────────────── */
+.wrapper   { position: relative; z-index: 1; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 clamp(1.2rem, 5vw, 3rem); }
+
+/* ─── Nav ───────────────────────────────────────────────── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  padding: 1.2rem 0;
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  background: rgba(253,248,245,0.8);
+  transition: background var(--transition);
+}
+[data-theme="dark"] nav { background: rgba(22,16,28,0.85); }
+
+.nav-inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center; gap: 1rem;
+}
+.nav-logo-link {
+  font-family: var(--font-hand); font-size: 1.1rem;
+  color: var(--text-muted); text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-logo-link:hover { color: var(--accent); }
+.nav-center { text-align: center; }
+.nav-title  {
+  font-family: var(--font-serif); font-size: 1.8rem; font-weight: 600;
+  color: var(--accent); line-height: 1; text-shadow: 0 0 20px var(--accent-glow);
+}
+.nav-version {
+  font-family: var(--font-hand); font-size: 0.85rem; color: var(--text-muted); margin-top: 0.1rem;
+}
+.nav-right  { display: flex; justify-content: flex-end; align-items: center; }
+
+.theme-btn {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 50px;
+  padding: 0.45rem 1rem; font-family: var(--font-body); font-size: 0.82rem;
+  color: var(--text-soft); cursor: pointer; transition: all 0.2s;
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.theme-btn:hover, .theme-btn:focus-visible {
+  background: var(--accent-soft); border-color: var(--accent); color: var(--accent); outline: none;
+}
+
+/* ─── Sections ──────────────────────────────────────────── */
+section { padding: clamp(4rem, 8vw, 7rem) 0; }
+
+.snip {
+  font-family: var(--font-hand); font-size: 1rem; color: var(--text-muted);
+  text-align: center; padding: 0.6rem 0; opacity: 0.85; font-style: italic;
+}
+
+/* ─── Hero ──────────────────────────────────────────────── */
+.hero {
+  min-height: 90vh; display: flex; align-items: center;
+  padding: 5rem 0 4rem; position: relative;
+}
+.hero-inner { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2rem; }
+
+.hero-logo-wrap {
+  width: 100px; height: 100px; border-radius: 24px;
+  background: linear-gradient(135deg, var(--accent-soft), var(--surface));
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3rem; box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.hero-logo-wrap img { width: 100%; height: 100%; object-fit: contain; }
+
+.hero-headline {
+  max-width: 780px;
+  background: linear-gradient(135deg, var(--text) 0%, var(--accent2) 60%, var(--accent) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero-sub { max-width: 540px; font-size: 1.1rem; line-height: 1.8; color: var(--text-soft); }
+
+.hero-badges { display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; margin-top: 0.5rem; }
+.badge {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 50px;
+  padding: 0.35rem 0.9rem; font-size: 0.78rem; color: var(--text-soft); letter-spacing: 0.03em;
+}
+
+.hero-cta { display: flex; flex-direction: column; align-items: center; gap: 1rem; margin-top: 0.5rem; }
+
+/* ─── Buttons ───────────────────────────────────────────── */
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff; border: none; border-radius: 50px; padding: 1rem 2.4rem;
+  font-family: var(--font-body); font-size: 1rem; font-weight: 600; cursor: pointer;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;
+  box-shadow: 0 6px 30px var(--accent-glow), 0 2px 8px rgba(0,0,0,0.1);
+  transition: all 0.25s; position: relative; overflow: hidden;
+}
+.btn-primary::after {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(255,255,255,0.15); opacity: 0; transition: opacity 0.2s;
+}
+.btn-primary:hover::after, .btn-primary:focus-visible::after { opacity: 1; }
+.btn-primary:hover, .btn-primary:focus-visible {
+  transform: translateY(-2px); box-shadow: 0 10px 40px var(--accent-glow); outline: none;
+}
+
+.btn-secondary {
+  background: transparent; border: 1px solid var(--border); border-radius: 50px;
+  padding: 0.7rem 1.6rem; font-family: var(--font-body); font-size: 0.9rem;
+  color: var(--text-soft); cursor: pointer; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  transition: all 0.2s; backdrop-filter: blur(8px);
+}
+.btn-secondary:hover, .btn-secondary:focus-visible {
+  border-color: var(--accent); color: var(--accent); background: var(--accent-soft); outline: none;
+}
+
+.btn-disabled {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 50px;
+  padding: 0.7rem 1.6rem; font-family: var(--font-body); font-size: 0.9rem;
+  color: var(--text-muted); display: inline-flex; align-items: center; gap: 0.4rem;
+  opacity: 0.5; cursor: not-allowed; text-decoration: none;
+}
+
+/* ─── Download section ──────────────────────────────────── */
+.download-box {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: clamp(2rem, 5vw, 3.5rem);
+  backdrop-filter: blur(16px); box-shadow: var(--shadow);
+  text-align: center; max-width: 720px; margin: 0 auto;
+}
+
+.dl-main-row {
+  display: flex; flex-direction: column; align-items: center; gap: 1rem; margin-bottom: 1rem;
+}
+
+.download-os-btn {
+  display: inline-flex; align-items: center; gap: 0.7rem;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff; border: none; border-radius: 50px; padding: 1.1rem 2.8rem;
+  font-family: var(--font-body); font-size: 1.05rem; font-weight: 600;
+  cursor: pointer; text-decoration: none;
+  box-shadow: 0 6px 30px var(--accent-glow); transition: all 0.25s;
+}
+.download-os-btn:hover, .download-os-btn:focus-visible {
+  transform: translateY(-2px); box-shadow: 0 10px 40px var(--accent-glow); outline: none;
+}
+.download-os-btn.unavailable {
+  background: var(--surface); color: var(--text-muted); cursor: not-allowed;
+  box-shadow: none; border: 1px solid var(--border);
+  transform: none !important;
+}
+
+.dl-alts { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; margin-top: 1.2rem; }
+
+.dl-os-grid {
+  display: flex; flex-wrap: wrap; gap: 0.6rem;
+  justify-content: center; margin-top: 1.5rem;
+  padding-top: 1.5rem; border-top: 1px solid var(--border);
+}
+
+.dl-os-chip {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  border-radius: 50px; padding: 0.35rem 1rem; font-size: 0.82rem;
+  border: 1px solid var(--border); font-family: var(--font-body);
+  text-decoration: none; transition: all 0.2s;
+}
+.dl-os-chip.available {
+  background: var(--accent-soft); color: var(--text-soft); cursor: pointer;
+}
+.dl-os-chip.available:hover {
+  border-color: var(--accent); color: var(--accent);
+}
+.dl-os-chip.unavailable {
+  background: transparent; color: var(--text-muted); opacity: 0.45; cursor: not-allowed;
+}
+.dl-os-chip.active-os {
+  border-color: var(--accent); background: var(--accent-soft); color: var(--accent); font-weight: 600;
+}
+
+/* ─── Section headers ───────────────────────────────────── */
+.section-head { text-align: center; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+.section-head h2 { margin-bottom: 0.6rem; }
+.section-head p { max-width: 520px; margin: 0 auto; }
+
+/* ─── Features ──────────────────────────────────────────── */
+.features-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.2rem;
+}
+.feature-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 1.6rem; backdrop-filter: blur(12px); transition: all 0.3s;
+  position: relative; overflow: hidden;
+}
+.feature-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2)); opacity: 0; transition: opacity 0.3s;
+}
+.feature-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.feature-card:hover::before, .feature-card.highlighted::before { opacity: 1; }
+.feature-card.highlighted { border-color: var(--accent); box-shadow: var(--shadow), 0 0 0 1px var(--accent-soft); }
+.feature-icon { font-size: 1.8rem; margin-bottom: 0.8rem; display: block; }
+.feature-card h3 { color: var(--text); margin-bottom: 0.4rem; font-family: var(--font-body); font-weight: 600; }
+.feature-card p { font-size: 0.88rem; }
+
+/* ─── Requirements table ────────────────────────────────── */
+.req-table-wrap {
+  overflow-x: auto; border-radius: var(--radius); box-shadow: var(--shadow);
+}
+.req-table {
+  width: 100%; border-collapse: collapse;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+  font-family: var(--font-body); font-size: 0.9rem;
+}
+.req-table th {
+  background: var(--accent-soft); color: var(--accent);
+  padding: 0.9rem 1.2rem; text-align: left;
+  font-weight: 600; border-bottom: 1px solid var(--border);
+  font-family: var(--font-body); font-size: 0.8rem; letter-spacing: 0.05em; text-transform: uppercase;
+}
+.req-table td {
+  padding: 0.85rem 1.2rem; border-bottom: 1px solid var(--border); color: var(--text-soft);
+}
+.req-table tr:last-child td { border-bottom: none; }
+.req-table tr:hover td { background: var(--accent-soft); }
+.req-comp { color: var(--text); font-weight: 600; }
+
+/* ─── Divider ───────────────────────────────────────────── */
+.divider {
+  width: 60px; height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  border-radius: 2px; margin: 0 auto; opacity: 0.5;
+}
+
+/* ─── Footer ────────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border); padding: 3rem 0 2rem;
+  position: relative; overflow: hidden;
+}
+.footer-inner { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; text-align: center; }
+.footer-logo  { font-family: var(--font-serif); font-size: 1.6rem; color: var(--accent); margin-bottom: 0.2rem; }
+.footer-copy  { font-size: 0.82rem; color: var(--text-muted); }
+
+/* ─── Mesh bg ───────────────────────────────────────────── */
+.mesh-bg { position: absolute; inset: 0; pointer-events: none; z-index: -1; opacity: 0.35; }
+[data-theme="dark"] .mesh-bg { opacity: 0.2; }
+.glow-orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
+.orb1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(232,127,160,0.4), transparent 70%);
+  top: -100px; left: 20%; animation: drift1 12s ease-in-out infinite alternate;
+}
+.orb2 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(201,123,184,0.35), transparent 70%);
+  bottom: 0; right: 10%; animation: drift2 15s ease-in-out infinite alternate;
+}
+[data-theme="dark"] .orb1 { background: radial-gradient(circle, rgba(140,60,200,0.35), transparent 70%); }
+[data-theme="dark"] .orb2 { background: radial-gradient(circle, rgba(100,40,180,0.3), transparent 70%); }
+
+/* ─── Screenshots ───────────────────────────────────────── */
+.screenshots-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem;
+}
+.screenshot-card {
+  border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border);
+  box-shadow: var(--shadow); transition: all 0.3s;
+}
+.screenshot-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.screenshot-card img { width: 100%; display: block; }
+
+/* ─── Scroll reveal ─────────────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ─── Keyframes ─────────────────────────────────────────── */
+@keyframes drift1 { from { transform: translate(0,0) scale(1); } to { transform: translate(80px,60px) scale(1.1); } }
+@keyframes drift2 { from { transform: translate(0,0) scale(1.1); } to { transform: translate(-60px,-40px) scale(1); } }
+
+/* ─── Responsive ────────────────────────────────────────── */
+@media (max-width: 700px) {
+  .nav-inner { grid-template-columns: auto 1fr auto; }
+  .nav-logo-link { font-size: 0.85rem; }
+}
+
+/* ─── Loading state ─────────────────────────────────────── */
+#loading-msg {
+  position: fixed; inset: 0; z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg); font-family: var(--font-hand);
+  font-size: 1.4rem; color: var(--text-muted);
+  transition: opacity 0.5s;
+}
+#loading-msg.hidden { opacity: 0; pointer-events: none; }
+
+#error-msg {
+  text-align: center; padding: 4rem 2rem;
+  font-family: var(--font-hand); font-size: 1.1rem; color: var(--text-muted);
+  display: none;
+}
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+<div id="loading-msg">✨ loading…</div>
+
+<div class="wrapper" id="main-site" style="display:none">
+
+  <!-- Nav -->
+  <nav aria-label="Main navigation">
+    <div class="container nav-inner">
+      <span class="nav-logo-link" id="nav-brand"></span>
+      <div class="nav-center">
+        <div class="nav-title" id="nav-title"></div>
+        <div class="nav-version" id="nav-version"></div>
+      </div>
+      <div class="nav-right">
+        <button class="theme-btn" id="theme-toggle" aria-label="Toggle dark mode">
+          <span id="theme-icon">🌙</span>
+          <span id="theme-label">dark mode</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" aria-label="Introduction">
+    <div class="mesh-bg" aria-hidden="true">
+      <div class="glow-orb orb1"></div>
+      <div class="glow-orb orb2"></div>
+    </div>
+    <div class="container hero-inner">
+      <div class="hero-logo-wrap reveal" id="hero-logo-wrap"></div>
+      <h1 class="hero-headline reveal" id="hero-headline"></h1>
+      <p class="hero-sub reveal" id="hero-description"></p>
+      <div class="hero-cta reveal">
+        <a class="btn-primary" id="hero-dl-btn" href="#">
+          <span id="hero-dl-icon">💻</span>
+          <span id="hero-dl-text">Download</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="container" style="margin: 1rem auto;"><div class="divider"></div></div>
+
+  <!-- Download -->
+  <section id="download" aria-label="Download">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Download</h2>
+        <p id="dl-subtitle"></p>
+      </div>
+      <div class="download-box reveal">
+        <div class="dl-main-row">
+          <a class="download-os-btn" id="dl-main-btn" href="#">
+            <span id="dl-main-icon">💻</span>
+            <span id="dl-main-text">Download</span>
+          </a>
+        </div>
+        <div class="dl-alts" id="dl-alts"></div>
+        <div class="dl-os-grid" id="dl-os-grid"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container" style="margin: 1rem auto;"><div class="divider"></div></div>
+
+  <!-- Features -->
+  <section id="features" aria-label="Features">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Features</h2>
+      </div>
+      <div class="features-grid" id="features-grid"></div>
+    </div>
+  </section>
+
+  <div class="container" style="margin: 1rem auto;"><div class="divider"></div></div>
+
+  <!-- Screenshots (hidden when empty) -->
+  <section id="screenshots" aria-label="Screenshots" style="display:none">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Screenshots</h2>
+      </div>
+      <div class="screenshots-grid reveal" id="screenshots-grid"></div>
+    </div>
+  </section>
+
+  <!-- System Requirements (hidden when empty) -->
+  <section id="requirements" aria-label="System Requirements" style="display:none">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>System Requirements</h2>
+      </div>
+      <div class="req-table-wrap reveal">
+        <table class="req-table" id="req-table">
+          <thead>
+            <tr>
+              <th>Component</th>
+              <th>Minimum</th>
+              <th>Recommended</th>
+            </tr>
+          </thead>
+          <tbody id="req-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="container" style="margin: 1rem auto;"><div class="divider"></div></div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-logo" id="footer-logo"></div>
+      <p class="footer-copy" id="footer-copy"></p>
+    </div>
+  </footer>
+
+</div><!-- /wrapper -->
+
+<div id="error-msg">
+  <p>⚠️ Couldn't load product data.<br>Make sure the URL ends with <code>#yourjsonname</code> and a matching <code>yourjsonname.json</code> file is in the same directory.</p>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   PLATFORM METADATA
+   Icons, labels, and OS detection mappings.
+   Edit PLATFORM_META to add more platforms.
+═══════════════════════════════════════════════════════════ */
+const PLATFORM_META = {
+  windows: { icon: '🪟', label: 'Windows',  detect: ua => /windows/.test(ua) },
+  mac:     { icon: '🍎', label: 'macOS',    detect: ua => /mac os x/.test(ua) && !/iphone|ipad/.test(ua) },
+  linux:   { icon: '🐧', label: 'Linux',    detect: ua => /linux/.test(ua) && !/android/.test(ua) },
+  ios:     { icon: '📱', label: 'iOS',      detect: ua => /iphone|ipad|ipod/.test(ua) },
+  android: { icon: '🤖', label: 'Android',  detect: ua => /android/.test(ua) },
+};
+
+/* ─── Detect OS ─────────────────────────────────────────── */
+function detectOS() {
+  const ua = navigator.userAgent.toLowerCase();
+  for (const [key, meta] of Object.entries(PLATFORM_META)) {
+    if (meta.detect(ua)) return key;
+  }
+  return 'windows'; // fallback default
+}
+
+/* ═══════════════════════════════════════════════════════════
+   THEME
+═══════════════════════════════════════════════════════════ */
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+let isDark = localStorage.getItem('dl-theme')
+  ? localStorage.getItem('dl-theme') === 'dark'
+  : prefersDark;
+
+function applyTheme() {
+  document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+  document.getElementById('theme-icon').textContent  = isDark ? '☀️' : '🌙';
+  document.getElementById('theme-label').textContent = isDark ? 'light mode' : 'dark mode';
+}
+
+document.getElementById('theme-toggle').addEventListener('click', () => {
+  isDark = !isDark;
+  localStorage.setItem('dl-theme', isDark ? 'dark' : 'light');
+  applyTheme();
+});
+applyTheme();
+
+/* ═══════════════════════════════════════════════════════════
+   JSON LOADER
+   Reads URL hash (#name), fetches name.json, renders page.
+═══════════════════════════════════════════════════════════ */
+async function loadProduct() {
+  const hash = location.hash.replace(/^#/, '').trim();
+  if (!hash) {
+    showError('No product name in URL. Add <code>#productname</code> to the URL.');
+    return;
+  }
+
+  let data;
+  try {
+    const resp = await fetch(`projects/${hash}.json`);
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    data = await resp.json();
+  } catch (e) {
+    showError(`Could not load <strong>${hash}.json</strong>: ${e.message}`);
+    return;
+  }
+
+  renderPage(data);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RENDERER
+═══════════════════════════════════════════════════════════ */
+function renderPage(d) {
+  const detectedOS = detectOS();
+
+  /* — <title> and nav — */
+  document.title = `${d.name} ${d.version || ''}`.trim();
+  setText('nav-title',   d.name);
+  setText('nav-version', d.version ? `${d.version}` : '');
+  setText('nav-brand',   d.brand || '');
+
+  /* — Hero logo — */
+  const logoWrap = document.getElementById('hero-logo-wrap');
+  if (d.logo) {
+    logoWrap.innerHTML = `<img src="${d.logo}" alt="${d.name} logo">`;
+  } else {
+    logoWrap.textContent = d.logo_emoji || '📦';
+  }
+
+  /* — Hero text — */
+  setText('hero-headline', d.name);
+  setText('hero-description', d.description);
+
+  /* — Determine primary download OS — */
+  const platforms = d.platforms || {};
+  // Try detected OS first → fallback to windows → fallback to first active
+  let primaryOS = null;
+  const order = [detectedOS, 'windows', ...Object.keys(platforms)];
+  for (const os of order) {
+    if (platforms[os]?.active && platforms[os]?.link) { primaryOS = os; break; }
+  }
+
+  /* — Hero download button — */
+  const heroBtn = document.getElementById('hero-dl-btn');
+  if (primaryOS) {
+    const meta = PLATFORM_META[primaryOS] || { icon: '💻', label: primaryOS };
+    document.getElementById('hero-dl-icon').textContent = meta.icon;
+    document.getElementById('hero-dl-text').textContent = `Download for ${meta.label}`;
+    heroBtn.href = platforms[primaryOS].link;
+  } else {
+    document.getElementById('hero-dl-text').textContent = 'Not available for your platform';
+    heroBtn.className = heroBtn.className + ' unavailable';
+    heroBtn.removeAttribute('href');
+  }
+
+  /* — DL subtitle — */
+  const activeNames = Object.entries(platforms)
+    .filter(([, v]) => v.active)
+    .map(([k]) => (PLATFORM_META[k]?.label || k));
+  setText('dl-subtitle',
+    activeNames.length
+      ? `Available for ${activeNames.join(', ')}.`
+      : 'No downloads available yet.'
+  );
+
+  /* — Main DL button — */
+  const mainBtn = document.getElementById('dl-main-btn');
+  if (primaryOS) {
+    const meta = PLATFORM_META[primaryOS] || { icon: '💻', label: primaryOS };
+    document.getElementById('dl-main-icon').textContent = meta.icon;
+    document.getElementById('dl-main-text').textContent = `Download for ${meta.label}`;
+    mainBtn.href = platforms[primaryOS].link;
+  } else {
+    mainBtn.className += ' unavailable';
+    document.getElementById('dl-main-text').textContent = 'Not available';
+    mainBtn.removeAttribute('href');
+  }
+
+  /* — Alt buttons (other active platforms) — */
+  const altsEl = document.getElementById('dl-alts');
+  Object.entries(platforms)
+    .filter(([k, v]) => k !== primaryOS && v.active && v.link)
+    .forEach(([k, v]) => {
+      const meta = PLATFORM_META[k] || { icon: '💻', label: k };
+      const a = document.createElement('a');
+      a.href = v.link;
+      a.className = 'btn-secondary';
+      a.innerHTML = `<span>${meta.icon}</span><span>${meta.label}</span>`;
+      altsEl.appendChild(a);
+    });
+
+  /* — OS chip grid (all platforms) — */
+  const osGrid = document.getElementById('dl-os-grid');
+  Object.entries(platforms).forEach(([k, v]) => {
+    const meta = PLATFORM_META[k] || { icon: '💻', label: k };
+    const isActive  = v.active && v.link;
+    const isCurrent = k === primaryOS;
+
+    if (isActive) {
+      const a = document.createElement('a');
+      a.href = v.link;
+      a.className = `dl-os-chip available${isCurrent ? ' active-os' : ''}`;
+      a.innerHTML = `<span>${meta.icon}</span><span>${meta.label}</span>`;
+      osGrid.appendChild(a);
+    } else {
+      const span = document.createElement('span');
+      span.className = 'dl-os-chip unavailable';
+      span.innerHTML = `<span>${meta.icon}</span><span>${meta.label}</span>`;
+      osGrid.appendChild(span);
+    }
+  });
+
+  /* — Features — */
+  const featGrid = document.getElementById('features-grid');
+  (d.features || []).forEach((f, i) => {
+    const card = document.createElement('div');
+    card.className = `feature-card reveal${i < 3 ? ' highlighted' : ''}`;
+    card.innerHTML = `
+      <span class="feature-icon">${f.icon || '✦'}</span>
+      <h3>${f.title}</h3>
+      <p>${f.description}</p>
+    `;
+    featGrid.appendChild(card);
+  });
+
+  /* — Screenshots — */
+  if (d.screenshots && d.screenshots.length) {
+    document.getElementById('screenshots').style.display = '';
+    const grid = document.getElementById('screenshots-grid');
+    d.screenshots.forEach(src => {
+      const card = document.createElement('div');
+      card.className = 'screenshot-card';
+      card.innerHTML = `<img src="${src}" alt="Screenshot" loading="lazy">`;
+      grid.appendChild(card);
+    });
+  }
+
+  /* — System Requirements — */
+  if (d.requirements && d.requirements.length) {
+    document.getElementById('requirements').style.display = '';
+    const tbody = document.getElementById('req-tbody');
+    d.requirements.forEach(row => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="req-comp">${row.component}</td>
+        <td>${row.min}</td>
+        <td>${row.recommended}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  /* — Footer — */
+  document.getElementById('footer-logo').textContent = d.name;
+  if (d.footer) {
+    document.getElementById('footer-copy').innerHTML = d.footer;
+  } else {
+    document.getElementById('footer-copy').textContent = `© ${new Date().getFullYear()} ${d.name}`;
+  }
+
+  /* — Show page — */
+  document.getElementById('loading-msg').classList.add('hidden');
+  document.getElementById('main-site').style.display = '';
+
+  /* — Scroll reveal — */
+  initReveal();
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HELPERS
+═══════════════════════════════════════════════════════════ */
+function setText(id, text) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = text || '';
+}
+
+function showError(msg) {
+  document.getElementById('loading-msg').classList.add('hidden');
+  const err = document.getElementById('error-msg');
+  err.style.display = 'block';
+  err.innerHTML = `<p>⚠️ ${msg}</p>`;
+}
+
+function initReveal() {
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced) {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+    return;
+  }
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BACKGROUND PARTICLES
+═══════════════════════════════════════════════════════════ */
+(function bgParticles() {
+  const canvas = document.getElementById('bg-canvas');
+  const ctx    = canvas.getContext('2d');
+  let W, H, particles = [];
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+
+  function createParticle() {
+    const types = ['♡', '✦', '·'];
+    return {
+      type:       types[Math.floor(Math.random() * types.length)],
+      x:          Math.random() * W,
+      y:          H + 30,
+      size:       8 + Math.random() * 14,
+      speed:      0.3 + Math.random() * 0.6,
+      drift:      (Math.random() - 0.5) * 0.4,
+      opacity:    0,
+      maxOpacity: 0.1 + Math.random() * 0.15,
+      fadeIn:     true,
+      rotation:   Math.random() * Math.PI * 2,
+      rotSpeed:   (Math.random() - 0.5) * 0.01,
+    };
+  }
+
+  function getColor(type) {
+    const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (dark) return type === '♡' ? 'rgba(198,125,232,0.6)' : 'rgba(220,180,255,0.5)';
+    return         type === '♡' ? 'rgba(232,127,160,0.6)' : 'rgba(212,149,106,0.5)';
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => {
+      ctx.save();
+      ctx.globalAlpha = p.opacity;
+      ctx.translate(p.x, p.y); ctx.rotate(p.rotation);
+      ctx.font = `${p.size}px serif`;
+      ctx.fillStyle = getColor(p.type);
+      ctx.textAlign = 'center';
+      ctx.fillText(p.type, 0, 0);
+      ctx.restore();
+    });
+  }
+
+  function tick() {
+    if (!prefersReduced) {
+      particles.forEach((p, i) => {
+        p.y -= p.speed; p.x += p.drift; p.rotation += p.rotSpeed;
+        if (p.fadeIn) { p.opacity = Math.min(p.opacity + 0.008, p.maxOpacity); if (p.opacity >= p.maxOpacity) p.fadeIn = false; }
+        if (p.y < -50) particles.splice(i, 1);
+      });
+      if (particles.length < 60 && Math.random() < 0.3) particles.push(createParticle());
+    }
+    draw();
+    requestAnimationFrame(tick);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  for (let i = 0; i < 40; i++) {
+    const p = createParticle();
+    p.y = Math.random() * H; p.opacity = Math.random() * p.maxOpacity; p.fadeIn = false;
+    particles.push(p);
+  }
+  tick();
+})();
+
+/* ─── Boot ──────────────────────────────────────────────── */
+loadProduct();
+</script>
+</body>
+</html>

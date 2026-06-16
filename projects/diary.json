@@ -15,7 +15,21 @@
   },
 
   "features": [
-    { "icon": "⚡", "title": "Zero Lag",      "description": "Engineered for sub-millisecond response times on any hardware." }
+    {
+      "icon": "🔒",
+      "title": "Encrypted",
+      "description": "Your diary entries are encrypted with AES-256, ensuring that only you can access your thoughts and memories."
+    },
+    {
+      "icon": "🗂️",
+      "title": "Auto formatting",
+      "description": "You can use {time} and {date} placeholders in your entries, and they will be automatically replaced with the current time and date when you save or press the auto-format button."
+    },
+    {
+      "icon": "⚡",
+      "title": "lightweight",
+      "description": "Diary is designed to be lightweight and fast, ensuring a smooth experience without consuming excessive system resources."
+    }
   ],
 
   "screenshots": [],
@@ -23,8 +37,8 @@
   "requirements": [
     { "component": "OS",      "min": "Windows 10 64-bit / macOS 12",  "recommended": "Windows 11 / macOS 14" },
     { "component": "CPU",     "min": "Dual-core 2.4 GHz",             "recommended": "Quad-core 3.5 GHz+" },
-    { "component": "RAM",     "min": "1 GB",                          "recommended": "16 GB" },
-    { "component": "Storage", "min": "150 MB",                        "recommended": "SSD" }
+    { "component": "RAM",     "min": "1 GB",                          "recommended": "2 GB" },
+    { "component": "Storage", "min": "150 MB",                        "recommended": "300 MB" }
   ],
 
   "footer": "© 2025 Blockhunter Software &nbsp;·&nbsp; <a href=\"#\">Discord</a> &nbsp;·&nbsp; <a href=\"#\">GitHub</a>"
