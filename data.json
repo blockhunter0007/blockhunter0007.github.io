@@ -4,6 +4,9 @@
             "id": "diary",
             "name": "diary",
             "description": "A simple diary application to keep track of your daily thoughts and activities.",
+            "changelogs": {
+                "1.0.12": "v1.0.12\nDear user,\nI sincerely apologize for the inconvenience, to improve security and avoid licensing issues, we'll move from cryptography's Fernet to an AES-256-GCM implementation. Since we can't ship cryptography in the newest versions, we made a conversion tool for you that is compliant with cryptography library's license requirements and converts your Diary with a simple process. You don't have to update, you can just dismiss this message and continue with your current version for now.\n\nThank you for using my products and being such an amazing community, I look forward to your suggestions for improvement and ideas.\n\nblockhunter0007\nin cooperation with Blockhunter Software"
+            },
             "tags": ["productivity", "personal", "organization"],
             "files": {
                 "windows": {
