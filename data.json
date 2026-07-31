@@ -5,6 +5,7 @@
             "name": "diary",
             "description": "A simple diary application to keep track of your daily thoughts and activities.",
             "changelogs": {
+                "1.0.14": "v1.0.14\nFixed terminal not quitting.",
                 "1.0.13": "v1.0.13\nChanged file format, in future all changes will be backwards compatible to this Version fully automatic, please copy and paste your Diary as text into the new app.",
                 "1.0.12": "v1.0.12\nChanged encryption algorithem, please copy and paste your Diary as text into the new app."
             },
