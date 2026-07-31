@@ -12,7 +12,7 @@
             "tags": ["productivity", "personal", "organization"],
             "files": {
                 "windows": {
-                    "version": "1.0.13",
+                    "version": "1.0.14",
                     "download_link": "https://blockhunter0007.github.io/downloads/diary_windows.zip"
                 },
                 "linux": {
