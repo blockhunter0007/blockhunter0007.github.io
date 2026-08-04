@@ -5,6 +5,7 @@
             "name": "diary",
             "description": "A simple diary application to keep track of your daily thoughts and activities.",
             "changelogs": {
+                "1.0.16": "v1.0.16\nOptimised PBKDF2 key derivation (now 90% faster).\nUpdated to the newest version of the UI loader.",
                 "1.0.15": "v1.0.15\nCrash fix (file not found).\nOptimised offline error logging.",
                 "1.0.14": "v1.0.14\nFixed terminal not quitting.",
                 "1.0.13": "v1.0.13\nChanged file format, in future all changes will be backwards compatible to this Version fully automatic, please copy and paste your Diary as text into the new app.",
@@ -13,7 +14,7 @@
             "tags": ["productivity", "personal", "organization"],
             "files": {
                 "windows": {
-                    "version": "1.0.15",
+                    "version": "1.0.16",
                     "download_link": "https://blockhunter0007.github.io/downloads/diary_windows.zip"
                 },
                 "linux": {
