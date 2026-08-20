@@ -14,19 +14,20 @@
     },
     "products": [
         {
-            "id": "product1",
-            "name": "Product 1",
-            "description": "Description of Product 1",
-            "tags": ["tag1", "tag2"],
-            "version": "1.0.0",
-            "start_file": "",
+            "id": "autoclicker",
+            "name": "Auto Clicker",
+            "description": "An advanced auto clicker tool with cps randomization hotkey support and process detection.",
+            "tags": ["auto-clicker", "automation", "gaming", "utility"],
+            "version": "1.0.10",
+            "start_file": "autoclicker.exe",
             "post_install": [],
-            "link": "",
+            "link": "https://blockhunter0007.github.io/cheathub/downloads/windows/autoclicker.zip",
+            "compressed": true,
             "sha256": "",
             "changelogs": [
                 {
                     "version": "1.0.0",
-                    "date": "2024-01-01",
+                    "date": "2026-01-01",
                     "name": "Initial Release",
                     "changes": ""
                 }
