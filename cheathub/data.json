@@ -1,20 +1,8 @@
 {
     "client_meta": {
-        "windows": {
-            "version": "1.0.0",
-            "size": "10MB",
-            "link": "https://example.com/download/windows"
-        },
-        "mac": {
-            "version": "1.0.0",
-            "size": "12MB",
-            "link": "https://example.com/download/mac"
-        },
-        "linux": {
-            "version": "1.0.0",
-            "size": "14MB",
-            "link": "https://example.com/download/linux"
-        }
+        "version": "1.0.0",
+        "size": "10MB",
+        "link": "https://example.com/download/windows"
     },
     "products": [
         {
@@ -35,27 +23,12 @@
                 }
             ],
             "files": {
-                "windows": {
-                    "version": "1.0.0",
-                    "size": "10MB",
-                    "link": "https://example.com/download/product1/windows",
-                    "sha256": "abc123def456ghi789jkl012mno345pqr678stu901vwx234yz567890abc123de",
-                    "start_file": "product1.exe"
-                },
-                "mac": {
-                    "version": "1.0.0",
-                    "size": "12MB",
-                    "link": "https://example.com/download/product1/mac",
-                    "sha256": "def456ghi789jkl012mno345pqr678stu901vwx234yz567890abc123def456gh",
-                    "start_file": "product1.app"
-                },
-                "linux": {
-                    "version": "1.0.0",
-                    "size": "14MB",
-                    "link": "https://example.com/download/product1/linux",
-                    "sha256": "ghi789jkl012mno345pqr678stu901vwx234yz567890abc123def456ghi789jk",
-                    "start_file": "product1"
-                }
+                "version": "1.0.0",
+                "size": "10MB",
+                "link": "https://example.com/download/product1/windows",
+                "sha256": "abc123def456ghi789jkl012mno345pqr678stu901vwx234yz567890abc123de",
+                "start_file": "product1.exe",
+                "post_install": []
             }
         }
     ]
