@@ -2,7 +2,15 @@
     "client_meta": {
         "version": "1.0.0",
         "size": "10MB",
-        "link": "https://example.com/download/windows"
+        "link": "https://example.com/download/windows",
+        "changelogs": [
+            {
+                "version": "1.0.0",
+                "date": "2024-01-01",
+                "name": "Initial Release",
+                "changes": ""
+            }
+        ]
     },
     "products": [
         {
@@ -10,26 +18,19 @@
             "name": "Product 1",
             "description": "Description of Product 1",
             "tags": ["tag1", "tag2"],
+            "version": "1.0.0",
+            "start_file": "",
+            "post_install": [],
+            "link": "",
+            "sha256": "",
             "changelogs": [
                 {
                     "version": "1.0.0",
                     "date": "2024-01-01",
                     "name": "Initial Release",
-                    "changes": [
-                        "Initial release",
-                        "Added feature A",
-                        "Fixed bug B"
-                    ]
+                    "changes": ""
                 }
-            ],
-            "files": {
-                "version": "1.0.0",
-                "size": "10MB",
-                "link": "https://example.com/download/product1/windows",
-                "sha256": "abc123def456ghi789jkl012mno345pqr678stu901vwx234yz567890abc123de",
-                "start_file": "product1.exe",
-                "post_install": []
-            }
+            ]
         }
     ]
 }
