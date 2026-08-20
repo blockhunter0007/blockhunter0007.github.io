@@ -15,6 +15,7 @@
     "products": [
         {
             "id": "autoclicker",
+            "author": "blockhunter0007",
             "name": "Auto Clicker",
             "description": "An advanced auto clicker tool with cps randomization hotkey support and process detection.",
             "tags": ["auto-clicker", "automation", "gaming", "utility"],
