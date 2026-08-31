@@ -1,0 +1,35 @@
+{
+    "version": "1.0.0",
+    "partnered_stores": [
+        {
+            "url": "https://blockhunter0007.github.io/appstore/",
+            "name": "Blockhunter Software",
+            "id": "blockhunter_software",
+            "force_include": true,
+            "platforms": ["windows", "linux", "macos"]
+        },
+        {
+            "url": "https://blockhunter0007.github.io/cheathub/",
+            "name": "Cheathub",
+            "id": "cheathub",
+            "platforms": ["windows"]
+        }
+    ],
+    "releases": {
+        "windows": {
+            "version": "1.0.0",
+            "url": "https://blockhunter0007.github.io/appstore/windows/main.zip",
+            "compression": "zip"
+        },
+        "macos": {
+            "version": "1.0.0",
+            "url": "https://blockhunter0007.github.io/appstore/macos/main.zip",
+            "compression": "zip"
+        },
+        "linux": {
+            "version": "1.0.0",
+            "url": "https://blockhunter0007.github.io/appstore/linux/main.zip",
+            "compression": "zip"
+        }
+    }
+}

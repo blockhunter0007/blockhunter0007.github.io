@@ -1,0 +1,23 @@
+[
+    {
+        "id": "duplex_client",
+        "author": "cheathub",
+        "name": "Cheathub",
+        "description": "A advanced utility tool for mcbe pc.",
+        "tags": ["mcbe", "minecraft", "gaming", "utility"],
+        "version": "1.0.10",
+        "start_file": "kater.exe",
+        "post_install": [],
+        "link": "https://blockhunter0007.github.io/cheathub/windows/downloads/.zip",
+        "compression": "zip",
+        "sha256": "95BC993FB5C9DA416C0D6BF2DC2DE9162C10AFA9035265FD03E6BD867B7E9613",
+        "changelogs": [
+            {
+                "version": "1.0.0",
+                "date": "2026-01-01",
+                "name": "Initial Release",
+                "changes": ""
+            }
+        ]
+    }
+]

@@ -1,0 +1,62 @@
+[
+    {
+        "id": "autoclicker",
+        "author": "blockhunter0007",
+        "name": "Auto Clicker",
+        "description": "An advanced auto clicker tool with cps randomization hotkey support and process detection.",
+        "tags": ["auto-clicker", "automation", "gaming", "utility"],
+        "version": "1.0.10",
+        "start_file": "autoclicker.exe",
+        "post_install": [],
+        "link": "https://blockhunter0007.github.io/appstore/windows/downloads/autoclicker.zip",
+        "compression": "zip",
+        "sha256": "95BC993FB5C9DA416C0D6BF2DC2DE9162C10AFA9035265FD03E6BD867B7E9613",
+        "changelogs": [
+            {
+                "version": "1.0.0",
+                "date": "2026-01-01",
+                "name": "Initial Release",
+                "changes": ""
+            }
+        ]
+    },
+    {
+        "id": "diary",
+        "author": "blockhunter0007",
+        "name": "Diary App",
+        "description": "A simple customice able diary app that saves your diary enncrypted",
+        "tags": ["diary", "utility"],
+        "version": "1.0.16",
+        "start_file": "main.exe",
+        "post_install": [],
+        "link": "https://blockhunter0007.github.io/appstore/windows/downloads/diary.zip",
+        "compression": "zip",
+        "sha256": "E28A8306CDB1116265E5FB1DDF650A8D9FE60AC6804D8B7EA8D7B4DF4A809ECF",
+        "changelogs": [
+            {
+                "version": "1.0.16",
+                "date": "2026-01-01",
+                "name": "Optimisations",
+                "changes": "Optimised PBKDF2 key derivation (now 90% faster).\nUpdated to the newest version of the UI loader."
+            },
+            {
+                "version": "1.0.15",
+                "date": "2026-01-01",
+                "name": "Crash fix",
+                "changes": "Crash fix (file not found).\nOptimised offline error logging."
+            },
+            {
+                "version": "1.0.14",
+                "date": "2026-01-01",
+                "name": "Bug fix",
+                "changes": "Fixed terminal not quitting."
+            },
+            {
+                "version": "1.0.13",
+                "date": "2026-01-01",
+                "name": "File format",
+                "changes": "Changed file format, in future all changes will be backwards compatible to this Version fully automatic, please copy and paste your Diary as text into the new app."
+            }
+        ]
+    }
+]
